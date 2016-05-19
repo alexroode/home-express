@@ -1,0 +1,9 @@
+extends musicLayout
+
+block content
+  h2= title
+  each category in categories
+    a(href='music/' + category.id)
+      .music-row
+        h3= category.name
+        span= category.description

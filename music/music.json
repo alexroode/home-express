@@ -1,0 +1,294 @@
+﻿{
+  "categories": [
+    {
+      "name": "Orchestra",
+      "id": "orchestra",
+      "description":  "Music for string orchestras and full orchestras."
+    },
+    {
+      "name": "Band",
+      "id": "band",
+      "description":  "Music for wind ensembles and concert bands."
+    },
+    {
+      "name": "Chamber",
+      "id": "chamber",
+      "description":  "Music for various chamber ensembles."
+    },
+    {
+      "name": "Solo",
+      "id": "solo",
+      "description":  "Music for soloists and soloists with accompaniment."
+    }
+  ],
+  "pieces": [
+    {
+      "categoryId": "solo",
+      "id": "ellipse",
+      "instrumentation": "Cello, Piano",
+      "subtitle": "for Cello and Piano",
+      "title": "Ellipse",
+      "date": "2016/03/29",
+      "duration": 450,
+      "scores": [
+        {
+          "filename": "ellipse.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "ellipse.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "home-from-the-sky",
+      "instrumentation": "Violin, Piano",
+      "subtitle": "for Violin and Piano",
+      "title": "Home, from the Sky",
+      "date": "2015/12/17",
+      "duration": 420,
+      "scores": [
+        {
+          "filename": "home-from-the-sky.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "home-from-the-sky.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "untitled-string-quartet",
+      "instrumentation": "String Quartet",
+      "subtitle": "for String Quartet",
+      "title": "Untitled",
+      "date": "2015/07/26",
+      "duration": 540,
+      "scores": [
+        {
+          "filename": "90.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "90.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "orchestra",
+      "id": "letters-in-the-margins",
+      "instrumentation": "String Orchestra",
+      "subtitle": "for String Orchestra",
+      "title": "Letters in the Margins",
+      "date": "2014/12/16",
+      "duration": 540,
+      "scores": [
+        {
+          "filename": "letters-in-the-margins.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "letters-in-the-margins.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "scale-the-walls",
+      "instrumentation": "Violin, cello, piano",
+      "subtitle": "for Piano Trio",
+      "title": "Scale the Walls",
+      "date": "2014/07/25",
+      "duration": 540,
+      "scores": [
+        {
+          "filename": "scale-the-walls.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "scale-the-walls.mp3",
+          "title": "MIDI Mockup"
+        }
+      ],
+      "video": [
+        {
+          "youtubeId": "R-JqI8naqHI",
+          "title": "World Premiere",
+          "date": "2015/10/24",
+          "performers": [
+            "Crystaline Tran, violin",
+            "Alexander Roode, cello",
+            "Jeffrey Lin, piano"
+          ]
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "laguna",
+      "instrumentation": "Cello, piano",
+      "subtitle": "for Cello and Piano",
+      "title": "Laguna",
+      "date": "2014/02/04",
+      "duration": 360,
+      "scores": [
+        {
+          "filename": "laguna.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "laguna.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "orchestra",
+      "id": "untitled-full-orchestra",
+      "instrumentation": "Orchestra",
+      "subtitle": "for Orchestra",
+      "title": "Untitled",
+      "date": "2013/11/27",
+      "duration": 600,
+      "scores": [
+        {
+          "filename": "74.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "74.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "look-close-and-see",
+      "instrumentation": "String Quartet",
+      "subtitle": "for String Quartet",
+      "title": "Look Close and See",
+      "date": "2013/06/28",
+      "duration": 510,
+      "scores": [
+        {
+          "filename": "look-close-and-see.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "look-close-and-see.mp3",
+          "title": "MIDI Mockup"
+        }
+      ],
+      "video": [
+        {
+          "youtubeId": "-3BQ_TmwPkI",
+          "title": "World Premiere",
+          "performers": [
+            "Hanna Davarmanesh, violin",
+            "Jeffrey Lin, violin",
+            "Leehyeon Kwon, viola",
+            "Alexander Roode, cello"
+          ],
+          "date": "2014/06/27"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "avid-pursuits",
+      "instrumentation": "Piano",
+      "subtitle": "for Piano",
+      "title": "Avid Pursuits",
+      "date": "2013/05/29",
+      "duration": 480,
+      "scores": [
+        {
+          "filename": "avid-pursuits.pdf",
+          "title": "Piano Part"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "avid-pursuits.mp3",
+          "title": "MIDI Mockup"
+        }
+      ],
+      "video": [
+        {
+          "youtubeId": "admCcNpeuck",
+          "title": "World Premiere",
+          "performers": [
+            "Amir Khosrowpour, piano"
+          ],
+          "date": "2014/09/07"
+        }
+      ]
+    },
+    {
+      "categoryId": "band",
+      "id": "arrivals-and-departures",
+      "instrumentation": "Concert Band",
+      "notes": "Revised 2015",
+      "subtitle": "for Concert Band",
+      "title": "Arrivals and Departures",
+      "date": "2013/01/22",
+      "duration": 480,
+      "scores": [
+        {
+          "filename": "arrivals-and-departures.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "arrivals-and-departures.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "orchestra",
+      "id": "tierra-rejada-road",
+      "instrumentation": "String Orchestra",
+      "subtitle": "for String Orchestra",
+      "title": "Tierra Rejada Road",
+      "date": "2012/07/07",
+      "duration": 510,
+      "description": "",
+      "scores": [
+        {
+          "filename": "tierra-rejada-road.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "tierra-rejada-road.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    }
+  ]
+}

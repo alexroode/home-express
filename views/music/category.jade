@@ -1,0 +1,10 @@
+extends musicLayout
+
+block content
+  h2= title
+  p= category.description
+  each piece in pieces
+    a(href='/music/' + piece.categoryId + '/' + piece.id)
+      .music-row
+        h3 #{piece.title} (#{formatYear(piece.date)})
+        span= piece.subtitle
