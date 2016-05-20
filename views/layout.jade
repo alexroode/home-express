@@ -1,11 +1,13 @@
 doctype html
 html
   head
-    title= title
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{title} - Alexander Roode
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/style.css')
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:400,700')
-  body
+  body(ontouchstart)
     .main-title-container
       h1.main-title Alexander Roode
       h2 Composer
@@ -16,12 +18,11 @@ html
     .main-content.container
       .navbar-collapse.collapse
         .main-nav.navbar.navbar-default   
-          div
-            ul.nav.navbar-nav
-              li: a(href='/') Home
-              li: a(href='/bio') Bio
-              li: a(href='/music') Music
-              li: a(href='/contact') Contact
+          ul.nav.navbar-nav
+            li: a(href='/') Home
+            li: a(href='/bio') Bio
+            li: a(href='/music') Music
+            li: a(href='/contact') Contact
         block subNav  
       block content
     script(src='https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js')
