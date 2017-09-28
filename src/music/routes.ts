@@ -1,12 +1,12 @@
 import * as promiseRouter from 'express-promise-router';
 import * as moment from 'moment';
-import * as MusicService from './musicService';
-import { Router } from 'express';
-let Music = MusicService.default;
+import { Music } from './musicService';
+import { Request, Response, Router } from 'express';
+import { Category } from './music';
 
 let router = promiseRouter();
 
-var formatYear = function (dateString) {
+function formatYear(dateString: string): string {
   var date = moment(dateString, "YYYY/MM/DD");
   if (!date) {
     return '';
@@ -14,7 +14,7 @@ var formatYear = function (dateString) {
   return date.format('YYYY');
 }
 
-var formatDate = function (dateString) {
+function formatDate(dateString: string): string {
   var date = moment(dateString, "YYYY/MM/DD");
   if (!date) {
     return '';
@@ -22,32 +22,35 @@ var formatDate = function (dateString) {
   return date.format('MMMM D, YYYY');
 }
 
-router.get("/", function (req, res, next) {
+router.get("/", (req: Request, res: Response) => {
   return Music.getAll().then(function(music) {
     res.render('music/index', { title: 'Music', categories: music.categories});
   });
 });
 
-router.get('/:categoryId', function(req, res, next) {
+interface CategoryRequest extends Request {
+  category: Category;
+}
+
+router.get('/:categoryId', (req: CategoryRequest, res: Response) => {
   return Music.findCategory(req.params.categoryId)
-    .then (function(category) {
+    .then(category => {
       req.category = category
-    }).then(function() {
-      return Music.getInCategory(req.params.categoryId)
-        .then(function(pieces) {
-          res.render('music/category', { 
-            title: req.category.name, 
-            category: req.category, 
-            pieces: pieces, 
-            formatYear: formatYear 
-          });
+    })
+    .then(() => Music.getInCategory(req.params.categoryId)
+      .then(pieces => {
+        res.render('music/category', { 
+          title: req.category.name, 
+          category: req.category, 
+          pieces: pieces, 
+          formatYear: formatYear 
         });
-    });
+    }));
 });
 
-router.get('/:categoryId/:pieceId', function(req, res, next) {
+router.get('/:categoryId/:pieceId', (req: Request, res: Response) => {
   return Music.findPiece(req.params.pieceId, req.params.categoryId)
-    .then(function(piece) {
+    .then(piece => {
       res.render('music/piece', { 
         title: piece.title, 
         piece: piece,

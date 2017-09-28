@@ -1,84 +1,72 @@
-import * as Promise from 'bluebird';
+import * as fs from 'fs-extra';
 import * as _ from 'lodash';
-const fs = Promise.promisifyAll(require('fs'));
-const path = "./src/music/music.json";
-var music = null;
-var modifiedDate = new Date(0);
+import { MusicLibrary, Piece, Category } from './music';
 
-function readMusicFromFileAsync() {
-    return fs.readFileAsync(path, 'utf8')
-        .then(function(jsonString) {
-            return JSON.parse(jsonString.trim());
-        });
-}
-
-function checkOutdated() {
-    if (!music) {
-        return Promise.resolve(true); 
-    }
-    
-    return fs.statAsync(path)
-        .then(function(stats) {
-            var result = stats.mtime > modifiedDate;
-            modifiedDate = stats.mtime;
-            return result;
-        });
-}
-
-function checkForUpdate() {
-    return checkOutdated().then(function (outdated) {
-        if (!outdated) {
-            return;
-        }
-        
-        return readMusicFromFileAsync().then(function(result) {
-           music = result;
-        });
-    });
-}
-
-let getAll = function() {
-    return checkForUpdate().then(function() {
-       return music; 
-    });
-}
-
-let notFound = function() {
+function notFound(): Promise<any> {
     return Promise.reject(new Error("Not found"));
 }
 
-let findCategory = function(id) {
-    return getAll().then(function(result) {
-        var category = _.find(result.categories, { 'id': id });
-        if (category) {
-            return category;
-        }
-        
-        return notFound();
-    });
-}
+export class MusicService {
+  private readonly path = "./src/music/music.json";
+  private music: MusicLibrary = {
+    categories: [],
+    pieces: []
+  };
+  private modifiedDate = new Date(0);
+  
+  private readMusicFromFile(): Promise<MusicLibrary> {
+    console.log('reading from file');
+    return fs.readFile(this.path, 'utf8')
+      .then(jsonString => {
+        this.music = JSON.parse(jsonString.trim());
+        this.modifiedDate = new Date();
+        return this.music;
+      });
+  }
+  
+  private isOutdated(): Promise<boolean> {
+    return fs.stat(this.path)
+      .then(stats => stats.mtime > this.modifiedDate);
+  }
 
-let getInCategory = function (categoryId) {
-    return getAll().then(function(result) {
+  getAll(): Promise<MusicLibrary> {
+    return this.isOutdated().then(outdated => {
+      if (outdated) {
+        return this.readMusicFromFile();
+      }
+  
+      return this.music;
+    });
+  }
+
+  getInCategory(categoryId: string): Promise<Piece[]> {
+    return this.getAll().then(result => {
         var pieces = _.filter(result.pieces, { 'categoryId': categoryId });
         return pieces;
     });
-}
+  }
 
-let findPiece = function(id, categoryId) {
-    return getAll().then(function(result) {
-        var piece = _.find(result.pieces, { 'id': id, 'categoryId': categoryId });
-        if (piece) {
-            return piece;
-        }
-        
-        return notFound();
+  findCategory(id: string): Promise<Category> {
+    return this.getAll().then(result => {
+      var category = _.find(result.categories, { 'id': id });
+      if (category) {
+          return category;
+      }
+      
+      return notFound();
     });
-}
+  }
 
-export default {
-    getAll: getAll,
-    getInCategory: getInCategory,
-    findCategory: findCategory,
-    findPiece: findPiece
+  findPiece(id: string, categoryId: string): Promise<Piece> {
+    return this.getAll().then(result => {
+      var piece = _.find(result.pieces, { 'id': id, 'categoryId': categoryId });
+      if (piece) {
+          return piece;
+      }
+      
+      return notFound();
+    });
+  }
 };
+
+export const Music = new MusicService();
