@@ -1,10 +1,9 @@
 import * as express from "express";
-import { Router } from 'express';
 import * as bodyParser from "body-parser";
 import * as path from "path";
 import { HomeRoutes } from "./home/routes";
 import { MusicRoutes } from "./music/routes";
-import * as errorHandler from 'errorhandler';
+import * as errorHandler from "errorhandler";
 
 const app = express();
 const router = express.Router();
