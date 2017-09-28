@@ -1,7 +1,7 @@
-var Promise = require('bluebird');
-var _ = require('lodash');
-var fs = Promise.promisifyAll(require('fs'));
-var path = "./music/music.json";
+import * as Promise from 'bluebird';
+import * as _ from 'lodash';
+const fs = Promise.promisifyAll(require('fs'));
+const path = "./src/music/music.json";
 var music = null;
 var modifiedDate = new Date(0);
 
@@ -37,20 +37,17 @@ function checkForUpdate() {
     });
 }
 
-var service = {};
-var getAll = function() {
+let getAll = function() {
     return checkForUpdate().then(function() {
        return music; 
     });
 }
 
-var notFound = function() {
+let notFound = function() {
     return Promise.reject(new Error("Not found"));
 }
 
-service.getAll = getAll;
-
-service.findCategory = function(id) {
+let findCategory = function(id) {
     return getAll().then(function(result) {
         var category = _.find(result.categories, { 'id': id });
         if (category) {
@@ -61,14 +58,14 @@ service.findCategory = function(id) {
     });
 }
 
-service.getInCategory = function (categoryId) {
+let getInCategory = function (categoryId) {
     return getAll().then(function(result) {
         var pieces = _.filter(result.pieces, { 'categoryId': categoryId });
         return pieces;
     });
 }
 
-service.findPiece = function(id, categoryId) {
+let findPiece = function(id, categoryId) {
     return getAll().then(function(result) {
         var piece = _.find(result.pieces, { 'id': id, 'categoryId': categoryId });
         if (piece) {
@@ -79,4 +76,9 @@ service.findPiece = function(id, categoryId) {
     });
 }
 
-module.exports = service;
+export default {
+    getAll: getAll,
+    getInCategory: getInCategory,
+    findCategory: findCategory,
+    findPiece: findPiece
+};

@@ -1,2 +1,2 @@
 # home-express
-Personal website built in Express.js.
+Personal website built with Express and Typescript.

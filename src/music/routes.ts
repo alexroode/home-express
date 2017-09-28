@@ -1,7 +1,10 @@
-var router = require('express-promise-router')();
-var moment = require('moment');
-var Promise = require('bluebird');
-var Music = require('./musicService');
+import * as promiseRouter from 'express-promise-router';
+import * as moment from 'moment';
+import * as MusicService from './musicService';
+import { Router } from 'express';
+let Music = MusicService.default;
+
+let router = promiseRouter();
 
 var formatYear = function (dateString) {
   var date = moment(dateString, "YYYY/MM/DD");
@@ -54,4 +57,4 @@ router.get('/:categoryId/:pieceId', function(req, res, next) {
     });
 });
 
-module.exports = router;
+export const MusicRoutes: Router = router;
