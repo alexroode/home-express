@@ -24,6 +24,21 @@
   "pieces": [
     {
       "categoryId": "solo",
+      "id": "the-city",
+      "instrumentation": "Cello",
+      "subtitle": "for unaccompanied Cello",
+      "title": "The City",
+      "date": "2016/10/04",
+      "duration": 390,
+      "scores": [
+        {
+          "filename": "the-city.pdf",
+          "title": "Cello Part"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
       "id": "ellipse",
       "instrumentation": "Cello, Piano",
       "subtitle": "for Cello and Piano",
@@ -212,6 +227,26 @@
             "Alexander Roode, cello"
           ],
           "date": "2014/06/27"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "brass-quartet",
+      "instrumentation": "Trumpet, Horn, Trombone, Tuba",
+      "title": "Brass Quartet",
+      "date": "2011/12/03",
+      "duration": 600,
+      "scores": [
+        {
+          "filename": "brass-quartet.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "brass-quartet.mp3",
+          "title": "MIDI Mockup"
         }
       ]
     },
