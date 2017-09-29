@@ -6,7 +6,7 @@ html
     title #{title} - Alexander Roode
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/style.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato:400,700')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:400,700')
   body(ontouchstart)
     .main-title-container
       h1.main-title Alexander Roode
@@ -17,13 +17,13 @@ html
         span.icon-bar
     .main-content.container
       .navbar-collapse.collapse
-        .main-nav.navbar.navbar-default   
+        .main-nav.navbar.navbar-default
           ul.nav.navbar-nav
             li: a(href='/') Home
             li: a(href='/bio') Bio
             li: a(href='/music') Music
             li: a(href='/contact') Contact
-        block subNav  
+        block subNav
       block content
     script(src='https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
