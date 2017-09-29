@@ -248,6 +248,27 @@
     },
     {
       "categoryId": "band",
+      "id": "aubade",
+      "instrumentation": "Concert Band",
+      "subtitle":"for Concert Band",
+      "title": "Aubade",
+      "date": "2017/03/01",
+      "duration": 480,
+      "scores": [
+        {
+          "filename": "aubade.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "aubade.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "band",
       "id": "arrivals-and-departures",
       "instrumentation": "Concert Band",
       "notes": "Revised 2015",
@@ -264,6 +285,27 @@
       "audio": [
         {
           "filename": "arrivals-and-departures.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "band",
+      "id": "kinetics",
+      "instrumentation": "Wind Ensemble",
+      "subtitle":"for Wind Ensemble",
+      "title": "Kinetics",
+      "date": "2009/01/16",
+      "duration": 480,
+      "scores": [
+        {
+          "filename": "kinetics.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "kinetics.mp3",
           "title": "MIDI Mockup"
         }
       ]
