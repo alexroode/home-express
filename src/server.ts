@@ -8,7 +8,7 @@ import { NotFound, AppError } from "./shared/errors";
 
 const app = express();
 const router = express.Router();
-const isDevelopment =  app.get("env") === "development";
+const isDevelopment = app.get("env") === "development";
 
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
@@ -25,7 +25,14 @@ app.get("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
-  res.status(err.status || 500);
+  if (!err.status) {
+    err.status = 500;
+    if (!isDevelopment) {
+      err.message = "An unexpected error occurred";
+    }
+  }
+
+  res.status(err.status);
   res.render("error", {
     error: err,
     isDev: isDevelopment,
