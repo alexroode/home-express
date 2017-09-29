@@ -1,9 +1,10 @@
 import * as fs from "fs-extra";
 import * as _ from "lodash";
 import { MusicLibrary, Piece, Category } from "./music";
+import { NotFound } from "../shared/errors";
 
 function notFound(): Promise<any> {
-    return Promise.reject(new Error("Not found"));
+    return Promise.reject(NotFound);
 }
 
 export class MusicService {
