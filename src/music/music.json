@@ -23,6 +23,48 @@
   ],
   "pieces": [
     {
+      "categoryId": "chamber",
+      "id": "creature-of-habit",
+      "instrumentation": "2 Bb Trumpets, Trombone, Tuba",
+      "title": "Creature of Habit",
+      "subtitle": "for Brass Quartet",
+      "date": "2018/2/26",
+      "duration": 420,
+      "scores": [
+        {
+          "filename": "creature-of-habit.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "creature-of-habit.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "afloat-awash",
+      "instrumentation": "Solo Violin, String Quintet",
+      "title": "Afloat/Awash",
+      "subtitle": "for Solo Violin and String Quintet",
+      "date": "2017/10/18",
+      "duration": 420,
+      "scores": [
+        {
+          "filename": "afloat-awash.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "filename": "afloat-awash.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
       "categoryId": "solo",
       "id": "the-city",
       "instrumentation": "Cello",
