@@ -15,7 +15,7 @@ html
         span.icon-bar
         span.icon-bar
         span.icon-bar
-    .main-content.container
+    .content-container.container
       .navbar-collapse.collapse
         .main-nav.navbar.navbar-default
           ul.nav.navbar-nav
@@ -24,6 +24,7 @@ html
             li: a(href='/music') Music
             li: a(href='/contact') Contact
         block subNav
-      block content
+      .main-content
+        block content
     script(src='https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js')
     script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')

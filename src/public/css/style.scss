@@ -15,6 +15,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: $header-font;
+    margin-bottom: 16px;
 }
 
 a {
@@ -23,6 +24,11 @@ a {
 
 a:hover, a:active {
     color: $secondary;
+}
+
+p {
+    line-height: 1.5;
+    margin-bottom: 1em;
 }
 
 /* Header */
@@ -86,7 +92,7 @@ a:hover, a:active {
     border-radius: 0;
 }
 
-.main-content .navbar-collapse {
+.content-container .navbar-collapse {
     border: 0;
 }
 
@@ -94,7 +100,7 @@ a:hover, a:active {
     font-size: 20px;
 }
 
-.main-content .navbar-collapse {
+.content-container .navbar-collapse {
     margin: 0 -45px 0 -45px;
 }
 
@@ -123,10 +129,14 @@ a:hover, a:active {
 
 /* Content */
 
-.main-content {
+.content-container {
     background-color: #fff;
     color: $text-primary;
     padding: 0 30px 30px 30px;
+}
+
+.main-content {
+    margin-top: 30px;
 }
 
 /* Category */
