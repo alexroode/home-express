@@ -1,5 +1,6 @@
 import * as fs from "fs-extra";
 import * as _ from "lodash";
+import * as path from "path";
 import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
 
@@ -8,7 +9,7 @@ function notFound(): Promise<any> {
 }
 
 export class MusicService {
-  private readonly path = "./src/music/music.json";
+  private readonly filePath = path.join(__dirname, "music.json");
   private music: MusicLibrary = {
     categories: [],
     pieces: []
@@ -16,7 +17,7 @@ export class MusicService {
   private modifiedDate = new Date(0);
 
   private readMusicFromFile(): Promise<MusicLibrary> {
-    return fs.readFile(this.path, "utf8")
+    return fs.readFile(this.filePath, "utf8")
       .then(jsonString => {
         this.music = JSON.parse(jsonString.trim());
         this.modifiedDate = new Date();
@@ -25,7 +26,7 @@ export class MusicService {
   }
 
   private isOutdated(): Promise<boolean> {
-    return fs.stat(this.path)
+    return fs.stat(this.filePath)
       .then(stats => stats.mtime > this.modifiedDate);
   }
 
