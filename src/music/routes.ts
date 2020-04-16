@@ -1,10 +1,10 @@
-import * as promiseRouter from "express-promise-router";
+import PromiseRouter from "express-promise-router";
 import * as moment from "moment";
 import { Music } from "./musicService";
 import { Request, Response, Router } from "express";
 import { Category } from "./music";
 
-const router = promiseRouter();
+const router = PromiseRouter();
 
 function formatYear(dateString: string): string {
   const date = moment(dateString, "YYYY/MM/DD");
