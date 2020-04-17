@@ -1,5 +1,5 @@
-$primary: #1f64d1;
-$primary-dark: darken($primary, 5%);
+$primary: #1e4583;
+$primary-dark: #173d79;
 $white: #fff;
 $gray-100: #f8f8f8;
 $gray-900: #222;
@@ -13,7 +13,7 @@ $theme-colors: (
 $text-primary: #222;
 $text-secondary: #7f8c8d;
 $main-font: 'Roboto', sans-serif;
-$header-font: 'Roboto', sans-serif;
+$header-font: 'Oswald', serif;
 
 $grid-gutter-width: 30px;
 $spacer: 1rem;
@@ -25,12 +25,16 @@ $nav-link-padding-x: $grid-gutter-width;
 $nav-link-padding-y: $spacer;
 $navbar-nav-link-padding-x: $nav-link-padding-x;
 
+$link-color: $text-secondary;
+$link-hover-color: $secondary;
+
 $spacers: (
-  6: ($spacer * 5)
+  6: ($spacer * 5),
+  s: $grid-gutter-width
 );
 
 @import "~bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald&display=swap");
 
 body {
     color: #fff;
@@ -40,14 +44,6 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: $header-font;
     margin-bottom: $spacer;
-}
-
-a {
-    color: $text-secondary;
-}
-
-a:hover, a:active {
-    color: $secondary;
 }
 
 p {
