@@ -1,12 +1,9 @@
 extends musicLayout
 
 block content
-  .row
-    .col-xs-12.piece-title
-      h1.title #{piece.title} (#{formatYear(piece.date)})
-      h2.subtitle= piece.subtitle
-      p= piece.notes
-      
+  h1.mb-0 #{piece.title} (#{formatYear(piece.date)})
+  h2.mb-0= piece.subtitle
+
   .row
     .col-md-8.col-sm-6
       p= piece.description
@@ -34,4 +31,4 @@ block content
             each performer in video.performers
               li= performer
       .embed-container
-        iframe(src="https://www.youtube.com/embed/" + video.youtubeId, frameborder="0", allowfullscreen)             
+        iframe(src="https://www.youtube.com/embed/" + video.youtubeId, frameborder="0", allowfullscreen)

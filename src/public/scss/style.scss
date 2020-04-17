@@ -1,0 +1,225 @@
+$primary: #1f64d1;
+$primary-dark: darken($primary, 5%);
+$white: #fff;
+$gray-100: #f8f8f8;
+$gray-900: #222;
+$gray-600: #777;
+$secondary: #f1c40f;
+$theme-colors: (
+    "primary-dark": $primary-dark,
+    "gray-100": $gray-100
+);
+
+$text-primary: #222;
+$text-secondary: #7f8c8d;
+$main-font: 'Roboto', sans-serif;
+$header-font: 'Roboto', sans-serif;
+
+$grid-gutter-width: 30px;
+$spacer: 1rem;
+$navbar-dark-color: $white;
+$navbar-dark-hover-color: $text-primary;
+$navbar-light-color: $gray-600;
+$navbar-light-hover-color: $gray-900;
+$nav-link-padding-x: $grid-gutter-width;
+$nav-link-padding-y: $spacer;
+$navbar-nav-link-padding-x: $nav-link-padding-x;
+
+$spacers: (
+  6: ($spacer * 5)
+);
+
+@import "~bootstrap/scss/bootstrap";
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,700");
+
+body {
+    color: #fff;
+    font-family: $main-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $header-font;
+    margin-bottom: $spacer;
+}
+
+a {
+    color: $text-secondary;
+}
+
+a:hover, a:active {
+    color: $secondary;
+}
+
+p {
+    line-height: 1.5;
+    margin-bottom: $spacer;
+}
+
+.font-125 {
+    font-size: 125%;
+}
+
+
+/* Header */
+
+.main-title-container {
+    padding: $grid-gutter-width;
+    position: relative;
+
+    h1 {
+        font-size: 2.6rem;
+        line-height: 1;
+        text-transform: uppercase;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+        line-height: 1.2;
+        text-transform: uppercase;
+    }
+
+    @include media-breakpoint-up(md) {
+        h1 {
+            font-size: 4rem;
+            line-height: 0.8;
+        }
+        h2 {
+            font-size: 2.4rem;
+        }
+    }
+
+    .navbar-toggler {
+        position: absolute;
+        bottom: 50%;
+        transform: translateY(50%);
+        right: $grid-gutter-width;
+        margin: 0;
+    }
+}
+
+.nav {
+    .nav-link {
+        @include hover-focus {
+            background-color: $secondary;
+        }
+    }
+}
+
+/* Content */
+
+.content-container {
+    color: $gray-900;
+    padding: $grid-gutter-width;
+}
+
+/* Category */
+
+.music-row {
+    margin-left: -$grid-gutter-width;
+    margin-right: -$grid-gutter-width;
+    padding: 10px $grid-gutter-width;
+    color: $gray-900;
+
+    h3 {
+        margin: 0;
+    }
+
+    &:hover {
+        background-color: $secondary;
+    }
+}
+
+/* Embeds */
+
+.embed-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+
+    iframe, object, embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Nav */
+
+.navbar-nav {
+    .nav-link {
+        padding-left: $grid-gutter-width;
+        padding-right: $grid-gutter-width;
+    }
+}
+
+/* Navbar toggler animation */
+
+.navbar-toggler {
+    position: relative;
+    border: none;
+}
+
+.navbar-toggler:focus,
+.navbar-toggler:active {
+    outline: 0;
+}
+
+.navbar-light .navbar-toggler span {
+    background-color: $black;
+}
+
+.navbar-toggler span {
+   display: block;
+   background-color: $white;
+   height: 2px;
+   width: 25px;
+   margin-top: 4px;
+   margin-bottom: 4px;
+   -webkit-transform: rotate(0deg);
+   -moz-transform: rotate(0deg);
+   -o-transform: rotate(0deg);
+   transform: rotate(0deg);
+   position: relative;
+   left: 0;
+   opacity: 1;
+}
+
+.navbar-toggler span:nth-child(1),
+.navbar-toggler span:nth-child(3) {
+   -webkit-transition: transform .35s ease-in-out;
+   -moz-transition: transform .35s ease-in-out;
+   -o-transition: transform .35s ease-in-out;
+   transition: transform .35s ease-in-out;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(135deg);
+    -o-transform: rotate(135deg);
+    transform: rotate(135deg);
+    opacity: 0.9;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+    height: 12px;
+    visibility: hidden;
+    background-color: transparent;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    -webkit-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    opacity: 0.9;
+}

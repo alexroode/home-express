@@ -4,27 +4,27 @@ html
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{title} - Alexander Roode
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/style.css')
-    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Roboto:400,700')
-  body(ontouchstart)
-    .main-title-container
-      h1.main-title Alexander Roode
-      h2 Composer
-      button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-    .content-container.container
-      .navbar-collapse.collapse
-        .main-nav.navbar.navbar-default
-          ul.nav.navbar-nav
-            li: a(href='/') Home
-            li: a(href='/bio') Bio
-            li: a(href='/music') Music
-            li: a(href='/contact') Contact
-        block subNav
+    link(rel='stylesheet', href='/css/main.css')
+  body.bg-primary-dark(ontouchstart)
+    .main-title-container.mb-sm-4
+      .pr-6
+        h1.main-title.mb-0 Alexander Roode
+        h2.mb-0 Composer
+        .navbar-dark.navbar-expand-sm
+          button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+    .container.bg-primary.px-0
+      .navbar.navbar-dark.navbar-expand-sm.p-0
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.font-125
+            li.nav-item: a.nav-link(href='/') Home
+            li.nav-item: a.nav-link(href='/bio') Bio
+            li.nav-item: a.nav-link(href='/music') Music
+            li.nav-item: a.nav-link(href='/contact') Contact
+      block subNav
+    .content-container.container.bg-white
       .main-content
         block content
-    script(src='https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js')
-    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
+    script(src='/main.js')

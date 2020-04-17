@@ -1,9 +1,10 @@
 extends ../layout
 
 block subNav
-  .subNav.navbar.navbar-default
-    ul.nav.navbar-nav
-      li: a(href='/music/solo') Solo
-      li: a(href='/music/chamber') Chamber
-      li: a(href='/music/orchestra') Orchestra
-      li: a(href='/music/band') Band
+  .navbar.navbar-light.navbar-expand-sm.bg-gray-100.p-0
+    .navbar-collapse.collapse
+      ul.nav.navbar-nav
+        li.nav-item: a.nav-link(href='/music/solo') Solo
+        li.nav-item: a.nav-link(href='/music/chamber') Chamber
+        li.nav-item: a.nav-link(href='/music/orchestra') Orchestra
+        li.nav-item: a.nav-link(href='/music/band') Band
