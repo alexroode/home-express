@@ -1,5 +1,4 @@
 import * as fs from "fs-extra";
-import * as _ from "lodash";
 import * as path from "path";
 import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
@@ -42,14 +41,14 @@ export class MusicService {
 
   getInCategory(categoryId: string): Promise<Piece[]> {
     return this.getAll().then(result => {
-        const pieces = _.filter(result.pieces, { "categoryId": categoryId });
+        const pieces = result.pieces.filter(p => p.categoryId === categoryId);
         return pieces;
     });
   }
 
   findCategory(id: string): Promise<Category> {
     return this.getAll().then(result => {
-      const category = _.find(result.categories, { "id": id });
+      const category = result.categories.find(c => c.id === id);
       if (category) {
           return category;
       }
@@ -60,7 +59,7 @@ export class MusicService {
 
   findPiece(id: string, categoryId: string): Promise<Piece> {
     return this.getAll().then(result => {
-      const piece = _.find(result.pieces, { "id": id, "categoryId": categoryId });
+      const piece = result.pieces.find(p => p.id === id && p.categoryId === categoryId);
       if (piece) {
           return piece;
       }
