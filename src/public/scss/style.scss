@@ -28,6 +28,8 @@ $navbar-nav-link-padding-x: $nav-link-padding-x;
 $link-color: $text-secondary;
 $link-hover-color: $secondary;
 
+$enable-rounded: false;
+
 $spacers: (
   6: ($spacer * 5),
   s: $grid-gutter-width
@@ -219,3 +221,4 @@ p {
     transform: rotate(-135deg);
     opacity: 0.9;
 }
+

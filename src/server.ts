@@ -1,21 +1,18 @@
 import * as express from "express";
 import { Request, Response, NextFunction } from "express";
-import * as bodyParser from "body-parser";
 import * as path from "path";
 import { HomeRoutes } from "./home/routes";
 import { MusicRoutes } from "./music/routes";
 import { NotFound, AppError } from "./shared/errors";
 
 const app = express();
-const router = express.Router();
 const isDevelopment = app.get("env") === "development";
 
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public"), { maxAge: 31557600000 }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "../dist/public"), { maxAge: 31557600000 }));
 
 app.use("/", HomeRoutes);
 app.use("/music", MusicRoutes);
