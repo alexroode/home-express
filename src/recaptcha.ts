@@ -1,8 +1,9 @@
 import * as expressRecaptcha from "express-recaptcha";
-import * as config from "../config";
+import * as config from "config";
 
-const recaptchaSiteKey = config.recaptchaSiteKey;
+const recaptchaSiteKey = config.get<string>("recaptchaSiteKey");
+const recaptchaSecretKey = config.get<string>("recaptchaSecretKey");
 const Recaptcha = expressRecaptcha.RecaptchaV3;
-const recaptcha = new Recaptcha(config.recaptchaSiteKey, config.recaptchaSecretKey, { callback: "recaptchaCallback" });
+const recaptcha = new Recaptcha(recaptchaSiteKey, recaptchaSecretKey, { callback: "recaptchaCallback" });
 
 export { recaptcha, recaptchaSiteKey };

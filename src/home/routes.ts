@@ -5,7 +5,7 @@ import { recaptcha, recaptchaSiteKey } from "../recaptcha";
 import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
 import { MailService } from "@sendgrid/mail";
 import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
-import * as config from "../../config";
+import * as config from "config";
 
 const router = PromiseRouter();
 
@@ -33,7 +33,7 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
   }
 
   const message: MailDataRequired = {
-    to: config.contactToEmail,
+    to: config.get<string>("contactToEmail"),
     from: "Contact Form <contact@alexander-roode.com>",
     subject: "Contact Form Submission",
     html: `<strong>Name</strong>: ${data.name}<br/>` +
@@ -42,7 +42,7 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
   };
 
   const mailService = new MailService();
-  mailService.setApiKey(config.sendGridApiKey);
+  mailService.setApiKey(config.get<string>("sendGridApiKey"));
 
   return mailService
     .send(message)

@@ -1,4 +1,5 @@
 node_modules
 dist/**/*
 public/css/main.css
-config.js
+config/**/development.json
+config/**/production.json
