@@ -21,12 +21,12 @@ export interface Piece {
 }
 
 export interface Document {
-    readonly filename: string;
+    readonly url: string;
     readonly title: string;
 }
 
 export interface AudioFile {
-    readonly filename: string;
+    readonly url: string;
     readonly title: string;
 }
 

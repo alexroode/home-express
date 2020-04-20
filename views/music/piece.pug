@@ -12,13 +12,13 @@ block content
         h3 Score
         ul.list-unstyled
           each score in piece.scores
-            li: a(href="/scores/" + score.filename)= score.title
+            li: a(href=score.url)= score.title
       if piece.audio && piece.audio.length > 0
         h3 Audio
         each audioFile in piece.audio
           .audio
             h4= audioFile.title
-            audio(src="/audio/" + audioFile.filename, preload="metadata", controls)
+            audio(src=audioFile.url, preload="metadata", controls)
 
   if piece.video && piece.video.length > 0
     h3 Videos
