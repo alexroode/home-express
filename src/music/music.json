@@ -25,21 +25,29 @@
     {
       "categoryId": "chamber",
       "id": "creature-of-habit",
-      "instrumentation": "2 Bb Trumpets, Trombone, Tuba",
+      "instrumentation": "2 Bb Trumpets, (F Horn), Trombone, Tuba",
       "title": "Creature of Habit",
-      "subtitle": "for Brass Quartet",
+      "subtitle": "for Brass Quartet / Quintet",
       "date": "2018/2/26",
       "duration": 420,
       "scores": [
         {
           "url": "https://media.alexander-roode.com/scores/creature-of-habit.pdf",
-          "title": "Full Score"
+          "title": "Full Score (Quartet)"
+        },
+        {
+          "url": "https://media.alexander-roode.com/scores/creature-of-habit-quintet.pdf",
+          "title": "Full Score (Quartet)"
         }
       ],
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/creature-of-habit.mp3",
-          "title": "MIDI Mockup"
+          "title": "MIDI Mockup (Quartet)"
+        },
+        {
+          "url": "https://media.alexander-roode.com/audio/creature-of-habit-quintet.mp3",
+          "title": "MIDI Mockup (Quintet)"
         }
       ]
     },
@@ -77,6 +85,15 @@
           "url": "https://media.alexander-roode.com/scores/the-city.pdf",
           "title": "Cello Part"
         }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/the-city.mp3",
+          "title": "World Premiere",
+          "performers": [
+            "Alender Roode, cello"
+          ]
+        }
       ]
     },
     {
@@ -97,6 +114,17 @@
         {
           "url": "https://media.alexander-roode.com/audio/ellipse.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "video": [
+        {
+          "youtubeId": "OptPBuWkj70",
+          "title": "World Premiere",
+          "date": "2016/04/23",
+          "performers": [
+            "Alexander Roode, cello",
+            "Adaline Simonian, piano"
+          ]
         }
       ]
     },
@@ -123,21 +151,21 @@
     },
     {
       "categoryId": "chamber",
-      "id": "untitled-string-quartet",
+      "id": "light-and-glass",
       "instrumentation": "String Quartet",
       "subtitle": "for String Quartet",
-      "title": "Untitled",
+      "title": "Light and Glass",
       "date": "2015/07/26",
       "duration": 540,
       "scores": [
         {
-          "url": "https://media.alexander-roode.com/scores/90.pdf",
+          "url": "https://media.alexander-roode.com/scores/light-and-glass.pdf",
           "title": "Full Score"
         }
       ],
       "audio": [
         {
-          "url": "https://media.alexander-roode.com/audio/90.mp3",
+          "url": "https://media.alexander-roode.com/audio/light-and-glass.mp3",
           "title": "MIDI Mockup"
         }
       ]
@@ -405,6 +433,50 @@
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/tierra-rejada-road.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "cyr-wheel",
+      "instrumentation": "Marimba",
+      "subtitle": "for Marimba",
+      "title": "Cyr Wheel",
+      "date": "2019/02/18",
+      "duration": 450,
+      "description": "",
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/cyr-wheel.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/cyr-wheel.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "night-drive",
+      "instrumentation": "String Quartet",
+      "subtitle": "for String Quartet",
+      "title": "Night Drive",
+      "date": "2019/11/26",
+      "duration": 600,
+      "description": "",
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/night-drive.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/night-drive.mp3",
           "title": "MIDI Mockup"
         }
       ]
