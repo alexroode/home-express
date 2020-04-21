@@ -8,22 +8,31 @@ html
   body.bg-gray-100(ontouchstart)
     .bg-primary-dark.py-sm-3.py-md-4
       .main-title-container.container-lg.pr-6
-        h1.main-title.mb-0 Alexander Roode
-        h2.mb-0 Composer
-        .navbar-dark.navbar-expand-sm
+        a.title-link(href="/")
+          h1.main-title.mb-0 Alexander Roode
+          h2.mb-0 Composer
+        .navbar-dark.navbar-expand-md
           button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
             span.icon-bar
             span.icon-bar
             span.icon-bar
     .bg-primary
       .container-lg.px-0
-        .navbar.navbar-dark.navbar-expand-sm.p-0
+        .navbar.navbar-dark.navbar-expand-md.p-0
           .navbar-collapse.collapse
             ul.nav.navbar-nav.font-125
-              li.nav-item: a.nav-link(href='/') Home
-              li.nav-item: a.nav-link(href='/bio') Bio
-              li.nav-item: a.nav-link(href='/music') Music
-              li.nav-item: a.nav-link(href='/contact') Contact
+              li.nav-item: a.nav-link(href='/')
+                i.fa.fa-sm.fa-home.mr-3
+                | Home
+              li.nav-item: a.nav-link(href='/bio')
+                i.fa.fa-sm.fa-user.mr-3
+                | Bio
+              li.nav-item: a.nav-link(href='/music')
+                i.fa.fa-sm.fa-music.mr-3
+                | Music
+              li.nav-item: a.nav-link(href='/contact')
+                i.fa.fa-sm.fa.fa-envelope.mr-3
+                | Contact
     block subNav
     main.bg-white.py-sm-3.py-md-4
       .content-container.container-lg

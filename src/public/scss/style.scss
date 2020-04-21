@@ -57,6 +57,13 @@ p {
     font-size: 125%;
 }
 
+.title-link {
+    color: $white;
+    @include hover-focus {
+        color:  $white;
+        text-decoration: none;
+    }
+}
 
 /* Header */
 
