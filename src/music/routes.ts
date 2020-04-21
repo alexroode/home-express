@@ -1,26 +1,10 @@
 import PromiseRouter from "express-promise-router";
-import * as moment from "moment";
 import { Music } from "./musicService";
 import { Request, Response, Router } from "express";
 import { Category } from "./music";
+import { formatYear, formatDate } from "../shared/dateHelpers";
 
 const router = PromiseRouter();
-
-function formatYear(dateString: string): string {
-  const date = moment(dateString, "YYYY/MM/DD");
-  if (!date) {
-    return "";
-  }
-  return date.format("YYYY");
-}
-
-function formatDate(dateString: string): string {
-  const date = moment(dateString, "YYYY/MM/DD");
-  if (!date) {
-    return "";
-  }
-  return date.format("MMMM D, YYYY");
-}
 
 router.get("/", (req: Request, res: Response) => {
   return Music.getAll().then(function(music) {

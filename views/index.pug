@@ -2,8 +2,19 @@ extends layout
 
 block content
   .row.mx-ns
-    .col-md-4.px-s
-      img(src="/img/alex2.jpg", alt="Alexander Roode").img-fluid.mb-3
-    .col-md-8.px-s
-      h1= title
+    .col-md-6.col-lg-8.px-s
       p Alexander Roode is a composer and cellist based in Orange County, California.
+
+      h1 Latest Works
+
+      each piece in latestWork
+        a(href='/music/' + piece.categoryId + '/' + piece.id)
+          .music-row
+            h3 #{piece.title} (#{formatYear(piece.date)})
+            span= piece.subtitle
+
+      p.mt-4
+        a.btn.btn-primary(href="/music") View All
+
+    .col-md-6.col-lg-4.px-s
+      img(src="/img/alex2.jpg", alt="Alexander Roode").img-fluid.mb-3

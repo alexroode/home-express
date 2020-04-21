@@ -1,5 +1,6 @@
 import * as fs from "fs-extra";
 import * as path from "path";
+import * as moment from "moment";
 import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
 
@@ -18,7 +19,19 @@ export class MusicService {
   private readMusicFromFile(): Promise<MusicLibrary> {
     return fs.readFile(this.filePath, "utf8")
       .then(jsonString => {
-        this.music = JSON.parse(jsonString.trim());
+        const json = JSON.parse(jsonString.trim());
+
+        json.pieces.forEach(piece => {
+          piece.date = moment(piece.date, "YYYY/MM/DD");
+
+          if (piece.video) {
+            piece.video.forEach(video => {
+              video.date = moment(video.date, "YYYY/MM/DD");
+            });
+          }
+        });
+
+        this.music = json;
         this.modifiedDate = new Date();
         return this.music;
       });
@@ -66,6 +79,12 @@ export class MusicService {
 
       return notFound();
     });
+  }
+
+  getLatest(count: number): Promise<Piece[]> {
+    return this.getAll().then(result => [...result.pieces]
+      .sort((p1, p2) => p2.date.diff(p1.date))
+      .slice(0, count));
   }
 }
 

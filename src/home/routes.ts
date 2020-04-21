@@ -6,11 +6,21 @@ import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
 import { MailService } from "@sendgrid/mail";
 import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
 import * as config from "config";
+import { Music } from "../music/musicService";
+import { formatDate, formatYear } from "../shared/dateHelpers";
 
 const router = PromiseRouter();
 
 router.get("/", (req: Request, res: Response) => {
-  res.render("index", { title: "Home" });
+  return Music.getLatest(4)
+      .then(pieces => {
+        res.render("index", {
+          title: "Home",
+          latestWork: pieces,
+          formatDate: formatDate,
+          formatYear: formatYear
+        });
+    });
 });
 
 router.get("/bio", (req: Request, res: Response) => {

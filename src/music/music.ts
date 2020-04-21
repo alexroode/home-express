@@ -1,3 +1,5 @@
+import * as moment from "moment";
+
 export interface MusicLibrary {
     readonly categories: Category[];
     readonly pieces: Piece[];
@@ -15,9 +17,11 @@ export interface Piece {
     readonly instrumentation: string;
     readonly subtitle: string;
     readonly title: string;
-    readonly date: string;
+    readonly date: moment.Moment;
     readonly duration: number;
     readonly scores: Document[];
+    readonly audio: AudioFile[];
+    readonly video: YoutubeVideo[];
 }
 
 export interface Document {
@@ -33,6 +37,6 @@ export interface AudioFile {
 export interface YoutubeVideo {
     readonly youtubeId: string;
     readonly title: string;
-    readonly date: string;
+    readonly date: moment.Moment;
     readonly performers: string[];
 }
