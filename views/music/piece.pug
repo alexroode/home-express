@@ -1,7 +1,7 @@
 extends musicLayout
 
 block content
-  h1.mb-0 #{piece.title} (#{formatYear(piece.date)})
+  h1.mb-0 #{piece.title} (#{formatPieceYear(piece)})
   h2.mb-0= piece.subtitle
 
   .row

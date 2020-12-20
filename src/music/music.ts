@@ -18,6 +18,7 @@ export interface Piece {
     readonly subtitle: string;
     readonly title: string;
     readonly date: moment.Moment;
+    readonly revisionDate?: moment.Moment;
     readonly duration: number;
     readonly scores: Document[];
     readonly audio: AudioFile[];

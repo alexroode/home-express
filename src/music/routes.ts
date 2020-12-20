@@ -2,7 +2,7 @@ import PromiseRouter from "express-promise-router";
 import { Music } from "./musicService";
 import { Request, Response, Router } from "express";
 import { Category } from "./music";
-import { formatYear, formatDate } from "../shared/dateHelpers";
+import { formatYear, formatDate, formatPieceYear } from "../shared/dateHelpers";
 
 const router = PromiseRouter();
 
@@ -25,7 +25,7 @@ router.get("/:categoryId", (req: CategoryRequest, res: Response) => {
           title: req.category.name,
           category: req.category,
           pieces: pieces,
-          formatYear: formatYear
+          ...common
         });
     }));
 });
@@ -36,10 +36,15 @@ router.get("/:categoryId/:pieceId", (req: Request, res: Response) => {
       res.render("music/piece", {
         title: piece.title,
         piece: piece,
-        formatYear: formatYear,
-        formatDate: formatDate
+        ...common
       });
     });
 });
+
+const common = {
+  formatPieceYear: formatPieceYear,
+  formatYear: formatYear,
+  formatDate: formatDate
+}
 
 export const MusicRoutes: Router = router;

@@ -8,6 +8,13 @@ function notFound(): Promise<any> {
     return Promise.reject(NotFound);
 }
 
+function mapJsonDate(dateString: string): moment.Moment {
+  if (!dateString) {
+    return null;
+  }
+  return moment(dateString, "YYYY/MM/DD");
+}
+
 export class MusicService {
   private readonly filePath = path.join(__dirname, "music.json");
   private music: MusicLibrary = {
@@ -22,11 +29,12 @@ export class MusicService {
         const json = JSON.parse(jsonString.trim());
 
         json.pieces.forEach(piece => {
-          piece.date = moment(piece.date, "YYYY/MM/DD");
+          piece.date = mapJsonDate(piece.date);
+          piece.revisionDate = mapJsonDate(piece.revisionDate);
 
           if (piece.video) {
             piece.video.forEach(video => {
-              video.date = moment(video.date, "YYYY/MM/DD");
+              video.date = mapJsonDate(video.date);
             });
           }
         });
@@ -42,6 +50,12 @@ export class MusicService {
       .then(stats => stats.mtime > this.modifiedDate);
   }
 
+  private sortPieces(a: Piece, b: Piece): number {
+    const aDate = a.revisionDate || a.date;
+    const bDate = b.revisionDate || b.date;
+    return bDate.diff(aDate);
+  }
+
   getAll(): Promise<MusicLibrary> {
     return this.isOutdated().then(outdated => {
       if (outdated) {
@@ -54,11 +68,12 @@ export class MusicService {
 
   getInCategory(categoryId: string): Promise<Piece[]> {
     return this.getAll().then(result => {
-        const pieces = result.pieces.filter(p => p.categoryId === categoryId);
+        const pieces = result.pieces
+          .filter(p => p.categoryId === categoryId)
+          .sort(this.sortPieces);
         return pieces;
     });
   }
-
   findCategory(id: string): Promise<Category> {
     return this.getAll().then(result => {
       const category = result.categories.find(c => c.id === id);
