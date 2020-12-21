@@ -45,6 +45,6 @@ const common = {
   formatPieceYear: formatPieceYear,
   formatYear: formatYear,
   formatDate: formatDate
-}
+};
 
 export const MusicRoutes: Router = router;

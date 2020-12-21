@@ -10,7 +10,7 @@ function notFound(): Promise<any> {
 
 function mapJsonDate(dateString: string): moment.Moment {
   if (!dateString) {
-    return null;
+    return undefined;
   }
   return moment(dateString, "YYYY/MM/DD");
 }
