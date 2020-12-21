@@ -401,7 +401,8 @@
       "subtitle":"for Wind Ensemble",
       "title": "Kinetics",
       "date": "2009/01/16",
-      "duration": 480,
+      "revisionDate": "2020/08/31",
+      "duration": 300,
       "scores": [
         {
           "url": "https://media.alexander-roode.com/scores/kinetics.pdf",
@@ -477,6 +478,27 @@
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/night-drive.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "viola-sonata",
+      "instrumentation": "Viola and Piano",
+      "subtitle":"for Viola and Piano",
+      "title": "Sonata",
+      "date": "2020/11/19",
+      "duration": 1140,
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/viola-sonata.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/viola-sonata.mp3",
           "title": "MIDI Mockup"
         }
       ]
