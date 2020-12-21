@@ -5,14 +5,14 @@ block content
   h2.mb-0= piece.subtitle
 
   .row
-    .col-md-8.col-sm-6
-      p= piece.description
-    .col-md-4.col-sm-6
+    .col-md-8.col-sm-6.my-4
+      div!= piece.description
+    .col-md-4.col-sm-6.my-4
       if piece.scores && piece.scores.length > 0
         h3 Score
         ul.list-unstyled
           each score in piece.scores
-            li: a(href=score.url)= score.title
+            li: a(href=score.url target='_blank')= score.title
       if piece.audio && piece.audio.length > 0
         h3 Audio
         each audioFile in piece.audio

@@ -400,6 +400,7 @@
       "instrumentation": "Wind Ensemble",
       "subtitle":"for Wind Ensemble",
       "title": "Kinetics",
+      "hasView": true,
       "date": "2009/01/16",
       "revisionDate": "2020/08/31",
       "duration": 300,

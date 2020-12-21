@@ -7,7 +7,7 @@ import { MailService } from "@sendgrid/mail";
 import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
 import * as config from "config";
 import { Music } from "../music/musicService";
-import { formatDate, formatYear } from "../shared/dateHelpers";
+import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
 
 const router = PromiseRouter();
 
@@ -18,7 +18,8 @@ router.get("/", (req: Request, res: Response) => {
           title: "Home",
           latestWork: pieces,
           formatDate: formatDate,
-          formatYear: formatYear
+          formatYear: formatYear,
+          formatPieceYear: formatPieceYear
         });
     });
 });

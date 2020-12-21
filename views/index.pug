@@ -10,7 +10,7 @@ block content
       each piece in latestWork
         a(href='/music/' + piece.categoryId + '/' + piece.id)
           .music-row
-            h3 #{piece.title} (#{formatYear(piece.date)})
+            h3 #{piece.title} (#{formatPieceYear(piece)})
             span= piece.subtitle
 
       p.mt-4

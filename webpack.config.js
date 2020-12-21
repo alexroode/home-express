@@ -15,7 +15,7 @@ module.exports = {
         new CopyPlugin([
             { from: './src/public/img/*.*', to: './img', flatten: true },
             { from: './src/music/music.json', to: '../music/', flatten: true }
-        ]),
+        ])
     ],
     module: {
         rules: [

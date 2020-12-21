@@ -1,6 +1,7 @@
 import * as fs from "fs-extra";
 import * as path from "path";
 import * as moment from "moment";
+import * as marked from "marked";
 import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
 
@@ -15,12 +16,19 @@ function mapJsonDate(dateString: string): moment.Moment {
   return moment(dateString, "YYYY/MM/DD");
 }
 
+function loadDescription(piece: any): Promise<any> {
+  const filePath = path.join(__dirname, "pieces", piece.id + ".md");
+  return fs.readFile(filePath, "utf8")
+    .then((markdown: string) => marked(markdown))
+    .then((description: string) => piece.description = description)
+    .catch(() => {
+      piece.description = "";
+    });
+}
+
 export class MusicService {
   private readonly filePath = path.join(__dirname, "music.json");
-  private music: MusicLibrary = {
-    categories: [],
-    pieces: []
-  };
+  private music?: MusicLibrary = undefined;
   private modifiedDate = new Date(0);
 
   private readMusicFromFile(): Promise<MusicLibrary> {
@@ -39,6 +47,10 @@ export class MusicService {
           }
         });
 
+        return Promise.all(json.pieces.map(piece => loadDescription(piece)))
+          .then(() => json);
+      })
+      .then((json: any) => {
         this.music = json;
         this.modifiedDate = new Date();
         return this.music;
@@ -57,13 +69,10 @@ export class MusicService {
   }
 
   getAll(): Promise<MusicLibrary> {
-    return this.isOutdated().then(outdated => {
-      if (outdated) {
-        return this.readMusicFromFile();
-      }
-
-      return this.music;
-    });
+    if (this.music) {
+      return Promise.resolve(this.music);
+    }
+    return this.readMusicFromFile();
   }
 
   getInCategory(categoryId: string): Promise<Piece[]> {
@@ -74,6 +83,7 @@ export class MusicService {
         return pieces;
     });
   }
+
   findCategory(id: string): Promise<Category> {
     return this.getAll().then(result => {
       const category = result.categories.find(c => c.id === id);
@@ -98,7 +108,7 @@ export class MusicService {
 
   getLatest(count: number): Promise<Piece[]> {
     return this.getAll().then(result => [...result.pieces]
-      .sort((p1, p2) => p2.date.diff(p1.date))
+      .sort(this.sortPieces)
       .slice(0, count));
   }
 }
