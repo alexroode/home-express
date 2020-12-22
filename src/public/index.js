@@ -16,7 +16,7 @@ $(function () {
         errorTemplate: "<div></div>"
     });
 
-    $("#contact-form").submit(function (e) {
+    $("#contact-form").on("submit", function (e) {
         const form = $(this);
         const submitButton = $("#submit-button");
         const siteKey = form.data("recaptcha-site-key");
@@ -55,11 +55,11 @@ function submitContactForm(form, submitButton, token) {
         data : JSON.stringify(data),
         contentType : "application/json",
         type : "POST",
-    }).then(_ => {
+    }).then(() => {
         form.trigger("reset");
         form.parsley().reset();
         showSuccess();
-    }).catch(_ => {
+    }).catch(() => {
         showError();
     }).always(() => {
         submitButton.prop("disabled", false);
