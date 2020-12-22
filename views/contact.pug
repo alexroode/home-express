@@ -5,7 +5,10 @@ block content
     .col-md-8
       h1= title
 
-      form#contact-form(data-recaptcha-site-key=recaptchaSiteKey)
+      p Please feel free to reach out to Alexander with any comments, questions,
+        | or requests.
+
+      form.mt-s#contact-form(data-recaptcha-site-key=recaptchaSiteKey)
         .form-group
           label(for='name') Your Name
           input#name.form-control(name='name', required, data-parsley-maxlength='100',)
@@ -18,7 +21,7 @@ block content
           label(for='message') Your Message
           textarea#message.form-control(name='message', required, data-parsley-maxlength='300')
 
-        .form-group
+        .form-group.mt-s
           button#submit-button.btn.btn-primary(type='submit') Submit
 
       #success-message.alert.alert-success(style="display: none")

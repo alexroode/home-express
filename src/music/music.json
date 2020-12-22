@@ -1,14 +1,14 @@
 ﻿{
   "categories": [
     {
-      "name": "Orchestra",
-      "id": "orchestra",
-      "description":  "Music for string orchestras and full orchestras."
-    },
-    {
       "name": "Band",
       "id": "band",
       "description":  "Music for wind ensembles and concert bands."
+    },
+    {
+      "name": "Orchestra",
+      "id": "orchestra",
+      "description":  "Music for string orchestras and full orchestras."
     },
     {
       "name": "Chamber",
