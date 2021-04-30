@@ -73,15 +73,25 @@ p {
     position: relative;
 
     h1 {
-        font-size: 2.6rem;
+        font-size: 1.6rem;
         line-height: 1;
         text-transform: uppercase;
     }
 
     h2 {
-        font-size: 1.7rem;
+        font-size: 1.2rem;
         line-height: 1.2;
         text-transform: uppercase;
+    }
+
+    @media only screen and (min-width: 440px) {
+        h1 {
+            font-size: 2.6rem;
+        }
+
+        h2 {
+            font-size: 1.7rem;
+        }
     }
 
     @include media-breakpoint-up(md) {
