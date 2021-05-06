@@ -3,7 +3,7 @@ extends musicLayout
 block content
   h1= title
   each category in categories
-    a(href='music/' + category.id)
+    a(href='/music/' + category.id).text-decoration-none
       .music-row
         h3= category.name
         span= category.description

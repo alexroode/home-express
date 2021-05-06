@@ -135,6 +135,7 @@ p {
     margin-right: -$grid-gutter-width;
     padding: 10px $grid-gutter-width;
     color: $gray-900;
+    transition: background-color ease-in-out 0.15s;
 
     h3 {
         margin: 0;

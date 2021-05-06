@@ -16,6 +16,7 @@ header {
     .nav-link {
         padding-left: $grid-gutter-width;
         padding-right: $grid-gutter-width;
+        transition: color ease-in-out 0.15s, background-color ease-in-out 0.15s;
     }
 }
 
