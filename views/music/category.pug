@@ -1,10 +1,8 @@
 extends musicLayout
+include pieceRow
 
 block content
   h1= title
   p= category.description
   each piece in pieces
-    a(href='/music/' + piece.categoryId + '/' + piece.id).text-decoration-none
-      .music-row
-        h3 #{piece.title} (#{formatPieceYear(piece)})
-        span= piece.subtitle
+    +piece-row(piece)

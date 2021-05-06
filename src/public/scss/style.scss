@@ -66,6 +66,10 @@ p {
     }
 }
 
+h1 {
+    text-transform: uppercase;
+}
+
 /* Header */
 
 .main-title-container {
@@ -75,7 +79,6 @@ p {
     h1 {
         font-size: 1.6rem;
         line-height: 1;
-        text-transform: uppercase;
     }
 
     h2 {
@@ -139,11 +142,23 @@ p {
 
     h3 {
         margin: 0;
+        text-transform: uppercase;
     }
 
     &:hover {
         background-color: $secondary;
     }
+}
+
+.piece-year {
+    font-size: 1.6rem;
+    margin-left: $spacer;
+    color: #cecece;
+    transition: color ease-in-out 0.15s;
+}
+
+.music-row:hover .piece-year {
+    color: white;
 }
 
 /* Embeds */

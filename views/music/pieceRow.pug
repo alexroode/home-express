@@ -1,0 +1,6 @@
+mixin piece-row(piece)
+  a(href='/music/' + piece.categoryId + '/' + piece.id).text-decoration-none
+    .music-row
+      h3 #{piece.title}
+        span.piece-year= formatPieceYear(piece)
+      span= piece.subtitle

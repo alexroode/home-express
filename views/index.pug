@@ -1,4 +1,5 @@
 extends layout
+include music/pieceRow
 
 block content
   .row.mx-ns
@@ -8,13 +9,10 @@ block content
       h1 Latest Works
 
       each piece in latestWork
-        a(href='/music/' + piece.categoryId + '/' + piece.id)
-          .music-row
-            h3 #{piece.title} (#{formatPieceYear(piece)})
-            span= piece.subtitle
+        +piece-row(piece)
 
       p.mt-4
-        a.btn.btn-primary(href="/music") View All
+        a.btn.btn-outline-primary(href="/music") View All
 
     .col-md-6.col-lg-4.mb-4.px-s
       img(src="/img/alex2.jpg", alt="Alexander Roode").img-fluid.mb-3
