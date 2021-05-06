@@ -247,10 +247,10 @@
     },
     {
       "categoryId": "orchestra",
-      "id": "untitled-full-orchestra",
+      "id": "regular-structures",
       "instrumentation": "Orchestra",
       "subtitle": "for Orchestra",
-      "title": "Untitled",
+      "title": "Regular Structures",
       "date": "2013/11/27",
       "duration": 600,
       "scores": [
@@ -500,6 +500,27 @@
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/viola-sonata.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "survival-instincts",
+      "instrumentation": "Saxophone",
+      "subtitle":"for Saxophone",
+      "title": "Survival Instincts",
+      "date": "2019/09/24",
+      "duration": 360,
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/survival-instincts.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/survival-instincts.mp3",
           "title": "MIDI Mockup"
         }
       ]
