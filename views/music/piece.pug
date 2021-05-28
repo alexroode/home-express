@@ -6,23 +6,23 @@ block content
   h2.mb-0= piece.subtitle
 
   .row.mx-ns
-    .col-md-7.px-s.my-s
+    .col-lg-7.px-s.my-s
       div!= piece.description
-    .col-md-5.px-s.my-s
+    .col-lg-5.px-s.my-s
       if piece.scores && piece.scores.length > 0
-        h3 Score
+        h4 Score
         ul.list-unstyled
           each score in piece.scores
             li: a(href=score.url target='_blank')= score.title
       if piece.audio && piece.audio.length > 0
-        h3 Audio
+        h4 Audio
         each audioFile in piece.audio
           .audio
-            h4= audioFile.title
+            p.font-weight-bold= audioFile.title
             audio(src=audioFile.url, preload="metadata", controls)
 
   if piece.video && piece.video.length > 0
-    h3 Videos
+    h4 Videos
     each video in piece.video
       .video-title.
         #[strong= video.title] - #{formatDate(video.date)}

@@ -29,20 +29,16 @@ html
             #main-nav.navbar-collapse.collapse
               ul.nav.navbar-nav.font-125
                 li.nav-item: a.nav-link(href='/')
-                  i.fa.fa-sm.fa-home.mr-3
                   | Home
                 li.nav-item: a.nav-link(href='/bio')
-                  i.fa.fa-sm.fa-user.mr-3
                   | Bio
                 li.nav-item: a.nav-link(href='/music')
-                  i.fa.fa-sm.fa-music.mr-3
                   | Music
                 li.nav-item: a.nav-link(href='/contact')
-                  i.fa.fa-sm.fa.fa-envelope.mr-3
                   | Contact
       block subNav
     main.bg-white.py-sm-3.py-md-4
-      .content-container.container-lg
+      .content-container.container
         .main-content
           block content
     footer.py-5
