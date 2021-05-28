@@ -397,8 +397,8 @@
     {
       "categoryId": "band",
       "id": "kinetics",
-      "instrumentation": "Wind Ensemble",
-      "subtitle":"for Wind Ensemble",
+      "instrumentation": "Wind Band",
+      "subtitle":"for Wind Band",
       "title": "Kinetics",
       "hasView": true,
       "date": "2009/01/16",
@@ -521,6 +521,27 @@
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/survival-instincts.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "boiling-point",
+      "instrumentation": "4 Horns in F",
+      "subtitle":"for Horn Quartet",
+      "title": "Boiling Point",
+      "date": "2021/04/19",
+      "duration": 300,
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/boiling-point.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/boiling-point.mp3",
           "title": "MIDI Mockup"
         }
       ]
