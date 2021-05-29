@@ -12,11 +12,13 @@ module.exports = {
             filename: 'css/[name].css',
             chunkFilename: 'css/[id].css',
         }),
-        new CopyPlugin([
-            { from: './src/public/img/*.*', to: './img', flatten: true },
-            { from: './src/music/music.json', to: '../music/', flatten: true },
-            { from: './src/music/pieces/*.md', to: '../music/pieces/', flatten: true }
-        ])
+        new CopyPlugin({
+            patterns: [
+                { from: './src/public/img/*.*', to: './img/[name][ext]' },
+                { from: './src/music/music.json', to: '../music/music.json' },
+                { from: './src/music/pieces/*.md', to: '../music/pieces/[name][ext]' }
+            ]
+        })
     ],
     module: {
         rules: [
