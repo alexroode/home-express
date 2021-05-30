@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run debug",
     "build-ts": "tsc",
-    "build-webpack": "webpack -p",
+    "build-webpack": "webpack --mode production",
     "build": "npm run build-webpack && npm run build-ts && npm run tslint",
     "watch-ts": "ts-node-dev --respawn --no-notify --inspect --transpile-only --rs --watch src/music/pieces/*.md,src/music/music.json src/server.ts",
     "watch-webpack": "webpack -w",
