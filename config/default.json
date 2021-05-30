@@ -1,6 +1,7 @@
 {
   "recaptchaSiteKey": "",
   "recaptchaSecretKey": "",
-  "sendGridApiKey": "",
+  "mailgunApiKey": "",
+  "mailgunDomain": "",
   "contactToEmail": ""
 }

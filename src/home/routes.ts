@@ -3,8 +3,7 @@ import PromiseRouter from "express-promise-router";
 import { IContactRequest } from "./contactRequest";
 import { recaptcha, recaptchaSiteKey } from "../recaptcha";
 import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
-import { MailService } from "@sendgrid/mail";
-import { MailDataRequired } from "@sendgrid/helpers/classes/mail";
+import * as Mailgun from "mailgun-js";
 import * as config from "config";
 import { Music } from "../music/musicService";
 import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
@@ -43,7 +42,9 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
     return;
   }
 
-  const message: MailDataRequired = {
+  const mailGun = new Mailgun({ apiKey: config.get<string>("mailgunApiKey"), domain: config.get<string>("mailgunDomain")});
+
+  const message: Mailgun.messages.SendData = {
     to: config.get<string>("contactToEmail"),
     from: "Contact Form <contact@alexander-roode.com>",
     subject: "Contact Form Submission",
@@ -52,10 +53,7 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
     `<strong>Message</strong>: <br/><p>${data.message}</p>`
   };
 
-  const mailService = new MailService();
-  mailService.setApiKey(config.get<string>("sendGridApiKey"));
-
-  return mailService
+  return mailGun.messages()
     .send(message)
     .then(() => res.sendStatus(204))
     .catch(error => {
