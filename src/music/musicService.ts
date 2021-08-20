@@ -1,7 +1,7 @@
 import * as fs from "fs-extra";
 import * as path from "path";
-import * as moment from "moment";
-import * as marked from "marked";
+import moment from "moment";
+import marked from "marked";
 import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
 

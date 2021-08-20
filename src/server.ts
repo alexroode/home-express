@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as path from "path";
 import { HomeRoutes } from "./home/routes";
@@ -11,7 +11,7 @@ const isDevelopment = app.get("env") === "development";
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
-app.use(express.json());
+app.use(express.json() as NextFunction);
 app.use(express.static(path.join(__dirname, "../dist/public"), { maxAge: 31557600000 }));
 
 app.use("/", HomeRoutes);

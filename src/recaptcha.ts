@@ -1,5 +1,5 @@
 import * as expressRecaptcha from "express-recaptcha";
-import * as config from "config";
+import config from "config";
 
 const recaptchaSiteKey = config.get<string>("recaptchaSiteKey");
 const recaptchaSecretKey = config.get<string>("recaptchaSecretKey");

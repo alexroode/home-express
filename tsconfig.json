@@ -8,6 +8,7 @@
         "outDir": "dist",
         "baseUrl": ".",
         "listFiles": true,
+        "esModuleInterop": true,
         "paths": {
             "*": [
                 "node_modules/*",

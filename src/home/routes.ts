@@ -3,8 +3,9 @@ import PromiseRouter from "express-promise-router";
 import { IContactRequest } from "./contactRequest";
 import { recaptcha, recaptchaSiteKey } from "../recaptcha";
 import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
-import * as Mailgun from "mailgun-js";
-import * as config from "config";
+import formData from "form-data";
+import Mailgun from "mailgun.js";
+import config from "config";
 import { Music } from "../music/musicService";
 import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
 
@@ -42,10 +43,11 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
     return;
   }
 
-  const mailGun = new Mailgun({ apiKey: config.get<string>("mailgunApiKey"), domain: config.get<string>("mailgunDomain")});
+  const mailgun = new Mailgun(formData);
+  const mailgunClient = mailgun.client({ key: config.get<string>("mailgunApiKey"), username: "api" });
 
-  const message: Mailgun.messages.SendData = {
-    to: config.get<string>("contactToEmail"),
+  const message = {
+    to: [config.get<string>("contactToEmail")],
     from: "Contact Form <contact@alexander-roode.com>",
     subject: "Contact Form Submission",
     html: `<strong>Name</strong>: ${data.name}<br/>` +
@@ -53,8 +55,8 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
     `<strong>Message</strong>: <br/><p>${data.message}</p>`
   };
 
-  return mailGun.messages()
-    .send(message)
+  return mailgunClient.messages
+    .create(config.get<string>("mailgunDomain"), message)
     .then(() => res.sendStatus(204))
     .catch(error => {
       console.error(error);
