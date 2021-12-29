@@ -28,6 +28,10 @@ router.get("/bio", (req: Request, res: Response) => {
   res.render("bio", { title: "Bio" });
 });
 
+router.get("/cart", (req: Request, res: Response) => {
+  res.render("cart", { title: "Cart" });
+});
+
 router.get("/contact", (req: Request, res: Response) => {
   res.render("contact", { title: "Contact", recaptchaSiteKey });
 });

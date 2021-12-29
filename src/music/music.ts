@@ -25,6 +25,7 @@ export interface Piece {
     readonly scores: Document[];
     readonly audio: AudioFile[];
     readonly video: YoutubeVideo[];
+    readonly products: Product[];
 }
 
 export interface Document {
@@ -42,4 +43,10 @@ export interface YoutubeVideo {
     readonly title: string;
     readonly date: moment.Moment;
     readonly performers: string[];
+}
+
+export interface Product {
+    readonly name: string;
+    readonly price: number;
+    readonly id: number;
 }

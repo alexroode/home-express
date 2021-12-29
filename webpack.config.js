@@ -23,6 +23,12 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                use: {
+                    loader: 'ts-loader'
+                }
+            },
+            {
                 test: /\.scss$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -32,9 +38,16 @@ module.exports = {
             },
         ],
     },
-    entry: [ './src/public/index.js', './src/public/scss/style.scss' ],
+    entry: {
+        main: './src/public/index.js',
+        mainScss: './src/public/scss/style.scss',
+        cart: './src/public/cart/index.tsx',
+    },
+    resolve: {
+      extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+    },
     output: {
-        filename: 'main.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist/public'),
     }
 };

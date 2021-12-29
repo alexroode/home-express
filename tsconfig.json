@@ -9,6 +9,7 @@
         "baseUrl": ".",
         "listFiles": true,
         "esModuleInterop": true,
+        "jsx": "react",
         "paths": {
             "*": [
                 "node_modules/*",
@@ -18,5 +19,8 @@
     },
     "include": [
         "src/**/*"
+    ],
+    "exclude": [
+        "src/public/**/*"
     ]
 }
