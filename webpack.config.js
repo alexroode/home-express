@@ -42,7 +42,6 @@ module.exports = {
     },
     entry: {
         main: './src/public/index.js',
-        mainScss: './src/public/scss/style.scss',
         cart: './src/public/cart/index.tsx',
     },
     resolve: {

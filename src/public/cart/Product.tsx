@@ -9,7 +9,6 @@ interface ProductProps {
 const ProductComponent: React.FC<ProductProps> = ({product}) => {
   const { addItem } = useShoppingCart();
   function addToCart(product: Product): void {
-    console.log('adding product', product);
     addItem(product);
   }
   return (
@@ -21,7 +20,6 @@ const ProductComponent: React.FC<ProductProps> = ({product}) => {
         </div>
         <button className="btn btn-primary" onClick={() => addToCart(product)}>Add to Cart</button>
       </div>
-      <CartSummary />
     </div>
   );
 }

@@ -5,9 +5,11 @@ $gray-100: #f8f8f8;
 $gray-900: #222;
 $gray-600: #777;
 $secondary: #f1c40f;
+$secondary-dark: darken($secondary, 10%);
 $theme-colors: (
     "primary-dark": $primary-dark,
-    "gray-100": $gray-100
+    "gray-100": $gray-100,
+    "dark": #000
 );
 
 $text-primary: #222;
@@ -38,6 +40,7 @@ $spacers: (
 @import "~bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald&display=swap");
 @import "header";
+@import "cart";
 
 body {
     color: #fff;

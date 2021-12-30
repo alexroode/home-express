@@ -11,7 +11,7 @@ html
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-GHTQJD3YTD');
-  body.bg-gray-100(ontouchstart)
+  body.bg-gray-100(ontouchstart).position-relative
     header
       .bg-primary-dark.py-sm-3.py-md-4
         .main-title-container.container-lg.pr-6
@@ -41,6 +41,7 @@ html
       .content-container.container
         .main-content
           block content
+    #cart-app(data-summary)
     footer.py-5
       .container-lg.text-center.text-sm
         p.text-muted © 2021 Alexander Roode

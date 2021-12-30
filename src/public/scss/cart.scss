@@ -1,0 +1,11 @@
+.cart-summary {
+    position: fixed;
+    right: $spacer;
+    bottom: $spacer;
+
+    .cart-count {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}

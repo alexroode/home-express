@@ -1,11 +1,7 @@
+import "./scss/style.scss";
 import "bootstrap";
 import "parsleyjs";
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faEnvelope, faMusic, faUser } from '@fortawesome/free-solid-svg-icons'
 global.$ = require("jquery");
-
-library.add([faHome, faEnvelope, faMusic, faUser]);
-dom.i2svg();
 
 $(function () {
     $("#contact-form").parsley({
