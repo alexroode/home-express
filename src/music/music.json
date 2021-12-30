@@ -416,13 +416,7 @@
           "title": "MIDI Mockup"
         }
       ],
-      "products": [
-        {
-          "id": 1,
-          "name": "Score and Parts (PDF)",
-          "price": 100.0
-        }
-      ]
+      "productIds": [1]
     },
     {
       "categoryId": "orchestra",

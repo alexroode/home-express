@@ -8,14 +8,10 @@ block content
   .row.mx-ns
     .col-lg-7.px-s.my-s
       div!= piece.description
-      if piece.products && piece.products.length > 0
+      if piece.productIds && piece.productIds.length > 0
         h2 Purchase
-        each product in piece.products
-          .d-flex.align-items-center
-            .flex-grow-1.
-              #[span.mb-0.mr-3= product.name] #[span.font-weight-bold $#{product.price}]
-            form(method="post", action="/purchase")
-              button.add-to-cart.btn.btn-primary.ml-2(data-product-id=product.id) Add to cart
+        each productId in piece.productIds
+          #cart-app(data-product-id=productId)
     .col-lg-5.px-s.my-s
       if piece.scores && piece.scores.length > 0
         h4 Score

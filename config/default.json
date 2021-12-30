@@ -3,5 +3,6 @@
   "recaptchaSecretKey": "",
   "mailgunApiKey": "",
   "mailgunDomain": "",
-  "contactToEmail": ""
+  "contactToEmail": "",
+  "stripePublishableKey": ""
 }

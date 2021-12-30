@@ -9,6 +9,7 @@
         "baseUrl": ".",
         "listFiles": true,
         "esModuleInterop": true,
+        "resolveJsonModule": true,
         "jsx": "react",
         "paths": {
             "*": [

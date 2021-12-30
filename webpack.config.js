@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: 'development',
@@ -18,7 +19,8 @@ module.exports = {
                 { from: './src/music/music.json', to: '../music/music.json' },
                 { from: './src/music/pieces/*.md', to: '../music/pieces/[name][ext]' }
             ]
-        })
+        }),
+        new webpack.DefinePlugin({ CONFIG: JSON.stringify(require("config")) })
     ],
     module: {
         rules: [
