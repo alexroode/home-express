@@ -11,7 +11,7 @@ block content
       if piece.productIds && piece.productIds.length > 0
         h2 Purchase
         each productId in piece.productIds
-          #cart-app(data-product-id=productId)
+          #add-to-cart(data-product-id=productId)
     .col-lg-5.px-s.my-s
       if piece.scores && piece.scores.length > 0
         h4 Score

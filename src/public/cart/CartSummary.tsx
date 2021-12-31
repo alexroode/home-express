@@ -7,11 +7,11 @@ const CartSummary: React.FC = () => {
   const { cartCount } = useShoppingCart();
 
   return (
-    <a href="/cart" className="cart-summary btn btn-secondary">
-        <div className="d-flex align-items-center">
-          <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-125" />
+    <a href="/cart" className="cart-summary btn btn-secondary w-100">
+        <div className="d-flex align-items-center justify-content-center ">
+          <span className="badge badge-pill badge-dark mr-2 rounded-lg">{cartCount}</span>
+          <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-150" />
           <span>View Cart</span>
-          <span className="badge badge-pill badge-dark ml-2 rounded-lg">{cartCount}</span>
         </div>
     </a>
   );

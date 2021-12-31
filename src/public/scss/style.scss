@@ -34,7 +34,8 @@ $enable-rounded: false;
 
 $spacers: (
   6: ($spacer * 5),
-  s: $grid-gutter-width
+  s: $grid-gutter-width,
+  s2: $grid-gutter-width * 2
 );
 
 @import "~bootstrap/scss/bootstrap";
@@ -59,6 +60,9 @@ p {
 
 .font-125 {
     font-size: 125%;
+}
+.font-150 {
+    font-size: 150%;
 }
 
 .title-link {
@@ -184,4 +188,10 @@ h1 {
 
 audio {
     max-width: 100%;
+}
+
+.w-sm-auto {
+    @include media-breakpoint-up(sm) {
+        width: auto !important;
+    }
 }
