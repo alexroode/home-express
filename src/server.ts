@@ -22,19 +22,31 @@ app.get("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
+  const contentType = req.get("Content-Type");
+  const isJson = contentType && contentType === "application/json";
+
   if (!err.status) {
     err.status = 500;
     if (!isDevelopment) {
       err.message = "An unexpected error occurred";
+      err.details = null;
     }
   }
 
+  if (!isDevelopment) {
+    err.details = null;
+  }
+
   res.status(err.status);
-  res.render("error", {
-    error: err,
-    isDev: isDevelopment,
-    title: "Error " + res.statusCode
-  });
+  if (isJson) {
+    res.json(err);
+  } else {
+    res.render("error", {
+      error: err,
+      isDev: isDevelopment,
+      title: "Error " + res.statusCode
+    });
+  }
 });
 
 app.listen(app.get("port"), () => {

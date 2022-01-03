@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,8 +6,10 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 
 const el = document.getElementById("cart-contents");
 const Cart: React.FC = () => {
+  const [submitting, setSubmitting] = useState(false);
+
   const cart = useShoppingCart();
-  const { cartDetails, removeItem, formattedTotalPrice, cartCount } = cart;
+  const { cartDetails, removeItem, formattedTotalPrice, cartCount, redirectToCheckout } = cart;
 
   const cartItems = Object.values(cartDetails ?? {}).map((item) => (
     <div key={item.id} className="d-flex align-items-center position-relative py-2">
@@ -21,6 +23,23 @@ const Cart: React.FC = () => {
     </div>
   ))
 
+  function proceedToCheckout() {
+    setSubmitting(true);
+    return fetch("/cart", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(cartDetails)
+    })
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      setSubmitting(false);
+      // @ts-ignore
+      return redirectToCheckout({ sessionId: response.sessionId});
+    })
+    .finally(() => setSubmitting(false));
+  }
+
   return ReactDOM.createPortal(
     <div>
       {cartItems.length > 0 ? (
@@ -32,9 +51,9 @@ const Cart: React.FC = () => {
               <div className="font-weight-bold">{formattedTotalPrice}</div>
             </div>
           </div>
-
           <div className="mt-s2">
-            {cartCount > 0 ? <button className="btn btn-primary w-100 w-sm-auto">Proceed to Checkout</button> : null}
+            {cartCount > 0 ? <button className="btn btn-primary w-100 w-sm-auto" disabled={submitting}
+              onClick={() => proceedToCheckout()}>Proceed to Checkout</button> : null}
           </div>
         </div>
       ): <p>Your cart is empty.</p>}

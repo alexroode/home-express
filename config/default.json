@@ -4,5 +4,6 @@
   "mailgunApiKey": "",
   "mailgunDomain": "",
   "contactToEmail": "",
-  "stripePublishableKey": ""
+  "stripePublishableKey": "",
+  "stripeSecretKey": ""
 }

@@ -1,4 +1,4 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, json } from "express";
 import PromiseRouter from "express-promise-router";
 import { IContactRequest } from "./contactRequest";
 import { recaptcha, recaptchaSiteKey } from "../recaptcha";
@@ -8,6 +8,7 @@ import Mailgun from "mailgun.js";
 import config from "config";
 import { Music } from "../music/musicService";
 import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
+import { postCart } from "./cart";
 
 const router = PromiseRouter();
 
@@ -67,5 +68,10 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
       res.sendStatus(500);
     });
 });
+
+router.post("/cart", postCart);
+router.get("/thank-you", (req: Request, res: Response) => {
+  res.render("thank-you", { title: "Thank you" });
+})
 
 export const HomeRoutes: Router = router;
