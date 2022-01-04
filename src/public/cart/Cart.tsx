@@ -3,10 +3,12 @@ import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import ErrorMessage from "./ErrorMessage";
 
 const el = document.getElementById("cart-contents");
 const Cart: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   const cart = useShoppingCart();
   const { cartDetails, removeItem, formattedTotalPrice, cartCount, redirectToCheckout } = cart;
@@ -24,6 +26,7 @@ const Cart: React.FC = () => {
   ))
 
   function proceedToCheckout() {
+    setError(null);
     setSubmitting(true);
     return fetch("/cart", {
       method: "post",
@@ -36,6 +39,7 @@ const Cart: React.FC = () => {
       // @ts-ignore
       return redirectToCheckout({ sessionId: response.sessionId});
     })
+    .catch((error) => setError(error))
     .finally(() => setSubmitting(false));
   }
 
@@ -51,11 +55,13 @@ const Cart: React.FC = () => {
             </div>
           </div>
           <div className="mt-s2">
-            {cartCount > 0 ? <button className="btn btn-primary w-100 w-sm-auto" disabled={submitting}
+            {cartCount > 0 && !error ? <button className="btn btn-primary w-100 w-sm-auto" disabled={submitting}
               onClick={() => proceedToCheckout()}>Proceed to Checkout</button> : null}
+            {error ? <ErrorMessage error={error} onRetry={() => proceedToCheckout()}/> : null}
           </div>
         </div>
       ): <p>Your cart is empty.</p>}
+
     </div>,
     el
   );

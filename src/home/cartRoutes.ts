@@ -1,9 +1,9 @@
 import { Request, Response, json } from "express";
-import { validateCartItems } from "use-shopping-cart/utilities/serverless";
 import { Stripe } from "stripe";
 import productsRaw from "../music/products.json";
-import { AppError, NotFound } from "../shared/errors";
+import { AppError } from "../shared/errors";
 import config from "config";
+import { Product } from "../music/music";
 
 function getStripeApi() {
   return new Stripe(config.get<string>("stripeSecretKey"), {
@@ -15,8 +15,22 @@ export function postCart(req: Request, res: Response) {
   const stripe = getStripeApi();
 
   const cartDetails = req.body;
-  const validatedItems = validateCartItems(productsRaw, cartDetails);
   const rootUrl = req.protocol + '://' + req.get('host');
+
+  let validatedItems = [];
+  for (const id in cartDetails) {
+    // @ts-ignore
+    const inventoryItem: Product = productsRaw.find((currentProduct: Product) => {
+      return currentProduct.id === id;
+    });
+    if (!inventoryItem) {
+      throw new Error(`Invalid Cart: product with id "${id}" is not in your inventory.`);
+    }
+    validatedItems.push({
+      quantity: cartDetails[id].quantity,
+      price: inventoryItem.price_id
+    });
+  }
 
   return stripe.checkout.sessions.create({
     payment_method_types: ["card"],
