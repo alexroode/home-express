@@ -8,7 +8,7 @@ import Mailgun from "mailgun.js";
 import config from "config";
 import { Music } from "../music/musicService";
 import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
-import { postCart } from "./cart";
+import { orderDetails, postCart, thankYou } from "./cartRoutes";
 
 const router = PromiseRouter();
 
@@ -70,8 +70,7 @@ router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Respons
 });
 
 router.post("/cart", postCart);
-router.get("/thank-you", (req: Request, res: Response) => {
-  res.render("thank-you", { title: "Thank you" });
-})
+router.get("/thank-you", thankYou);
+router.get("/order-details", orderDetails);
 
 export const HomeRoutes: Router = router;

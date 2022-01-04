@@ -14,6 +14,7 @@ $theme-colors: (
 
 $text-primary: #222;
 $text-secondary: #7f8c8d;
+$link-decoration: underline;
 $main-font: 'Roboto', sans-serif;
 $header-font: 'Oswald', serif;
 
@@ -66,6 +67,7 @@ p {
 }
 
 .title-link {
+    text-decoration: none;
     color: $white;
     @include hover-focus {
         color:  $white;

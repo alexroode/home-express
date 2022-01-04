@@ -6,6 +6,8 @@ import { Product } from "../../music/music";
 import Cart from "./Cart";
 import CartSummary from "./CartSummary";
 import AddToCart from "./AddToCart";
+import OrderConfirmation from "./OrderConfirmation";
+import LoadingIndicator from "./LoadingIndicator";
 
 declare const CONFIG: {
   stripePublishableKey: string;
@@ -14,6 +16,7 @@ declare const CONFIG: {
 const el = document.getElementById("cart-app");
 const cartContents = document.getElementById("cart-contents");
 const addToCart = document.getElementById("add-to-cart");
+const orderConfirmation = document.getElementById("order-confirmation");
 
 const products = productsRaw as Product[];
 function getProduct(id: number): Product {
@@ -31,11 +34,12 @@ ReactDOM.render(
       cartMode="checkout-session"
       stripe={CONFIG.stripePublishableKey}
       currency="USD"
-      loading={<p aria-live="polite">Loading...</p>}
+      loading={<LoadingIndicator />}
     >
       {addToCartNode}
       {cartContents ? <Cart /> : null}
       {cartContents ? null : <CartSummary />}
+      {orderConfirmation ? <OrderConfirmation /> : null}
     </CartProvider>
   </React.StrictMode>,
   el

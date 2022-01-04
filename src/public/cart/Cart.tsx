@@ -32,7 +32,6 @@ const Cart: React.FC = () => {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response);
       setSubmitting(false);
       // @ts-ignore
       return redirectToCheckout({ sessionId: response.sessionId});
