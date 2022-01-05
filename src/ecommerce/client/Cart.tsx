@@ -18,7 +18,7 @@ const Cart: React.FC = () => {
       <button className="btn btn-link link-danger font-125 position-absolute remove-button" onClick={() => removeItem(item.id)}>
         <FontAwesomeIcon icon={faTimesCircle} />
       </button>
-      <div className="d-sm-flex ml-5 flex-grow-1">
+      <div className="d-sm-flex ml-5 py-2 flex-grow-1">
         <div className="flex-grow-1">{item.name}</div>
         <div className="font-weight-bold">{item.formattedValue}</div>
       </div>
@@ -49,7 +49,7 @@ const Cart: React.FC = () => {
         <div>
           {cartItems}
           <div className="d-flex">
-            <div className="d-sm-flex ml-5 flex-grow-1">
+            <div className="d-sm-flex ml-5 pt-4 flex-grow-1">
               <div className="flex-grow-1">Total</div>
               <div className="font-weight-bold">{formattedTotalPrice}</div>
             </div>
