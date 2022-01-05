@@ -25,7 +25,7 @@ export interface Piece {
     readonly scores: Document[];
     readonly audio: AudioFile[];
     readonly video: YoutubeVideo[];
-    readonly products: StripePriceReference[];
+    readonly products?: StripePriceReference[];
 }
 
 export interface Document {
