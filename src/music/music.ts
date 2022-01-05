@@ -23,6 +23,7 @@ export interface Piece {
     readonly date: moment.Moment;
     readonly revisionDate?: moment.Moment;
     readonly duration: number;
+    readonly grade: number;
     readonly scores: Document[];
     readonly audio: AudioFile[];
     readonly video: YoutubeVideo[];

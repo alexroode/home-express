@@ -3,6 +3,7 @@ import { Music } from "./musicService";
 import { Request, Response, Router } from "express";
 import { Category } from "./music";
 import { formatYear, formatDate, formatPieceYear } from "../shared/dateHelpers";
+import { formatDuration, formatGrade } from "../shared/formatters";
 
 const router = PromiseRouter();
 
@@ -46,7 +47,9 @@ router.get("/:categoryId/:pieceId", (req: Request, res: Response) => {
 const common = {
   formatPieceYear: formatPieceYear,
   formatYear: formatYear,
-  formatDate: formatDate
+  formatDate: formatDate,
+  formatDuration: formatDuration,
+  formatGrade: formatGrade
 };
 
 export const MusicRoutes: Router = router;
