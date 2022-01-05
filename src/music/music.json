@@ -371,6 +371,18 @@
           "url": "https://media.alexander-roode.com/audio/aubade.mp3",
           "title": "MIDI Mockup"
         }
+      ],
+      "products": [
+        {
+          "priceId": "price_1KEgJYJa80SlWh2bE7AoHF26",
+          "name": "Score and Parts (PDF)",
+          "prod": false
+        },
+        {
+          "priceId": "price_1KEgJYJa80SlWh2bE7AoHF26M",
+          "name": "Score and Parts (PDF)",
+          "prod": true
+        }
       ]
     },
     {
@@ -581,6 +593,18 @@
           "url": "https://media.alexander-roode.com/audio/bulwark.mp3",
           "title": "MIDI Mockup"
         }
+      ],
+      "products": [
+        {
+          "priceId": "price_1KEgJ7Ja80SlWh2bfA0hso23",
+          "name": "Score and Parts (PDF)",
+          "prod": false
+        },
+        {
+          "priceId": "price_1KEgRDJa80SlWh2bbX45bieA",
+          "name": "Score and Parts (PDF)",
+          "prod": true
+        }
       ]
     },
     {
@@ -601,6 +625,18 @@
         {
           "url": "https://media.alexander-roode.com/audio/isomorph.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "products": [
+        {
+          "priceId": "price_1KEgJJJa80SlWh2bJLwkYFXa",
+          "name": "Score and Parts (PDF)",
+          "prod": false
+        },
+        {
+          "priceId": "price_1KEgPoJa80SlWh2bsiJveuiL",
+          "name": "Score and Parts (PDF)",
+          "prod": true
         }
       ]
     }
