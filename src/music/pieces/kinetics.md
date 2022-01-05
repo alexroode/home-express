@@ -1,8 +1,3 @@
-*Winner of the Midwest Clinic's
-[First Annual Barbara Buehlman Composition Competition](https://www.midwestclinic.org/barbara-buehlman-prize-for-composition.html)*
-
-## Notes
-
 Completed in 2009, *Kinetics* was my first serious work for wind band.
 
 Coming from an orchestral background, I was captivated by the driving, rhythmic energy that abounded in the band world.
@@ -17,5 +12,3 @@ more clearly stating and restating the main themes.
 
 To my amazement, the panel of adjudicators—which included Mr. Ticheli himself—selected *Kinetics* as the first prize
 winner of the competition, a storybook fortune for a piece written as a tribute to the band repertoire at large.
-
-*Kinetics* will be premiered at the Midwest Clinic in Chicago in December 2021.
