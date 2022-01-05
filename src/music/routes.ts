@@ -33,9 +33,11 @@ router.get("/:categoryId", (req: CategoryRequest, res: Response) => {
 router.get("/:categoryId/:pieceId", (req: Request, res: Response) => {
   return Music.findPiece(req.params.pieceId, req.params.categoryId)
     .then(piece => {
+      const products = piece.products.filter(product => product.prod === !res.locals.isDevelopment);
       res.render("music/piece", {
         title: piece.title,
         piece: piece,
+        products: products,
         ...common
       });
     });

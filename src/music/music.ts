@@ -25,7 +25,7 @@ export interface Piece {
     readonly scores: Document[];
     readonly audio: AudioFile[];
     readonly video: YoutubeVideo[];
-    readonly productIds: number[];
+    readonly products: StripePriceReference[];
 }
 
 export interface Document {
@@ -45,12 +45,8 @@ export interface YoutubeVideo {
     readonly performers: string[];
 }
 
-export interface Product {
-    readonly localName: string;
-    readonly localId: number;
-    readonly id: string;
+export interface StripePriceReference {
+    readonly priceId: string;
     readonly name: string;
-    readonly price: number;
-    readonly currency: string;
-    readonly price_id: string;
+    readonly prod: boolean;
 }

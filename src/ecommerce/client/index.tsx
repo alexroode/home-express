@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { CartProvider } from "use-shopping-cart/react";
-import productsRaw from "../../music/products.json";
-import { Product } from "../../music/music";
+import { Product } from "../products";
 import Cart from "./Cart";
 import CartSummary from "./CartSummary";
 import AddToCart from "./AddToCart";
@@ -18,14 +17,10 @@ const cartContents = document.getElementById("cart-contents");
 const addToCart = document.getElementById("add-to-cart");
 const orderConfirmation = document.getElementById("order-confirmation");
 
-const products = productsRaw as Product[];
-function getProduct(id: number): Product {
-  return products.find(p => p.localId === id);
-}
 let addToCartNode: ReactNode = null;
 if (addToCart) {
   const productId = addToCart.getAttribute("data-product-id");
-  addToCartNode = <AddToCart product={getProduct(Number(productId))} />
+  addToCartNode = <AddToCart productId={productId} />
 }
 
 ReactDOM.render(

@@ -42,7 +42,7 @@ module.exports = {
     },
     entry: {
         main: './src/public/index.js',
-        cart: './src/public/cart/index.tsx',
+        cart: './src/ecommerce/client/index.tsx',
     },
     resolve: {
       extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],

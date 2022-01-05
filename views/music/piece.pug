@@ -8,10 +8,10 @@ block content
   .row.mx-ns
     .col-lg-7.px-s.my-s
       div!= piece.description
-      if piece.productIds && piece.productIds.length > 0
+      if products && products.length > 0
         h2 Purchase
-        each productId in piece.productIds
-          #add-to-cart(data-product-id=productId)
+        each product in products
+          #add-to-cart(data-product-id=product.priceId)
     .col-lg-5.px-s.my-s
       if piece.scores && piece.scores.length > 0
         h4 Score

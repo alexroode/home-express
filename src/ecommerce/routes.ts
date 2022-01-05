@@ -1,15 +1,8 @@
 import { Request, Response, json } from "express";
 import { Stripe } from "stripe";
-import productsRaw from "../music/products.json";
-import { AppError } from "../shared/errors";
-import config from "config";
-import { Product } from "../music/music";
-
-function getStripeApi() {
-  return new Stripe(config.get<string>("stripeSecretKey"), {
-    apiVersion: "2020-08-27",
-  });
-}
+import { AppError, NotFound } from "../shared/errors";
+import { getProduct as findProduct, Product } from "./products";
+import { getStripeApi } from "./products";
 
 export function postCart(req: Request, res: Response) {
   const stripe = getStripeApi();
@@ -19,16 +12,13 @@ export function postCart(req: Request, res: Response) {
 
   let validatedItems = [];
   for (const id in cartDetails) {
-    // @ts-ignore
-    const inventoryItem: Product = productsRaw.find((currentProduct: Product) => {
-      return currentProduct.id === id;
-    });
-    if (!inventoryItem) {
+    const inventoryProduct: Product = findProduct(id);
+    if (!inventoryProduct) {
       throw new Error(`Invalid Cart: product with id "${id}" is not in your inventory.`);
     }
     validatedItems.push({
       quantity: cartDetails[id].quantity,
-      price: inventoryItem.price_id
+      price: inventoryProduct.id
     });
   }
 
@@ -73,8 +63,12 @@ export async function orderDetails(req: Request, res: Response) {
   }
 }
 
-export interface OrderDetails {
-  readonly timestamp?: number;
-  readonly total: number;
-  readonly items: Stripe.LineItem[];
+export async function getProduct(req: Request, res: Response) {
+  const product = findProduct(req.params.productId);
+
+  if (!product) {
+    throw NotFound;
+  }
+
+  res.json(product);
 }
