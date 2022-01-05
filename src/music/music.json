@@ -404,6 +404,7 @@
       "date": "2009/01/16",
       "revisionDate": "2020/08/31",
       "duration": 300,
+      "accolades": "Winner of the Midwest Clinic's <a href=\"https://www.midwestclinic.org/barbara-buehlman-prize-for-composition.html\">First Annual Barbara Buehlman Composition Competition</a>",
       "scores": [
         {
           "url": "https://media.alexander-roode.com/scores/kinetics.pdf",
@@ -418,9 +419,14 @@
       ],
       "products": [
         {
-          "priceId": "price_1KBlymJa80SlWh2buXkqPhZ6",
+          "priceId": "price_1KEOPfJa80SlWh2bBdbMfQ9Q",
           "name": "Score and Parts (PDF)",
           "prod": false
+        },
+        {
+          "priceId": "price_1KEOQ3Ja80SlWh2bUKdKOjsM",
+          "name": "Score and Parts (PDF)",
+          "prod": true
         }
       ]
     },

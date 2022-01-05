@@ -17,6 +17,7 @@ export interface Piece {
     readonly instrumentation: string;
     readonly subtitle: string;
     readonly title: string;
+    readonly accolades: string;
     readonly description: string;
     readonly hasView: boolean;
     readonly date: moment.Moment;

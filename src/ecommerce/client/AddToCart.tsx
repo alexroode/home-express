@@ -35,8 +35,8 @@ const AddToCart: React.FC<ProductProps> = ({productId}) => {
     <div>
       {error ? <ErrorMessage error={error} onRetry={() => loadProduct()}/> : <>
         {isLoading ? <LoadingIndicator /> : <>
-          <div className="d-flex align-items-center">
-            <div className="flex-grow-1">
+          <div className="d-sm-flex align-items-center">
+            <div className="flex-grow-1 my-3">
                 <span className="mb-0 mr-3">{product.localName}</span>
                 <span className="font-weight-bold">{formatCurrencyString({ value: product.price, currency: product.currency })}</span>
             </div>
