@@ -25,16 +25,20 @@ router.get("/", (req: Request, res: Response) => {
     });
 });
 
-router.get("/bio", (req: Request, res: Response) => {
+router.get("/bio", (_req: Request, res: Response) => {
   res.render("bio", { title: "Bio" });
 });
 
-router.get("/cart", (req: Request, res: Response) => {
+router.get("/cart", (_req: Request, res: Response) => {
   res.render("cart", { title: "Cart" });
 });
 
-router.get("/contact", (req: Request, res: Response) => {
+router.get("/contact", (_req: Request, res: Response) => {
   res.render("contact", { title: "Contact", recaptchaSiteKey });
+});
+
+router.get("/privacy-policy", (_req: Request, res: Response) => {
+  res.render("privacy-policy", { tite: "Privacy Policy"});
 });
 
 router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Response) => {
