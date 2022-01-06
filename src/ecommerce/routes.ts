@@ -88,6 +88,10 @@ async function getOrderDownloads(orderId: string) {
   const base = getAirtableBase();
   const googleDriveApi = await getGoogleDriveApi();
   const order = await getAirtableOrder(base, orderId);
+
+  if (!order) {
+    throw NotFound;
+  }
   const expirationDate = moment(order.get("Expiration Date") as string, "YYYY-MM-DD");
 
   if (isDateInPast(expirationDate)) {
