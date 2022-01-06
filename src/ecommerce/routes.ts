@@ -7,6 +7,7 @@ import moment from "moment";
 import { formatFilesize } from "../shared/formatters";
 import { getGoogleDriveApi } from "../shared/googleDrive";
 import { getAirtableBase, getAirtableOrder, getAirtableProducts  } from "../shared/airtable";
+import { formatDate, isDateInPast } from "../shared/dateHelpers";
 
 export function postCart(req: Request, res: Response) {
   const stripe = getStripeApi();
@@ -86,31 +87,46 @@ async function getOrderDownloads(orderId: string) {
 
   const base = getAirtableBase();
   const googleDriveApi = await getGoogleDriveApi();
-  const record = await getAirtableOrder(base, orderId);
-  const productIds = record.get("Products") as string[];
-  const products = await getAirtableProducts(base, productIds);
+  const order = await getAirtableOrder(base, orderId);
+  const expirationDate = moment(order.get("Expiration Date") as string, "YYYY-MM-DD");
 
-  const downloads: GoogleDriveDownload[] = [];
-  for (const productId of productIds) {
-    const product = products.find(product => product.id === productId);
-    const googleDriveId = product.get("Google Drive ID") as string;
+  if (isDateInPast(expirationDate)) {
+    const orderDownloads = {
+      id: orderId,
+      downloads: [],
+      expirationDate: expirationDate,
+      isExpired: true,
+    };
+    orderDownloadsCache[orderId] = orderDownloads;
 
-    const file = await googleDriveApi.files.get({ fileId: googleDriveId, fields: "id, name, size, mimeType" });
-    downloads.push({
-      id: file.data.id,
-      mimeType: file.data.mimeType,
-      size: file.data.size,
-      name: file.data.name
-    });
+  } else {
+    const productIds = order.get("Products") as string[];
+    const products = await getAirtableProducts(base, productIds);
+
+    const downloads: GoogleDriveDownload[] = [];
+    for (const productId of productIds) {
+      const product = products.find(product => product.id === productId);
+      const googleDriveId = product.get("Google Drive ID") as string;
+
+      const file = await googleDriveApi.files.get({ fileId: googleDriveId, fields: "id, name, size, mimeType" });
+      downloads.push({
+        id: file.data.id,
+        mimeType: file.data.mimeType,
+        size: file.data.size,
+        name: file.data.name
+      });
+    }
+
+    const orderDownloads = {
+      id: orderId,
+      downloads,
+      expirationDate: expirationDate,
+      isExpired: false
+    };
+    orderDownloadsCache[orderId] = orderDownloads;
   }
 
-  const orderDownloads = {
-    id: orderId,
-    downloads,
-    expirationDate: moment(record.get("Expiration Date") as string, "YYYY/MM/DD")
-  };
-  orderDownloadsCache[orderId] = orderDownloads;
-  return orderDownloads;
+  return orderDownloadsCache[orderId];
 }
 
 export async function orderDownloads(req: Request, res: Response) {
@@ -118,11 +134,13 @@ export async function orderDownloads(req: Request, res: Response) {
   if (!orderId) {
     throw NotFound;
   }
+
   const orderDownloads = await getOrderDownloads(orderId);
   res.render("order", {
     title: "Order Downloads",
     order: orderDownloads,
-    formatFilesize: formatFilesize
+    formatFilesize: formatFilesize,
+    formatDate: formatDate
   });
 }
 

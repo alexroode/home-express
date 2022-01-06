@@ -5,11 +5,15 @@ block content
     .col-md-8
       h1.mb-5= title
 
-      if order.downloads && order.downloads.length > 0
-        each download, index in order.downloads
-          .bg-gray-100.p-3.mb-3.text-center
-            p.font-weight-bold.mb-0= download.name
-            p= formatFilesize(download.size)
+      if order.isExpired
+        p This download link has expired.
 
-            p
-              a.btn.btn-primary(href="/order/" + order.id + "/download/" + (index + 1)) Download
+      else
+        p Your downloads will expire on #[strong= formatDate(order.expirationDate)].
+        if order.downloads && order.downloads.length > 0
+          each download, index in order.downloads
+            .bg-gray-100.p-3.mb-3.text-center
+              p.font-weight-bold.mb-0= download.name
+              p= formatFilesize(download.size)
+              p
+                a.btn.btn-primary(href="/order/" + order.id + "/download/" + (index + 1)) Download

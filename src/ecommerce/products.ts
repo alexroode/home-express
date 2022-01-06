@@ -62,6 +62,7 @@ export interface OrderDownloads {
   readonly id: string;
   readonly expirationDate: moment.Moment;
   readonly downloads: GoogleDriveDownload[];
+  readonly isExpired: boolean;
 }
 
 export interface GoogleDriveDownload {
