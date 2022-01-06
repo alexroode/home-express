@@ -51,6 +51,11 @@ stages:
         runOnce:
           deploy:
             steps:
+              - task: Bash@3
+                inputs:
+                  targetType: 'inline'
+                  script: pm2 stop Home
+
               - task: CopyFiles@2
                 inputs:
                   sourceFolder: '$(Pipeline.Workspace)/drop'
@@ -61,3 +66,8 @@ stages:
               - task: Bash@3
                 inputs:
                   filePath: '$(deploy_script_path)'
+
+              - task: Bash@3
+                inputs:
+                  targetType: 'inline'
+                  script: pm2 start Home
