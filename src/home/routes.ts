@@ -8,7 +8,7 @@ import Mailgun from "mailgun.js";
 import config from "config";
 import { Music } from "../music/musicService";
 import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
-import { download, getProduct, orderDetails, orderDownloads, postCart, thankYou } from "../ecommerce/routes";
+import { download, getProduct, orderDetails, orderDownloads, postCart, stripeWebhook, thankYou } from "../ecommerce/routes";
 
 const router = PromiseRouter();
 
@@ -79,5 +79,6 @@ router.get("/order-details", orderDetails);
 router.get("/product/:productId", getProduct);
 router.get("/order/:orderId", orderDownloads);
 router.get("/order/:orderId/download/:downloadId", download);
+router.post("/stripe-webhook", stripeWebhook);
 
 export const HomeRoutes: Router = router;

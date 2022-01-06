@@ -6,6 +6,7 @@
   "contactToEmail": "",
   "stripePublishableKey": "",
   "stripeSecretKey": "",
+  "stripeWebhookSecret": "",
   "airtableApiKey": "",
   "airtableBaseId": "",
   "airtableOrdersTableName": "",

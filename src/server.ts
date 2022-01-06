@@ -8,11 +8,16 @@ import { NotFound, AppError } from "./shared/errors";
 
 const app = express();
 const isDevelopment = app.get("env") === "development";
+const rawBodySaver = (req, _res, buf, encoding) => {
+  if (buf && buf.length) {
+    req.rawBody = buf.toString(encoding || "utf8");
+  }
+};
 
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
-app.use(express.json() as NextFunction);
+app.use(express.json({ verify: rawBodySaver}) as NextFunction);
 app.use(express.static(path.join(__dirname, "../dist/public"), { maxAge: 31557600000 }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
