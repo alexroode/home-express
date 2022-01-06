@@ -6,7 +6,7 @@ variables:
 
 stages:
 - stage: Build
-  jobs:  
+  jobs:
   - job: Build
     displayName: Build
 
@@ -16,14 +16,14 @@ stages:
     steps:
     - task: NodeTool@0
       inputs:
-        versionSpec: '10.x'
+        versionSpec: '12.x'
       displayName: 'Install Node.js'
 
     - script: |
         npm install
         npm run build
       displayName: 'npm install and build'
-      
+
     - task: CopyFiles@2
       displayName: 'Copy files to build directory'
       inputs:
@@ -57,7 +57,7 @@ stages:
                   contents: '**'
                   targetFolder: '$(deploy_path)'
                   cleanTargetFolder: true
-                  
+
               - task: Bash@3
                 inputs:
                   filePath: '$(deploy_script_path)'
