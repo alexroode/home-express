@@ -2,22 +2,19 @@ import express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as path from "path";
 import { loadProducts } from "./ecommerce/products";
+import { EcommerceRoutes } from "./ecommerce/routes";
 import { HomeRoutes } from "./home/routes";
 import { MusicRoutes } from "./music/routes";
 import { NotFound, AppError } from "./shared/errors";
+import { rawBodySaver } from "./shared/rawBody";
 
 const app = express();
 const isDevelopment = app.get("env") === "development";
-const rawBodySaver = (req, _res, buf, encoding) => {
-  if (buf && buf.length) {
-    req.rawBody = buf.toString(encoding || "utf8");
-  }
-};
 
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "../views"));
 app.set("view engine", "pug");
-app.use(express.json({ verify: rawBodySaver}) as NextFunction);
+app.use(express.json({ verify: rawBodySaver }) as NextFunction);
 app.use(express.static(path.join(__dirname, "../dist/public"), { maxAge: 31557600000 }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -26,6 +23,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/", HomeRoutes);
+app.use("/", EcommerceRoutes);
 app.use("/music", MusicRoutes);
 
 app.get("*", (req: Request, res: Response, next: NextFunction) => {
@@ -40,12 +38,12 @@ app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
     err.status = 500;
     if (!isDevelopment) {
       err.message = "An unexpected error occurred";
-      err.details = null;
+      err.details = undefined;
     }
   }
 
   if (!isDevelopment) {
-    err.details = null;
+    err.details = undefined;
   }
 
   res.status(err.status);

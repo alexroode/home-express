@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, Router } from "express";
 import { Stripe } from "stripe";
 import { AppError, NotFound } from "../shared/errors";
 import { getProduct as findProduct, GoogleDriveDownload, OrderDownloads, Product } from "./products";
@@ -9,8 +9,11 @@ import { getGoogleDriveApi } from "../shared/googleDrive";
 import { createAirtableOrder, getAirtableBase, getAirtableOrder, getAirtableProducts  } from "../shared/airtable";
 import { formatDate, isDateInPast } from "../shared/dateHelpers";
 import config from "config";
+import PromiseRouter from "express-promise-router";
 
-export function postCart(req: Request, res: Response) {
+const router = PromiseRouter();
+
+router.post("/cart", (req: Request, res: Response) => {
   const stripe = getStripeApi();
 
   const cartDetails = req.body;
@@ -42,9 +45,9 @@ export function postCart(req: Request, res: Response) {
   }).catch(error => {
     throw new AppError("An error occurred communicating with Stripe", 500, error);
   });
-}
+});
 
-export function thankYou(req: Request, res: Response) {
+router.get("/thank-you", (req: Request, res: Response) => {
   const sessionId = req.query.session_id;
   if (!sessionId) {
     res.redirect("/cart");
@@ -52,9 +55,9 @@ export function thankYou(req: Request, res: Response) {
   }
 
   res.render("thank-you", { title: "Thank you" });
-}
+});
 
-export async function orderDetails(req: Request, res: Response) {
+router.get("/order-details", async (req: Request, res: Response) => {
   const stripe = getStripeApi();
   const sessionId: string = req.query.sessionId as string;
 
@@ -67,9 +70,9 @@ export async function orderDetails(req: Request, res: Response) {
   } catch (error) {
     throw new AppError("An error occurred communicating with Stripe", 500, error);
   }
-}
+});
 
-export async function getProduct(req: Request, res: Response) {
+router.get("/product/:productId", (req: Request, res: Response) => {
   const product = findProduct(req.params.productId);
 
   if (!product) {
@@ -77,7 +80,7 @@ export async function getProduct(req: Request, res: Response) {
   }
 
   res.json(product);
-}
+});
 
 const orderDownloadsCache: {[orderId: string]: OrderDownloads} = {};
 
@@ -134,7 +137,7 @@ async function getOrderDownloads(orderId: string) {
   return orderDownloadsCache[orderId];
 }
 
-export async function orderDownloads(req: Request, res: Response) {
+router.get("/order/:orderId", async (req: Request, res: Response) => {
   const orderId = req.params.orderId;
   if (!orderId) {
     throw NotFound;
@@ -147,9 +150,9 @@ export async function orderDownloads(req: Request, res: Response) {
     formatFilesize: formatFilesize,
     formatDate: formatDate
   });
-}
+});
 
-export async function download(req: Request, res: Response) {
+router.get("/order/:orderId/download/:downloadId", async (req: Request, res: Response) => {
   const orderId = req.params.orderId;
   const downloadId = +req.params.downloadId;
   if (!orderId || !downloadId) {
@@ -169,12 +172,12 @@ export async function download(req: Request, res: Response) {
   const stream = await googleDriveApi.files.get({ fileId: download.id, alt: "media" }, { responseType: "stream" });
   stream.data.on("data", (chunk) => res.write(chunk));
   stream.data.on("end", () => res.end());
-}
+});
 
-export async function stripeWebhook(req: RequestWithRawBody, res: Response) {
+router.post("/stripe-webhook", async (req: Request & { rawBody: any }, res: Response) => {
   const stripe = getStripeApi();
   const webhookSecret = config.get<string>("stripeWebhookSecret");
-  const signature = req.get("stripe-signature");
+  const signature = req.headers["stripe-signature"];
   let event: Stripe.Event;
 
   try {
@@ -189,12 +192,10 @@ export async function stripeWebhook(req: RequestWithRawBody, res: Response) {
   }
 
   res.json({ received: true });
-}
-
-interface RequestWithRawBody extends Request {
-  rawBody: string;
-}
+});
 
 async function handleNewPaymentIntent(paymentIntent: Stripe.PaymentIntent) {
   await createAirtableOrder(paymentIntent);
 }
+
+export const EcommerceRoutes: Router = router;
