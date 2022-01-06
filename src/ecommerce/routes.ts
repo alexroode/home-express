@@ -38,13 +38,14 @@ router.post("/cart", (req: Request, res: Response) => {
     cancel_url: rootUrl + "/cart",
     line_items: validatedItems
   })
-  .then(session => {
-    res.json({
-      sessionId: session.id
+    .then(session => {
+      res.json({
+        sessionId: session.id
+      });
+    })
+    .catch(error => {
+      throw new AppError("An error occurred communicating with Stripe", 500, error);
     });
-  }).catch(error => {
-    throw new AppError("An error occurred communicating with Stripe", 500, error);
-  });
 });
 
 router.get("/thank-you", (req: Request, res: Response) => {
@@ -182,8 +183,7 @@ router.post("/stripe-webhook", async (req: Request & { rawBody: any }, res: Resp
 
   try {
     event = stripe.webhooks.constructEvent(req.rawBody, signature, webhookSecret) as Stripe.Event;
-  }
-  catch (err) {
+  } catch (err) {
     throw new AppError(`Webhook Error: ${err.message}`, 400);
   }
 

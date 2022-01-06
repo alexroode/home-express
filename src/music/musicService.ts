@@ -6,7 +6,7 @@ import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
 
 function notFound(): Promise<any> {
-    return Promise.reject(NotFound);
+  return Promise.reject(NotFound);
 }
 
 function mapJsonDate(dateString: string): moment.Moment {
@@ -77,10 +77,10 @@ export class MusicService {
 
   getInCategory(categoryId: string): Promise<Piece[]> {
     return this.getAll().then(result => {
-        const pieces = result.pieces
-          .filter(p => p.categoryId === categoryId)
-          .sort(this.sortPieces);
-        return pieces;
+      const pieces = result.pieces
+        .filter(p => p.categoryId === categoryId)
+        .sort(this.sortPieces);
+      return pieces;
     });
   }
 
@@ -88,7 +88,7 @@ export class MusicService {
     return this.getAll().then(result => {
       const category = result.categories.find(c => c.id === id);
       if (category) {
-          return category;
+        return category;
       }
 
       return notFound();
@@ -99,7 +99,7 @@ export class MusicService {
     return this.getAll().then(result => {
       const piece = result.pieces.find(p => p.id === id && p.categoryId === categoryId);
       if (piece) {
-          return piece;
+        return piece;
       }
 
       return notFound();

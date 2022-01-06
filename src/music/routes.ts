@@ -28,7 +28,8 @@ router.get("/:categoryId", (req: CategoryRequest, res: Response) => {
           pieces: pieces,
           ...common
         });
-    }));
+      })
+    );
 });
 
 router.get("/:categoryId/:pieceId", (req: Request, res: Response) => {

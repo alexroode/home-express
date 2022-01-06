@@ -1,4 +1,4 @@
-import { Router, Request, Response, json } from "express";
+import { Router, Request, Response } from "express";
 import PromiseRouter from "express-promise-router";
 import { IContactRequest } from "./contactRequest";
 import { recaptcha, recaptchaSiteKey } from "../recaptcha";
@@ -13,14 +13,14 @@ const router = PromiseRouter();
 
 router.get("/", (req: Request, res: Response) => {
   return Music.getLatest(4)
-      .then(pieces => {
-        res.render("index", {
-          title: "Home",
-          latestWork: pieces,
-          formatDate: formatDate,
-          formatYear: formatYear,
-          formatPieceYear: formatPieceYear
-        });
+    .then(pieces => {
+      res.render("index", {
+        title: "Home",
+        latestWork: pieces,
+        formatDate: formatDate,
+        formatYear: formatYear,
+        formatPieceYear: formatPieceYear
+      });
     });
 });
 
