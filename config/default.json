@@ -7,6 +7,9 @@
   "stripePublishableKey": "",
   "stripeSecretKey": "",
   "airtableApiKey": "",
+  "airtableBaseId": "",
+  "airtableOrdersTableName": "",
+  "airtableProductsTableName": "",
   "googleClientEmail": "",
   "googleClientPrivateKey": ""
 }

@@ -3,18 +3,18 @@ import { Stripe } from "stripe";
 import { AppError, NotFound } from "../shared/errors";
 import { getProduct as findProduct, GoogleDriveDownload, OrderDownloads, Product } from "./products";
 import { getStripeApi } from "./products";
-import Airtable from "airtable";
-import { google } from "googleapis";
-import config from "config";
 import moment from "moment";
+import { formatFilesize } from "../shared/formatters";
+import { getGoogleDriveApi } from "../shared/googleDrive";
+import { getAirtableBase, getAirtableOrder, getAirtableProducts  } from "../shared/airtable";
 
 export function postCart(req: Request, res: Response) {
   const stripe = getStripeApi();
 
   const cartDetails = req.body;
-  const rootUrl = req.protocol + '://' + req.get('host');
+  const rootUrl = req.protocol + "://" + req.get("host");
 
-  let validatedItems = [];
+  const validatedItems = [];
   for (const id in cartDetails) {
     const inventoryProduct: Product = findProduct(id);
     if (!inventoryProduct) {
@@ -84,25 +84,15 @@ async function getOrderDownloads(orderId: string) {
     return orderDownloadsCache[orderId];
   }
 
-  const airtable = new Airtable({apiKey: config.get<string>("airtableApiKey")});
-  const base = airtable.base("appsgRvcL78zV7gTi");
+  const base = getAirtableBase();
   const googleDriveApi = await getGoogleDriveApi();
-  const orderTableName = config.get<string>("airtableOrdersTableName");
-  const productsTableName = config.get<string>("airtableProductsTableName");
-
-  const records = await base.table(orderTableName).select({ filterByFormula: `{URL ID} = "${orderId}"` }).all();
-
-  if (records.length === 0) {
-    throw NotFound;
-  }
-
-  const record = records[0];
+  const record = await getAirtableOrder(base, orderId);
   const productIds = record.get("Products") as string[];
-  const productsTable = base.table(productsTableName);
-  const downloads: GoogleDriveDownload[] = [];
+  const products = await getAirtableProducts(base, productIds);
 
+  const downloads: GoogleDriveDownload[] = [];
   for (const productId of productIds) {
-    const product = await productsTable.find(productId);
+    const product = products.find(product => product.id === productId);
     const googleDriveId = product.get("Google Drive ID") as string;
 
     const file = await googleDriveApi.files.get({ fileId: googleDriveId, fields: "id, name, size, mimeType" });
@@ -129,16 +119,31 @@ export async function orderDownloads(req: Request, res: Response) {
     throw NotFound;
   }
   const orderDownloads = await getOrderDownloads(orderId);
-  res.render("order", { title: "Your Order", order: orderDownloads });
+  res.render("order", {
+    title: "Order Downloads",
+    order: orderDownloads,
+    formatFilesize: formatFilesize
+  });
 }
 
-async function getGoogleDriveApi() {
-  const jwtClient = new google.auth.JWT(
-    config.get<string>("googleClientEmail"),
-    null,
-    config.get<string>("googleClientPrivateKey"),
-    ["https://www.googleapis.com/auth/drive"]
-  );
-  await jwtClient.authorize();
-  return google.drive({ auth: jwtClient, version: "v3"});
+export async function download(req: Request, res: Response) {
+  const orderId = req.params.orderId;
+  const downloadId = +req.params.downloadId;
+  if (!orderId || !downloadId) {
+    throw NotFound;
+  }
+  const googleDriveApi = await getGoogleDriveApi();
+  const orderDownloads = await getOrderDownloads(orderId);
+  if (downloadId > orderDownloads.downloads.length) {
+    return NotFound;
+  }
+
+  const download = orderDownloads.downloads[downloadId - 1];
+  res.setHeader("Content-Type", download.mimeType);
+  res.setHeader("Content-disposition", "attachment; filename=" + download.name);
+  res.setHeader("Transfer-Encoding", "chunked");
+
+  const stream = await googleDriveApi.files.get({ fileId: download.id, alt: "media" }, { responseType: "stream" });
+  stream.data.on("data", (chunk) => res.write(chunk));
+  stream.data.on("end", () => res.end());
 }

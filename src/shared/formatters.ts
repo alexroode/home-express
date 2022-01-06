@@ -1,3 +1,6 @@
+import filesizeUtils from "filesize";
+
+
 export function formatDuration(totalSeconds: number) {
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
@@ -30,4 +33,9 @@ export function formatGrade(grade: number) {
       return grade + ` (${descriptor})`;
   }
   return grade;
+}
+
+export function formatFilesize(filesize: string){
+  // @ts-ignore
+  return filesizeUtils(filesize);
 }

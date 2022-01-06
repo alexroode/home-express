@@ -23,6 +23,7 @@
     "express": "~4.17.1",
     "express-promise-router": "^4.1.0",
     "express-recaptcha": "^5.0.2",
+    "filesize": "^8.0.6",
     "form-data": "^2.3.3",
     "fs-extra": "^10.0.0",
     "googleapis": "^92.0.0",
