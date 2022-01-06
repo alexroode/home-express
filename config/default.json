@@ -5,5 +5,8 @@
   "mailgunDomain": "",
   "contactToEmail": "",
   "stripePublishableKey": "",
-  "stripeSecretKey": ""
+  "stripeSecretKey": "",
+  "airtableApiKey": "",
+  "googleClientEmail": "",
+  "googleClientPrivateKey": ""
 }

@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  .row
+    .col-md-8
+      h1.mb-5= title
+
+      if order.downloads && order.downloads.length > 0
+        each download, index in order.downloads
+          .bg-gray-100.p-3.mb-3.text-center
+            p.font-weight-bold.mb-0= download.name
+            p= download.size
+
+            p
+              a.btn.btn-primary(href="/order/" + order.id + "/download/" + (index + 1)) Download

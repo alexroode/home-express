@@ -1,6 +1,7 @@
 import { Stripe } from "stripe";
 import config from "config";
 import { Music } from "../music/musicService";
+import moment from "moment";
 
 export interface Product {
   readonly id: string;
@@ -23,7 +24,7 @@ export async function loadProducts() {
   const priceResponse = await api.prices.list({ limit: 100, expand: ["data.product"] });
   const musicLibrary = await Music.getAll();
 
-  let products = [];
+  const products = [];
   for (const piece of musicLibrary.pieces) {
     if (!piece.products) {
       continue;
@@ -55,4 +56,17 @@ export interface OrderDetails {
   readonly timestamp?: number;
   readonly total: number;
   readonly items: Stripe.LineItem[];
+}
+
+export interface OrderDownloads {
+  readonly id: string;
+  readonly expirationDate: moment.Moment;
+  readonly downloads: GoogleDriveDownload[];
+}
+
+export interface GoogleDriveDownload {
+  readonly id: string;
+  readonly name: string;
+  readonly size: string;
+  readonly mimeType: string;
 }

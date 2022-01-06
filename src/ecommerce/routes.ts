@@ -1,8 +1,12 @@
 import { Request, Response, json } from "express";
 import { Stripe } from "stripe";
 import { AppError, NotFound } from "../shared/errors";
-import { getProduct as findProduct, Product } from "./products";
+import { getProduct as findProduct, GoogleDriveDownload, OrderDownloads, Product } from "./products";
 import { getStripeApi } from "./products";
+import Airtable from "airtable";
+import { google } from "googleapis";
+import config from "config";
+import moment from "moment";
 
 export function postCart(req: Request, res: Response) {
   const stripe = getStripeApi();
@@ -71,4 +75,70 @@ export async function getProduct(req: Request, res: Response) {
   }
 
   res.json(product);
+}
+
+const orderDownloadsCache: {[orderId: string]: OrderDownloads} = {};
+
+async function getOrderDownloads(orderId: string) {
+  if (orderDownloadsCache[orderId]) {
+    return orderDownloadsCache[orderId];
+  }
+
+  const airtable = new Airtable({apiKey: config.get<string>("airtableApiKey")});
+  const base = airtable.base("appsgRvcL78zV7gTi");
+  const googleDriveApi = await getGoogleDriveApi();
+  const orderTableName = config.get<string>("airtableOrdersTableName");
+  const productsTableName = config.get<string>("airtableProductsTableName");
+
+  const records = await base.table(orderTableName).select({ filterByFormula: `{URL ID} = "${orderId}"` }).all();
+
+  if (records.length === 0) {
+    throw NotFound;
+  }
+
+  const record = records[0];
+  const productIds = record.get("Products") as string[];
+  const productsTable = base.table(productsTableName);
+  const downloads: GoogleDriveDownload[] = [];
+
+  for (const productId of productIds) {
+    const product = await productsTable.find(productId);
+    const googleDriveId = product.get("Google Drive ID") as string;
+
+    const file = await googleDriveApi.files.get({ fileId: googleDriveId, fields: "id, name, size, mimeType" });
+    downloads.push({
+      id: file.data.id,
+      mimeType: file.data.mimeType,
+      size: file.data.size,
+      name: file.data.name
+    });
+  }
+
+  const orderDownloads = {
+    id: orderId,
+    downloads,
+    expirationDate: moment(record.get("Expiration Date") as string, "YYYY/MM/DD")
+  };
+  orderDownloadsCache[orderId] = orderDownloads;
+  return orderDownloads;
+}
+
+export async function orderDownloads(req: Request, res: Response) {
+  const orderId = req.params.orderId;
+  if (!orderId) {
+    throw NotFound;
+  }
+  const orderDownloads = await getOrderDownloads(orderId);
+  res.render("order", { title: "Your Order", order: orderDownloads });
+}
+
+async function getGoogleDriveApi() {
+  const jwtClient = new google.auth.JWT(
+    config.get<string>("googleClientEmail"),
+    null,
+    config.get<string>("googleClientPrivateKey"),
+    ["https://www.googleapis.com/auth/drive"]
+  );
+  await jwtClient.authorize();
+  return google.drive({ auth: jwtClient, version: "v3"});
 }
