@@ -17,8 +17,8 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({error, errorMessage, onRetry
           <button className="btn btn-danger" onClick={onRetry}>Try again</button>
         </p>
       </div>
-       : null}
+      : null}
   </>;
-}
+};
 
 export default ErrorMessage;

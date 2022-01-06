@@ -10,7 +10,7 @@ import LoadingIndicator from "./LoadingIndicator";
 
 declare const CONFIG: {
   stripePublishableKey: string;
-}
+};
 
 const el = document.getElementById("cart-app");
 const cartContents = document.getElementById("cart-contents");

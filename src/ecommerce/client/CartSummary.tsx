@@ -1,7 +1,7 @@
 import React from "react";
 import { useShoppingCart } from "use-shopping-cart/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 
 const CartSummary: React.FC = () => {
   const cart = useShoppingCart();

@@ -67,6 +67,6 @@ const OrderConfirmation: React.FC = () => {
     </div>,
     el
   );
-}
+};
 
 export default OrderConfirmation;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 import ErrorMessage from "./ErrorMessage";
 
 const el = document.getElementById("cart-contents");
@@ -23,7 +23,7 @@ const Cart: React.FC = () => {
         <div className="font-weight-bold">{item.formattedValue}</div>
       </div>
     </div>
-  ))
+  ));
 
   function proceedToCheckout() {
     setError(null);
@@ -33,14 +33,14 @@ const Cart: React.FC = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(cartDetails)
     })
-    .then(response => response.json())
-    .then(response => {
-      setSubmitting(false);
-      // @ts-ignore
-      return redirectToCheckout({ sessionId: response.sessionId});
-    })
-    .catch((error) => setError(error))
-    .finally(() => setSubmitting(false));
+      .then(response => response.json())
+      .then(response => {
+        setSubmitting(false);
+        // @ts-ignore
+        return redirectToCheckout({ sessionId: response.sessionId});
+      })
+      .catch((error) => setError(error))
+      .finally(() => setSubmitting(false));
   }
 
   return ReactDOM.createPortal(
@@ -65,6 +65,6 @@ const Cart: React.FC = () => {
     </div>,
     el
   );
-}
+};
 
 export default Cart;
