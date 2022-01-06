@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import { CartProvider } from "use-shopping-cart/react";
-import { Product } from "../products";
 import Cart from "./Cart";
 import CartSummary from "./CartSummary";
 import AddToCart from "./AddToCart";
@@ -20,7 +19,7 @@ const orderConfirmation = document.getElementById("order-confirmation");
 let addToCartNode: ReactNode = null;
 if (addToCart) {
   const productId = addToCart.getAttribute("data-product-id");
-  addToCartNode = <AddToCart productId={productId} />
+  addToCartNode = <AddToCart productId={productId} />;
 }
 
 ReactDOM.render(

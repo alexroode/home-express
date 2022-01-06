@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run debug",
     "build-ts": "tsc",
-    "build-webpack": "webpack --mode production",
+    "build-webpack": "cross-env NODE_ENV=production webpack --mode production",
     "build": " npm run lint && npm run build-webpack && npm run build-ts",
     "watch-ts": "ts-node-dev --respawn --no-notify --inspect --transpile-only --debug --watch src/music/pieces/*.md,src/music/music.json src/server.ts",
     "watch-webpack": "webpack -w",
@@ -57,6 +57,7 @@
     "@typescript-eslint/parser": "^5.9.0",
     "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^9.0.1",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
     "eslint": "^8.6.0",
     "mini-css-extract-plugin": "^2.2.0",
