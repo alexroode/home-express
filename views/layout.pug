@@ -4,7 +4,7 @@ html
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{title} - Alexander Roode
-    link(rel="stylesheet", href="/css/main.css")
+    link(rel="stylesheet", href="/css/main.css?v=2022-01-06")
     script(async src="https://www.googletagmanager.com/gtag/js?id=G-GHTQJD3YTD")
     script.
       window.dataLayer = window.dataLayer || [];
@@ -44,6 +44,6 @@ html
     #cart-app(data-summary)
     footer.py-5
       .container-lg.text-center.text-sm
-        p.text-muted © 2021 Alexander Roode | #[a(href='/privacy-policy') Privacy Policy]
-    script(src='/main.js')
-    script(src='/cart.js')
+        p.text-muted © 2022 Alexander Roode | #[a(href='/privacy-policy') Privacy Policy]
+    script(src='/main?v=2022-01-06.js')
+    script(src='/cart?v=2022-01-06.js')

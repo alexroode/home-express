@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface ErrorMessageProps {
   error: any;
@@ -7,6 +7,10 @@ interface ErrorMessageProps {
 }
 
 const ErrorMessage: React.FC<ErrorMessageProps> = ({error, errorMessage, onRetry}) => {
+  useEffect(() => {
+    console.log(error);
+  }, ["error"]);
+
   return <>
     {error ?
       <div className="alert alert-danger my-3">
