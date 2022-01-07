@@ -20,8 +20,7 @@ module.exports = (env) => {
                     { from: './src/music/music.json', to: '../music/music.json' },
                     { from: './src/music/pieces/*.md', to: '../music/pieces/[name][ext]' }
                 ]
-            }),
-            new webpack.DefinePlugin({ CONFIG: JSON.stringify(require("config")) })
+            })
         ],
         module: {
             rules: [

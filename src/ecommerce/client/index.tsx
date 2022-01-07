@@ -7,11 +7,8 @@ import AddToCart from "./AddToCart";
 import OrderConfirmation from "./OrderConfirmation";
 import LoadingIndicator from "./LoadingIndicator";
 
-declare const CONFIG: {
-  stripePublishableKey: string;
-};
-
 const el = document.getElementById("cart-app");
+const stripePublishableKey = el.getAttribute("data-stripe-publishable-key");
 const cartContents = document.getElementById("cart-contents");
 const addToCart = document.getElementById("add-to-cart");
 const orderConfirmation = document.getElementById("order-confirmation");
@@ -26,7 +23,7 @@ ReactDOM.render(
   <React.StrictMode>
     <CartProvider
       cartMode="checkout-session"
-      stripe={CONFIG.stripePublishableKey}
+      stripe={stripePublishableKey}
       currency="USD"
       loading={<LoadingIndicator />}
     >

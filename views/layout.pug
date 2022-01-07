@@ -41,7 +41,7 @@ html
       .content-container.container
         .main-content
           block content
-    #cart-app(data-summary)
+    #cart-app(data-summary data-stripe-publishable-key=stripePublishableKey)
     footer.py-5
       .container-lg.text-center.text-sm
         p.text-muted © 2022 Alexander Roode | #[a(href='/privacy-policy') Privacy Policy]

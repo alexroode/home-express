@@ -1,3 +1,4 @@
+import config from "config";
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as path from "path";
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, "../dist/public"), { maxAge: 3155760
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.isDevelopment = isDevelopment;
+  res.locals.stripePublishableKey = config.get<string>("stripePublishableKey");
   next();
 });
 
