@@ -52,7 +52,7 @@ export function getProduct(stripePriceId: string): Product {
   return productsCache.find(product => product.id === stripePriceId);
 }
 
-export interface OrderDetails {
+export interface OrderConfirmation {
   readonly timestamp?: number;
   readonly total: number;
   readonly items: Stripe.LineItem[];

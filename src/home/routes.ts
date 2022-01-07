@@ -40,7 +40,7 @@ router.get("/privacy-policy", (_req: Request, res: Response) => {
   res.render("privacy-policy", { title: "Privacy Policy"});
 });
 
-router.post("/contact", recaptcha.middleware.verify, (req: Request, res: Response) => {
+router.post("/api/contact", recaptcha.middleware.verify, (req: Request, res: Response) => {
   const data: IContactRequest = req.body;
 
   if (!req.recaptcha ||

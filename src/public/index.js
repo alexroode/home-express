@@ -40,7 +40,7 @@ function showSuccess() {
 }
 
 function submitContactForm(form, submitButton, token) {
-    const url = "/contact";
+    const url = "/api/contact";
     let data = form
         .serializeArray()
         .reduce((data, pair) => { data[pair.name] = pair.value; return data }, {});

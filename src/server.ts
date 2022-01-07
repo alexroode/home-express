@@ -33,8 +33,7 @@ app.get("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
-  const contentType = req.get("Content-Type");
-  const isJson = contentType && contentType === "application/json";
+  const isJson = req.url.startsWith("/api") || req.url.indexOf("webhook") > -1;
 
   if (!err.status) {
     err.status = 500;
