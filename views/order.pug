@@ -9,7 +9,6 @@ block content
         p This download link has expired.
 
       else
-        p Your downloads will expire on #[strong= formatDate(order.expirationDate)].
         if order.downloads && order.downloads.length > 0
           each download, index in order.downloads
             .bg-gray-100.p-3.mb-3.text-center
