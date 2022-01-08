@@ -20,7 +20,7 @@ const AddToCart: React.FC<ProductProps> = ({productId}) => {
   const [error, setError] = useState(null);
 
   function loadProduct() {
-    fetch("/product/" + productId)
+    fetch("/api/product/" + productId)
       .then(response => response.json())
       .then(product => setProduct(product))
       .catch((error) => setError(error))

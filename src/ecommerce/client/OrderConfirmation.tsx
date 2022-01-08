@@ -3,14 +3,14 @@ import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart/react";
 import LoadingIndicator from "./LoadingIndicator";
 import { formatCurrencyString } from "use-shopping-cart";
-import { OrderDetails } from "../products";
+import { OrderConfirmation } from "../products";
 import ErrorMessage from "./ErrorMessage";
 
 const el = document.getElementById("order-confirmation");
 const OrderConfirmation: React.FC = () => {
   const cart = useShoppingCart();
   const { clearCart } = cart;
-  const [orderDetails, setOrderDetails] = useState<OrderDetails>({ total: 0, items: []});
+  const [orderConfirmation, setOrderConfirmation] = useState<OrderConfirmation>({ total: 0, items: []});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const errorMessage = "Sorry, there was an error loading your order confirmation. "
@@ -18,9 +18,9 @@ const OrderConfirmation: React.FC = () => {
 
   function loadSessionDetails() {
     const sessionId = (new URLSearchParams(window.location.search)).get("session_id");
-    fetch("/order-details?sessionId=" + sessionId)
+    fetch("/api/order-confirmation?sessionId=" + sessionId)
       .then(response => response.json())
-      .then(details => setOrderDetails(details))
+      .then(details => setOrderConfirmation(details))
       .catch((error) => setError(error))
       .finally(() => setIsLoading(false));
   }
@@ -46,10 +46,10 @@ const OrderConfirmation: React.FC = () => {
         {isLoading ? <LoadingIndicator /> : <>
           <div className="bg-primary text-white p-3 d-md-flex align-items-end mt-5">
             <h2 className="flex-grow-1 mb-0">Order Summary</h2>
-            <p className="font-weight-bold mb-0">{formatDate(orderDetails.timestamp)}</p>
+            <p className="font-weight-bold mb-0">{formatDate(orderConfirmation.timestamp)}</p>
           </div>
           <div className="bg-gray-100 p-3 mb-5">
-            {orderDetails.items.map(item =>
+            {orderConfirmation.items.map(item =>
               <div key={item.id} className="d-flex align-items-center position-relative py-2">
                 <div className="d-sm-flex flex-grow-1">
                   <div className="flex-grow-1">{item.description}</div>
@@ -59,7 +59,7 @@ const OrderConfirmation: React.FC = () => {
             )}
             <div className="d-sm-flex flex-grow-1">
               <div className="flex-grow-1">Total</div>
-              <div className="font-weight-bold">{formatCurrencyString({ value: orderDetails.total, currency: "usd" })}</div>
+              <div className="font-weight-bold">{formatCurrencyString({ value: orderConfirmation.total, currency: "usd" })}</div>
             </div>
           </div>
         </>}

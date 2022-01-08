@@ -13,7 +13,7 @@ import PromiseRouter from "express-promise-router";
 
 const router = PromiseRouter();
 
-router.post("/cart", (req: Request, res: Response) => {
+router.post("/api/session", (req: Request, res: Response) => {
   const stripe = getStripeApi();
 
   const cartDetails = req.body;
@@ -58,7 +58,7 @@ router.get("/thank-you", (req: Request, res: Response) => {
   res.render("thank-you", { title: "Thank you" });
 });
 
-router.get("/order-details", async (req: Request, res: Response) => {
+router.get("/api/order-confirmation", async (req: Request, res: Response) => {
   const stripe = getStripeApi();
   const sessionId: string = req.query.sessionId as string;
 
@@ -73,7 +73,7 @@ router.get("/order-details", async (req: Request, res: Response) => {
   }
 });
 
-router.get("/product/:productId", (req: Request, res: Response) => {
+router.get("/api/product/:productId", (req: Request, res: Response) => {
   const product = findProduct(req.params.productId);
 
   if (!product) {

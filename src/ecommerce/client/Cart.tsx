@@ -28,7 +28,7 @@ const Cart: React.FC = () => {
   function proceedToCheckout() {
     setError(null);
     setSubmitting(true);
-    return fetch("/cart", {
+    return fetch("/api/session", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(cartDetails)
