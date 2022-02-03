@@ -94,6 +94,17 @@
             "Alender Roode, cello"
           ]
         }
+      ],
+      "performances": [
+        {
+          "date": "2018/04/14",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
+          "performers": [
+            "Alexander Roode, cello"
+          ]
+        }
       ]
     },
     {
@@ -116,15 +127,17 @@
           "title": "MIDI Mockup"
         }
       ],
-      "video": [
+      "performances": [
         {
-          "youtubeId": "OptPBuWkj70",
-          "title": "World Premiere",
           "date": "2016/04/23",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
           "performers": [
             "Alexander Roode, cello",
             "Adaline Simonian, piano"
-          ]
+          ],
+          "youtubeVideoId": "OptPBuWkj70"
         }
       ]
     },
@@ -168,6 +181,21 @@
           "url": "https://media.alexander-roode.com/audio/light-and-glass.mp3",
           "title": "MIDI Mockup"
         }
+      ],
+      "performances": [
+        {
+          "date": "2019/05/19",
+          "venue": "The Duck Club",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
+          "performers": [
+            "KJAM",
+            "Joyce Chen, violin",
+            "Mari Furukawa, violin",
+            "Kyle Bague, viola",
+            "Alexander Roode, cello"
+          ]
+        }
       ]
     },
     {
@@ -188,6 +216,18 @@
         {
           "url": "https://media.alexander-roode.com/audio/letters-in-the-margins.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "performances": [
+        {
+          "date": "2019/05/10",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
+          "performers": [
+            "IVC Symphony Orchestra",
+            "Iman Khosrowpour, conductor"
+          ]
         }
       ]
     },
@@ -211,16 +251,18 @@
           "title": "MIDI Mockup"
         }
       ],
-      "video": [
+      "performances": [
         {
-          "youtubeId": "R-JqI8naqHI",
-          "title": "World Premiere",
           "date": "2015/10/24",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
           "performers": [
             "Crystaline Tran, violin",
             "Alexander Roode, cello",
             "Jeffrey Lin, piano"
-          ]
+          ],
+          "youtubeVideoId": "R-JqI8naqHI"
         }
       ]
     },
@@ -286,17 +328,20 @@
           "title": "MIDI Mockup"
         }
       ],
-      "video": [
+      "performances": [
         {
-          "youtubeId": "-3BQ_TmwPkI",
-          "title": "World Premiere",
+          "date": "2014/06/27",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
           "performers": [
+            "The Temporary Quartet",
             "Hanna Davarmanesh, violin",
             "Jeffrey Lin, violin",
             "Leehyeon Kwon, viola",
             "Alexander Roode, cello"
           ],
-          "date": "2014/06/27"
+          "youtubeVideoId": "-3BQ_TmwPkI"
         }
       ]
     },
@@ -341,14 +386,16 @@
           "title": "MIDI Mockup"
         }
       ],
-      "video": [
+      "performances": [
         {
-          "youtubeId": "admCcNpeuck",
-          "title": "World Premiere",
+          "date": "2014/09/07",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
           "performers": [
             "Amir Khosrowpour, piano"
           ],
-          "date": "2014/09/07"
+          "youtubeVideoId": "admCcNpeuck"
         }
       ]
     },
@@ -431,6 +478,18 @@
           "title": "MIDI Mockup"
         }
       ],
+      "performances": [
+        {
+          "date": "2021/12/16",
+          "venue": "Midwest Clinic",
+          "city": "Chicago, IL",
+          "worldPremiere": true,
+          "performers": [
+            "Keller High School Wind Ensemble",
+            "David Bertman, conductor"
+          ]
+        }
+      ],
       "products": [
         {
           "priceId": "price_1KEOPfJa80SlWh2bBdbMfQ9Q",
@@ -463,6 +522,18 @@
         {
           "url": "https://media.alexander-roode.com/audio/tierra-rejada-road.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "performances": [
+        {
+          "date": "2014/03/07",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
+          "performers": [
+            "IVC Symphony Orchestra",
+            "Iman Khosrowpour, conductor"
+          ]
         }
       ]
     },
@@ -571,6 +642,21 @@
         {
           "url": "https://media.alexander-roode.com/audio/boiling-point.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "performances": [
+        {
+          "date": "2022/03/27",
+          "venue": "Mountain View Performing Arts Center, MainStage",
+          "city": "Mountain View, CA",
+          "worldPremiere": true,
+          "performers": [
+            "Quadre - The Voice of Four Horns",
+            "Amy Jo Rhine, horn",
+            "Lydia Van Dreel, horn",
+            "Adam Unsworth, horn",
+            "Daniel Wood, horn"
+          ]
         }
       ]
     },
