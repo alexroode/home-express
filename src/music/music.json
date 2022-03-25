@@ -648,7 +648,7 @@
         {
           "priceId": "price_1KhHI1Ja80SlWh2b0j4JG5rC",
           "name": "Score and Parts (PDF)",
-          "prod": false
+          "prod": true
         }
       ],
       "performances": [
