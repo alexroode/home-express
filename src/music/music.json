@@ -644,6 +644,13 @@
           "title": "MIDI Mockup"
         }
       ],
+      "products": [
+        {
+          "priceId": "price_1KhHI1Ja80SlWh2b0j4JG5rC",
+          "name": "Score and Parts (PDF)",
+          "prod": false
+        }
+      ],
       "performances": [
         {
           "date": "2022/03/27",
