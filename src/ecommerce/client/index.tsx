@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import ReactDOM from "react-dom";
-import { CartProvider } from "use-shopping-cart/react";
+import { CartProvider } from "use-shopping-cart";
 import Cart from "./Cart";
 import CartSummary from "./CartSummary";
 import AddToCart from "./AddToCart";

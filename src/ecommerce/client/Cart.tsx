@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { useShoppingCart } from "use-shopping-cart/react";
+import { useShoppingCart } from "use-shopping-cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons/faTimesCircle";
 import ErrorMessage from "./ErrorMessage";
@@ -36,8 +36,7 @@ const Cart: React.FC = () => {
       .then(response => response.json())
       .then(response => {
         setSubmitting(false);
-        // @ts-ignore
-        return redirectToCheckout({ sessionId: response.sessionId });
+        return redirectToCheckout(response.sessionId);
       })
       .catch((error) => setError(error))
       .finally(() => setSubmitting(false));

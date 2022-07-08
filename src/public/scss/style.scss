@@ -75,7 +75,7 @@ p {
     text-decoration: none;
     color: $white;
     @include hover-focus {
-        color:  $white;
+        color: $white;
         text-decoration: none;
     }
 }

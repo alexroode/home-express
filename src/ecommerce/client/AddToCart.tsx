@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Product } from "../products";
-import { useShoppingCart } from "use-shopping-cart/react";
+import { useShoppingCart } from "use-shopping-cart";
 import { formatCurrencyString } from "use-shopping-cart";
 import ErrorMessage from "./ErrorMessage";
 import LoadingIndicator from "./LoadingIndicator";
