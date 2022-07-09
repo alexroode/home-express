@@ -8,26 +8,6 @@ block content
       p Please feel free to reach out to Alexander with any comments, questions,
         |  or requests.
 
-      form.mt-s#contact-form(data-recaptcha-site-key=recaptchaSiteKey)
-        .form-group
-          label(for='name') Your Name
-          input#name.form-control(name='name', required, data-parsley-maxlength='100',)
+      #contact-form(data-recaptcha-site-key=recaptchaSiteKey)
 
-        .form-group
-          label(for='email') Your Email
-          input#email.form-control(name='email', type='email', required, data-parsley-maxlength='100',)
-
-        .form-group
-          label(for='message') Your Message
-          textarea#message.form-control(name='message', required, data-parsley-maxlength='300')
-
-        .form-group.mt-s
-          button#submit-button.btn.btn-outline-primary(type='submit') Submit
-
-      #success-message.alert.alert-success(style="display: none")
-        p.mb-0 Thank you! Your message has been sent.
-
-      #error-message.alert.alert-danger(style="display: none")
-        p.mb-0 An error occurred. Please try again later.
-
-  script(src='//www.google.com/recaptcha/api.js?render=' + recaptchaSiteKey)
+  script(src='contact.js')

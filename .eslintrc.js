@@ -1,19 +1,20 @@
-{
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+module.exports = {
+    env: {
+        browser: true,
+        es6: true,
+        node: true
     },
-    "root": true,
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "tsconfig.json",
-        "sourceType": "module"
+    root: true,
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        project: "./tsconfig.json",
+        tsconfigRootDir: __dirname,
+        sourceType: "module"
     },
-    "plugins": [
+    plugins: [
         "@typescript-eslint"
     ],
-    "rules": {
+    rules: {
         "@typescript-eslint/indent": ["error", 2],
         "@typescript-eslint/member-delimiter-style": [
             "error",

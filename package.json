@@ -10,7 +10,7 @@
     "watch-ts": "ts-node-dev --respawn --no-notify --inspect --transpile-only --debug --watch src/music/pieces/*.md,src/music/music.json src/server.ts",
     "watch-webpack": "webpack -w",
     "debug": "concurrently -k -p \"[{name}]\" -n \"Webpack,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-webpack\" \"npm run watch-ts\"",
-    "lint": "eslint -c .eslintrc.json --ext .ts ./src"
+    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx ./src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -33,11 +33,12 @@
     "moment": "^2.29.4",
     "morgan": "~1.10.0",
     "nanoid": "^3.3.4",
-    "parsleyjs": "^2.9.2",
     "popper.js": "^1.16.1",
     "pug": "^3.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-google-recaptcha-v3": "^1.9.8",
+    "react-hook-form": "^7.33.1",
     "serve-favicon": "~2.5.0",
     "stripe": "^9.12.0",
     "use-shopping-cart": "^3.1.2"

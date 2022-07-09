@@ -13,15 +13,11 @@
         "jsx": "react",
         "paths": {
             "*": [
-                "node_modules/*",
-                "src/types/*"
+                "./node_modules/*",
             ]
         }
     },
     "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "src/public/**/*"
+        "./src/**/*",
     ]
 }

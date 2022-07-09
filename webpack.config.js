@@ -43,6 +43,7 @@ module.exports = (env) => {
         entry: {
             main: './src/public/index.js',
             cart: './src/ecommerce/client/index.tsx',
+            contact: './src/contact/index.tsx'
         },
         resolve: {
           extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],

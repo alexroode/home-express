@@ -1,6 +1,6 @@
 import { Router, Request, Response } from "express";
 import PromiseRouter from "express-promise-router";
-import { IContactRequest } from "./contactRequest";
+import { IContactRequest } from "../contact/contactRequest";
 import { recaptcha, recaptchaSiteKey } from "../shared/recaptcha";
 import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
 import formData from "form-data";
