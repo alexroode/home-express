@@ -55,6 +55,8 @@ stages:
       environment:
         name: 'production'
         resourceType: VirtualMachine
+      workspace:
+        clean: all
       strategy:
         runOnce:
           deploy:
@@ -62,7 +64,7 @@ stages:
               - task: ExtractFiles@1
                 displayName: 'Extract files'
                 inputs:
-                  archiveFilePatterns: '$(Pipeline.Workspace)/drop'
+                  archiveFilePatterns: '$(Pipeline.Workspace)/drop/**/$(Build.BuildId).zip'
                   destinationFolder: '$(deploy_path)'
                   cleanDestinationFolder: true
 
