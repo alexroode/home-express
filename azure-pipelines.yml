@@ -37,13 +37,14 @@ stages:
       displayName: 'Archive files'
       inputs:
         rootFolderOrFile: '$(Pipeline.Workspace)/build'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        archiveType: 'tar'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz'
         replaceExistingArchive: true
 
     - task: PublishPipelineArtifact@1
       displayName: 'Publish artifact'
       inputs:
-        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz'
         artifactName: 'drop'
         includeRootFolder: false
 
@@ -64,7 +65,7 @@ stages:
               - task: ExtractFiles@1
                 displayName: 'Extract files'
                 inputs:
-                  archiveFilePatterns: '$(Pipeline.Workspace)/drop/**/$(Build.BuildId).zip'
+                  archiveFilePatterns: '$(Pipeline.Workspace)/drop/**/$(Build.BuildId).tar.gz'
                   destinationFolder: '$(deploy_path)'
                   cleanDestinationFolder: true
 
