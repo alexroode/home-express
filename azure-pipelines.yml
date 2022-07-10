@@ -33,11 +33,17 @@ stages:
           node_modules/**
         targetFolder: '$(Pipeline.Workspace)/build'
 
+    - task: ArchiveFiles@2
+      inputs:
+        rootFolderOrFile: '$(Pipeline.Workspace)/build'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        replaceExistingArchive: true
+
     - task: PublishPipelineArtifact@1
       inputs:
-        targetPath: '$(Pipeline.Workspace)/build'
-        artifact: 'drop'
-        publishLocation: 'pipeline'
+        targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+        artifactName: 'drop'
+        includeRootFolder: false
 
 - stage: Deploy
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
@@ -56,12 +62,10 @@ stages:
                   targetType: 'inline'
                   script: pm2 stop Home
 
-              - task: CopyFiles@2
+              - task: ExtractFiles@1
                 inputs:
-                  sourceFolder: '$(Pipeline.Workspace)/drop'
-                  contents: '**'
-                  targetFolder: '$(deploy_path)'
-                  cleanTargetFolder: true
+                  destinationFolder: '$(deploy_path)'
+                  cleanDestinationFolder: true
 
               - task: Bash@3
                 inputs:
