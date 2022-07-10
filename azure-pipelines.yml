@@ -40,13 +40,13 @@ stages:
         archiveType: 'tar'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz'
         replaceExistingArchive: true
+        includeRootFolder: false
 
     - task: PublishPipelineArtifact@1
       displayName: 'Publish artifact'
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).tar.gz'
         artifactName: 'drop'
-        includeRootFolder: false
 
 - stage: Deploy
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
