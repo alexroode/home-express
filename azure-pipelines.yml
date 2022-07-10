@@ -34,12 +34,14 @@ stages:
         targetFolder: '$(Pipeline.Workspace)/build'
 
     - task: ArchiveFiles@2
+      displayName: 'Archive files'
       inputs:
         rootFolderOrFile: '$(Pipeline.Workspace)/build'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         replaceExistingArchive: true
 
     - task: PublishPipelineArtifact@1
+      displayName: 'Publish artifact'
       inputs:
         targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
         artifactName: 'drop'
@@ -57,21 +59,20 @@ stages:
         runOnce:
           deploy:
             steps:
-              - task: Bash@3
-                inputs:
-                  targetType: 'inline'
-                  script: pm2 stop Home
-
               - task: ExtractFiles@1
+                displayName: 'Extract files'
                 inputs:
+                  archiveFilePatterns: '$(Pipeline.Workspace)/drop
                   destinationFolder: '$(deploy_path)'
                   cleanDestinationFolder: true
 
               - task: Bash@3
+                displayName: 'Run deploy script'
                 inputs:
                   filePath: '$(deploy_script_path)'
 
               - task: Bash@3
+                displayName: 'Restart application'
                 inputs:
                   targetType: 'inline'
-                  script: pm2 start Home
+                  script: pm2 restart Home
