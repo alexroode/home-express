@@ -37,7 +37,7 @@ const AddToCart: React.FC<ProductProps> = ({productId}) => {
         {isLoading ? <LoadingIndicator /> : <>
           <div className="d-sm-flex align-items-center">
             <div className="flex-grow-1 my-3">
-              <span className="mb-0 mr-3">{product.localName}</span>
+              <span className="mb-0 me-3">{product.localName}</span>
               <span className="font-weight-bold">{formatCurrencyString({ value: product.price, currency: product.currency })}</span>
             </div>
             <button className="btn btn-primary" disabled={alreadyInCart}

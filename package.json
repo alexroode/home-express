@@ -18,7 +18,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "airtable": "^0.11.4",
-    "bootstrap": "^4.6.1",
+    "bootstrap": "^5.2.0-beta1",
     "config": "^3.3.7",
     "express": "~4.18.1",
     "express-promise-router": "^4.1.1",

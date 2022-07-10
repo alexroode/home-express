@@ -4,7 +4,7 @@ html
     meta(charset="utf-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     title #{title} - Alexander Roode
-    link(rel="stylesheet", href="/css/main.css?v=2022-01-06")
+    link(rel="stylesheet", href="/css/main.css?v=2022-07-10")
     script(async src="https://www.googletagmanager.com/gtag/js?id=G-GHTQJD3YTD")
     script.
       window.dataLayer = window.dataLayer || [];
@@ -13,13 +13,13 @@ html
       gtag('config', 'G-GHTQJD3YTD');
   body.bg-gray-100(ontouchstart).position-relative
     header
-      .bg-primary-dark.py-sm-3.py-md-4
-        .main-title-container.container-lg.pr-6
+      .bg-primary-dark.py-3.py-md-4
+        .main-title-container.container-lg.pe-6
           a.title-link(href="/")
             h1.main-title.mb-0 Alexander Roode
             h2.mb-0 Composer
           .navbar-dark.navbar-expand-md
-            button.navbar-toggler.collapsed(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            button.navbar-toggler.collapsed(type='button', data-bs-toggle='collapse', data-bs-target='.navbar-collapse')
               span.icon-bar
               span.icon-bar
               span.icon-bar
@@ -37,13 +37,11 @@ html
                 li.nav-item: a.nav-link(href='/contact')
                   | Contact
       block subNav
-    main.bg-white.py-sm-3.py-md-4
-      .content-container.container
-        .main-content
-          block content
+    main.bg-white.py-3.py-md-4
+      .container-lg
+        block content
     #cart-app(data-summary data-stripe-publishable-key=stripePublishableKey)
     footer.py-5
       .container-lg.text-center.text-sm
         p.text-muted © 2022 Alexander Roode | #[a(href='/privacy-policy') Privacy Policy]
-    script(src='/main.js?v=2022-01-06')
-    script(src='/cart.js?v=2022-01-06')
+    script(src='/main.js?v=2022-07-10')

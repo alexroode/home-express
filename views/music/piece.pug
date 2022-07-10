@@ -5,9 +5,9 @@ block content
     span.piece-year= formatPieceYear(piece)
   h2.mb-0.subtitle= piece.subtitle
 
-  .row.mx-ns
+  .row
     if piece.accolades || products.length > 0 || piece.description
-      .col-lg-7.px-s.my-s
+      .col-lg-7.my-s
         if piece.accolades
           .mb-5
             em!=piece.accolades
@@ -19,7 +19,7 @@ block content
         if piece.description
           h2 Notes
           .text-justify!= piece.description
-    .col-lg-5.px-s.my-s
+    .col-lg-5.my-s
       if piece.duration && piece.duration > 0
         h4 Duration
         .mb-4= formatDuration(piece.duration)

@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/functions";
+
 $primary: #1e4583;
 $primary-dark: #173d79;
 $white: #fff;
@@ -6,25 +8,35 @@ $gray-900: #222;
 $gray-600: #777;
 $secondary: #f1c40f;
 $secondary-dark: darken($secondary, 10%);
-$theme-colors: (
-    "primary-dark": $primary-dark,
-    "gray-100": $gray-100,
-    "dark": #000
-);
 
-$text-primary: #222;
+$body-color: #222;
 $text-secondary: #7f8c8d;
 $link-decoration: underline;
 $main-font: 'Roboto', sans-serif;
 $header-font: 'Oswald', serif;
 
-$grid-gutter-width: 30px;
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+
+$grid-gutter-width: 3rem;
 $spacer: 1rem;
 $navbar-dark-color: $white;
-$navbar-dark-hover-color: $text-primary;
+$navbar-dark-hover-color: $body-color;
 $navbar-light-color: $gray-600;
 $navbar-light-hover-color: $gray-900;
-$nav-link-padding-x: $grid-gutter-width;
+$nav-link-padding-x: 0.5 * $grid-gutter-width;
 $nav-link-padding-y: $spacer;
 $navbar-nav-link-padding-x: $nav-link-padding-x;
 
@@ -33,19 +45,29 @@ $link-hover-color: $secondary;
 
 $enable-rounded: false;
 
-$spacers: (
+@import "~bootstrap/scss/variables";
+
+$theme-colors: map-merge($theme-colors, (
+    "primary-dark": $primary-dark,
+    "gray-100": $gray-100,
+    "dark": #000
+));
+
+
+$spacers: map-merge($spacers, (
   6: ($spacer * 5),
   s: $grid-gutter-width,
   s2: $grid-gutter-width * 2
-);
+));
 
+@import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/bootstrap";
+
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Oswald&display=swap");
 @import "header";
 @import "cart";
 
 body {
-    color: #fff;
     font-family: $main-font;
 }
 
@@ -74,7 +96,7 @@ p {
 .title-link {
     text-decoration: none;
     color: $white;
-    @include hover-focus {
+    &:hover, &:focus {
         color: $white;
         text-decoration: none;
     }
@@ -84,10 +106,14 @@ h1 {
     text-transform: uppercase;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 /* Header */
 
 .main-title-container {
-    padding: $grid-gutter-width;
+    padding: 0.5 * $grid-gutter-width;
     position: relative;
 
     h1 {
@@ -132,25 +158,18 @@ h1 {
 
 .nav {
     .nav-link {
-        @include hover-focus {
+        &:hover, &:focus {
             background-color: $secondary;
         }
     }
 }
 
-/* Content */
-
-.content-container {
-    color: $gray-900;
-    padding: $grid-gutter-width;
-}
-
 /* Category */
 
 .music-row {
-    margin-left: -$grid-gutter-width;
-    margin-right: -$grid-gutter-width;
-    padding: 10px $grid-gutter-width;
+    margin-left: -0.5 * $grid-gutter-width;
+    margin-right: -0.5 * $grid-gutter-width;
+    padding: 1rem 0.5 * $grid-gutter-width;
     color: $gray-900;
     transition: background-color ease-in-out 0.15s;
 
@@ -172,7 +191,7 @@ h1 {
 }
 
 .music-row:hover .piece-year {
-    color: white;
+    color: $white;
 }
 
 /* Embeds */

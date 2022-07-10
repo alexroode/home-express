@@ -81,8 +81,7 @@ export default function App() {
 
   return (
     <form onSubmit={handleSubmit(trySubmit)}>
-      <p data-sub={isSubmitted}></p>
-      <div className="form-group">
+      <div className="mb-3">
         <label htmlFor="name">Your Name</label>
         <input id="name"
           className={"form-control " + (errors.name && isSubmitted ? "is-invalid" : "")}
@@ -90,7 +89,7 @@ export default function App() {
         {errors.name && <div className="invalid-feedback">{errors.name.message}</div>}
       </div>
 
-      <div className="form-group">
+      <div className="mb-3">
         <label htmlFor="email">Your Email</label>
         <input id="email"
           className={"form-control " + (errors.email && isSubmitted ? "is-invalid" : "")}
@@ -98,7 +97,7 @@ export default function App() {
         {errors.email && <div className="invalid-feedback">{errors.email.message}</div>}
       </div>
 
-      <div className="form-group">
+      <div className="mb-3">
         <label htmlFor="message">Your Message</label>
         <textarea id="message"
           className={"form-control " + (errors.message && isSubmitted ? "is-invalid" : "")}
@@ -106,7 +105,7 @@ export default function App() {
         {errors.message && <div className="invalid-feedback">{errors.message.message}</div>}
       </div>
 
-      <div className="form-group mt-6">
+      <div className="mb-3 mt-6">
         <button type="submit" className="btn btn-outline-primary" disabled={isSubmitting}>Submit</button>
       </div>
 

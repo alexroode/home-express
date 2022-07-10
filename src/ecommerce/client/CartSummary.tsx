@@ -9,8 +9,8 @@ const CartSummary: React.FC = () => {
 
   const summary = <a href="/cart" className="cart-summary btn btn-secondary w-100">
     <div className="d-flex align-items-center justify-content-center ">
-      <span className="badge badge-pill badge-dark mr-2 rounded-lg">{cartCount}</span>
-      <FontAwesomeIcon icon={faShoppingCart} className="mr-2 font-150" />
+      <span className="badge badge-pill bg-dark me-2 rounded-lg">{cartCount}</span>
+      <FontAwesomeIcon icon={faShoppingCart} className="me-2 font-150" />
       <span>View Cart</span>
     </div>
   </a>;
