@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@popperjs/core": "^2.11.5",
     "airtable": "^0.11.4",
     "bootstrap": "^5.2.0-beta1",
     "config": "^3.3.7",
