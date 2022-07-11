@@ -62,13 +62,6 @@ stages:
         runOnce:
           deploy:
             steps:
-              - task: ExtractFiles@1
-                displayName: 'Extract files'
-                inputs:
-                  archiveFilePatterns: '$(Pipeline.Workspace)/drop/**/$(Build.BuildId).tar.gz'
-                  destinationFolder: '$(deploy_path)'
-                  cleanDestinationFolder: true
-
               - task: Bash@3
                 displayName: 'Run deploy script'
                 inputs:
