@@ -745,8 +745,8 @@
     {
       "categoryId": "orchestra",
       "id": "retrace-your-steps",
-      "instrumentation": "String Quartet",
-      "subtitle":"for String Quartet",
+      "instrumentation": "String Orchestra",
+      "subtitle":"for String Orchestra",
       "title": "Retrace Your Steps",
       "date": "2022/04/29",
       "duration": 450,
@@ -759,6 +759,27 @@
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/retrace-your-steps.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "chamber",
+      "id": "jumpstart",
+      "instrumentation": "Violin, cello, piano",
+      "subtitle":"for Piano Trio",
+      "title": "Jumpstart",
+      "date": "2022/09/16",
+      "duration": 420,
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/jumpstart.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/jumpstart.mp3",
           "title": "MIDI Mockup"
         }
       ]
