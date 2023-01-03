@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +6,8 @@ import { faTimesCircle } from "@fortawesome/free-regular-svg-icons/faTimesCircle
 import ErrorMessage from "./ErrorMessage";
 
 const el = document.getElementById("cart-contents");
-const Cart: React.FC = () => {
+
+const Cart = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
@@ -25,21 +26,26 @@ const Cart: React.FC = () => {
     </div>
   ));
 
-  function proceedToCheckout() {
+  async function proceedToCheckout() {
     setError(null);
     setSubmitting(true);
-    return fetch("/api/session", {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cartDetails)
-    })
-      .then(response => response.json())
-      .then(response => {
-        setSubmitting(false);
-        return redirectToCheckout(response.sessionId);
-      })
-      .catch((error) => setError(error))
-      .finally(() => setSubmitting(false));
+
+    try {
+      const response = await fetch("/api/session", {
+        method: "post",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cartDetails)
+      });
+      const responseJson = await response.json();
+
+      setSubmitting(false);
+
+      await redirectToCheckout(responseJson.sessionId);
+    } catch (error) {
+      return setError(error);
+    } finally {
+      return setSubmitting(false);
+    }
   }
 
   return ReactDOM.createPortal(

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart";
 import LoadingIndicator from "./LoadingIndicator";
@@ -7,7 +7,8 @@ import { OrderConfirmation } from "../products";
 import ErrorMessage from "./ErrorMessage";
 
 const el = document.getElementById("order-confirmation");
-const OrderConfirmation: React.FC = () => {
+
+const OrderConfirmation = () => {
   const cart = useShoppingCart();
   const { clearCart } = cart;
   const [orderConfirmation, setOrderConfirmation] = useState<OrderConfirmation>({ total: 0, items: []});
@@ -16,14 +17,27 @@ const OrderConfirmation: React.FC = () => {
   const errorMessage = "Sorry, there was an error loading your order confirmation. "
     + "Your order was still placed successfully. A receipt will be emailed to you.";
 
-  function loadSessionDetails() {
-    const sessionId = (new URLSearchParams(window.location.search)).get("session_id");
-    fetch("/api/order-confirmation?sessionId=" + sessionId)
-      .then(response => response.json())
-      .then(details => setOrderConfirmation(details))
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false));
+  async function loadSessionDetails() {
+    try {
+      const sessionId = (new URLSearchParams(window.location.search)).get("session_id");
+      const response = await fetch("/api/order-confirmation?sessionId=" + sessionId);
+      const details = await response.json();
+      setOrderConfirmation(details);
+    } catch(error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
+
+  function formatDate(timestamp: number): string {
+    if (!timestamp) {
+      return "";
+    }
+    const date = new Date(timestamp * 1000);
+    return date.toLocaleString();
+  }
+
   useEffect(() => {
     clearCart();
   }, []);
@@ -31,14 +45,6 @@ const OrderConfirmation: React.FC = () => {
   useEffect(() => {
     loadSessionDetails();
   }, []);
-
-  function formatDate(timestamp: number) {
-    if (!timestamp) {
-      return "";
-    }
-    const date = new Date(timestamp * 1000);
-    return date.toLocaleString();
-  }
 
   return ReactDOM.createPortal(
     <div>

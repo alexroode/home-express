@@ -1,9 +1,8 @@
-import React from "react";
 import { useShoppingCart } from "use-shopping-cart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons/faShoppingCart";
 
-const CartSummary: React.FC = () => {
+const CartSummary = () => {
   const cart = useShoppingCart();
   const { cartCount } = cart;
 
@@ -15,11 +14,9 @@ const CartSummary: React.FC = () => {
     </div>
   </a>;
 
-  return (
-    <>
-      {cartCount > 0 ? summary : null}
-    </>
-  );
+  return <>
+    {cartCount > 0 ? summary : null}
+  </>;
 };
 
 export default CartSummary;

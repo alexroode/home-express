@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Product } from "../products";
 import { useShoppingCart } from "use-shopping-cart";
@@ -12,22 +12,28 @@ interface ProductProps {
 
 const el = document.getElementById("add-to-cart");
 
-const AddToCart: React.FC<ProductProps> = ({productId}) => {
+const AddToCart = ({productId}: ProductProps) => {
   const cart = useShoppingCart();
   const { addItem, cartDetails } = cart;
   const [product, setProduct] = useState<Product>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  function loadProduct() {
-    fetch("/api/product/" + productId)
-      .then(response => response.json())
-      .then(product => setProduct(product))
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false));
+  async function loadProduct() {
+    try {
+      const response = await fetch("/api/product/" + productId);
+      const product = await response.json();
+      setProduct(product);
+    } catch(error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
-  useEffect(() => loadProduct(), []);
+  useEffect(() => {
+    loadProduct();
+  }, []);
 
   const alreadyInCart = product && cartDetails[product.id] && cartDetails[product.id].quantity > 0;
 
@@ -40,8 +46,13 @@ const AddToCart: React.FC<ProductProps> = ({productId}) => {
               <span className="mb-0 me-3">{product.localName}</span>
               <span className="font-weight-bold">{formatCurrencyString({ value: product.price, currency: product.currency })}</span>
             </div>
-            <button className="btn btn-primary" disabled={alreadyInCart}
-              onClick={() => addItem(product)}>{alreadyInCart ? "Added to cart" : "Add to cart"}</button>
+            <button
+              className="btn btn-primary"
+              disabled={alreadyInCart}
+              onClick={() => addItem(product)}
+            >
+              {alreadyInCart ? "Added to cart" : "Add to cart"}
+            </button>
           </div>
         </>}
       </>}
