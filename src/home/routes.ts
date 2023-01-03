@@ -11,17 +11,15 @@ import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
 
 const router = PromiseRouter();
 
-router.get("/", (req: Request, res: Response) => {
-  return Music.getLatest(4)
-    .then(pieces => {
-      res.render("index", {
-        title: "Home",
-        latestWork: pieces,
-        formatDate: formatDate,
-        formatYear: formatYear,
-        formatPieceYear: formatPieceYear
-      });
-    });
+router.get("/", async (_req: Request, res: Response) => {
+  const pieces = await Music.getLatest(4);
+  res.render("index", {
+    title: "Home",
+    latestWork: pieces,
+    formatDate: formatDate,
+    formatYear: formatYear,
+    formatPieceYear: formatPieceYear
+  });
 });
 
 router.get("/bio", (_req: Request, res: Response) => {
@@ -40,7 +38,7 @@ router.get("/privacy-policy", (_req: Request, res: Response) => {
   res.render("privacy-policy", { title: "Privacy Policy"});
 });
 
-router.post("/api/contact", recaptcha.middleware.verify, (req: Request, res: Response) => {
+router.post("/api/contact", recaptcha.middleware.verify, async (req: Request, res: Response) => {
   const data: IContactRequest = req.body;
 
   if (!req.recaptcha ||
@@ -63,13 +61,14 @@ router.post("/api/contact", recaptcha.middleware.verify, (req: Request, res: Res
     `<strong>Message</strong>: <br/><p>${data.message}</p>`
   };
 
-  return mailgunClient.messages
-    .create(config.get<string>("mailgunDomain"), message)
-    .then(() => res.sendStatus(204))
-    .catch(error => {
-      console.error(error);
-      res.sendStatus(500);
-    });
+  try {
+    await mailgunClient.messages
+      .create(config.get<string>("mailgunDomain"), message);
+    return res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.sendStatus(500);
+  }
 });
 
 export const HomeRoutes: Router = router;

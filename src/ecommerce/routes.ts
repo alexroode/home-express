@@ -13,7 +13,7 @@ import PromiseRouter from "express-promise-router";
 
 const router = PromiseRouter();
 
-router.post("/api/session", (req: Request, res: Response) => {
+router.post("/api/session", async (req: Request, res: Response) => {
   const stripe = getStripeApi();
 
   const cartDetails = req.body;
@@ -31,21 +31,21 @@ router.post("/api/session", (req: Request, res: Response) => {
     });
   }
 
-  return stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    mode: "payment",
-    success_url: rootUrl + "/thank-you?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: rootUrl + "/cart",
-    line_items: validatedItems
-  })
-    .then(session => {
-      res.json({
-        sessionId: session.id
-      });
-    })
-    .catch(error => {
-      throw new AppError("An error occurred communicating with Stripe", 500, error);
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      success_url: rootUrl + "/thank-you?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: rootUrl + "/cart",
+      line_items: validatedItems
     });
+
+    res.json({
+      sessionId: session.id
+    });
+  } catch (error) {
+    throw new AppError("An error occurred communicating with Stripe", 500, error);
+  }
 });
 
 router.get("/thank-you", (req: Request, res: Response) => {
