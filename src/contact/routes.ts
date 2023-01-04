@@ -13,8 +13,7 @@ router.get("/contact", (_req: Request, res: Response) => {
   res.render("contact", { title: "Contact", recaptchaSiteKey });
 });
 
-router.post("/api/contact", recaptcha.middleware.verify, async (req: Request, res: Response) => {
-  const data: IContactRequest = req.body;
+router.post("/api/contact", recaptcha.middleware.verify, async (req: Request<{}, {}, IContactRequest>, res: Response) => {
 
   if (!req.recaptcha ||
       req.recaptcha.error ||
@@ -24,6 +23,7 @@ router.post("/api/contact", recaptcha.middleware.verify, async (req: Request, re
     return;
   }
 
+  const data = req.body;
   const mailgun = new Mailgun(formData);
   const mailgunClient = mailgun.client({ key: config.get<string>("mailgunApiKey"), username: "api" });
 
