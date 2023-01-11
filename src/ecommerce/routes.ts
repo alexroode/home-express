@@ -10,42 +10,44 @@ import { createAirtableOrder, getAirtableBase, getAirtableOrder, getAirtableProd
 import { formatDate, isDateInPast } from "../shared/dateHelpers";
 import config from "config";
 import PromiseRouter from "express-promise-router";
+import { CartDetails } from "use-shopping-cart/core";
 
 const router = PromiseRouter();
 
-router.post("/api/session", (req: Request, res: Response) => {
+router.post("/api/session", async (req: Request<{}, {}, CartDetails>, res: Response) => {
   const stripe = getStripeApi();
 
   const cartDetails = req.body;
   const rootUrl = req.protocol + "://" + req.get("host");
 
-  const validatedItems = [];
-  for (const id in cartDetails) {
-    const inventoryProduct: Product = findProduct(id);
+  const validatedItems = Object.keys(cartDetails).map(id => {
+    const inventoryProduct = findProduct(id);
+
     if (!inventoryProduct) {
       throw new Error(`Invalid Cart: product with id "${id}" is not in your inventory.`);
     }
-    validatedItems.push({
+
+    return {
       quantity: cartDetails[id].quantity,
       price: inventoryProduct.id
-    });
-  }
+    };
+  });
 
-  return stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    mode: "payment",
-    success_url: rootUrl + "/thank-you?session_id={CHECKOUT_SESSION_ID}",
-    cancel_url: rootUrl + "/cart",
-    line_items: validatedItems
-  })
-    .then(session => {
-      res.json({
-        sessionId: session.id
-      });
-    })
-    .catch(error => {
-      throw new AppError("An error occurred communicating with Stripe", 500, error);
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      mode: "payment",
+      success_url: rootUrl + "/thank-you?session_id={CHECKOUT_SESSION_ID}",
+      cancel_url: rootUrl + "/cart",
+      line_items: validatedItems
     });
+
+    res.json({
+      sessionId: session.id
+    });
+  } catch (error) {
+    throw new AppError("An error occurred communicating with Stripe", 500, error);
+  }
 });
 
 router.get("/thank-you", (req: Request, res: Response) => {
@@ -58,13 +60,12 @@ router.get("/thank-you", (req: Request, res: Response) => {
   res.render("thank-you", { title: "Thank you" });
 });
 
-router.get("/api/order-confirmation", async (req: Request, res: Response) => {
+router.get("/api/order-confirmation", async (req: Request<{}, {}, {}, { sessionId: string}>, res: Response) => {
   const stripe = getStripeApi();
-  const sessionId: string = req.query.sessionId as string;
 
   try {
-    const sessionResponse = await stripe.checkout.sessions.retrieve(sessionId, { expand: ["payment_intent"] });
-    const lineItemsResponse = await stripe.checkout.sessions.listLineItems(sessionId, { limit: 100 });
+    const sessionResponse = await stripe.checkout.sessions.retrieve(req.query.sessionId, { expand: ["payment_intent"] });
+    const lineItemsResponse = await stripe.checkout.sessions.listLineItems(req.query.sessionId, { limit: 100 });
     const paymentIntent = sessionResponse.payment_intent as Stripe.PaymentIntent;
 
     res.json({ timestamp: paymentIntent.created, total: sessionResponse.amount_total, items: lineItemsResponse.data });
@@ -175,14 +176,14 @@ router.get("/order/:orderId/download/:downloadId", async (req: Request, res: Res
   stream.data.on("end", () => res.end());
 });
 
-router.post("/stripe-webhook", async (req: Request & { rawBody: any }, res: Response) => {
+router.post("/stripe-webhook", async (req: Request & { rawBody: string }, res: Response) => {
   const stripe = getStripeApi();
   const webhookSecret = config.get<string>("stripeWebhookSecret");
   const signature = req.headers["stripe-signature"];
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.rawBody, signature, webhookSecret) as Stripe.Event;
+    event = stripe.webhooks.constructEvent(req.rawBody, signature, webhookSecret);
   } catch (err) {
     throw new AppError(`Webhook Error: ${err.message}`, 400);
   }

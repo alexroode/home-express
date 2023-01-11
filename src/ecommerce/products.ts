@@ -22,29 +22,28 @@ let productsCache: Product[] = [];
 export async function loadProducts() {
   const api = getStripeApi();
   const priceResponse = await api.prices.list({ limit: 100, expand: ["data.product"] });
-  const musicLibrary = await Music.getAll();
+  const musicLibrary = await Music.getLibrary();
 
-  const products = [];
-  for (const piece of musicLibrary.pieces) {
-    if (!piece.products) {
-      continue;
-    }
-    for (const stripePriceReference of piece.products) {
+  const products = musicLibrary.pieces
+    .filter(piece => piece.products)
+    .flatMap(piece => piece.products)
+    .flatMap(stripePriceReference => {
       const price = priceResponse.data.find(p => stripePriceReference.priceId === p.id);
       if (!price) {
-        continue;
+        return [];
       }
+
       const product = price.product as Stripe.Product;
-      products.push({
+      return {
         id: price.id,
         currency: price.currency,
         price: price.unit_amount,
         name: product.name,
         description: product.description,
         localName: stripePriceReference.name
-      });
-    }
-  }
+      };
+    });
+
   productsCache = products;
 }
 

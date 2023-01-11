@@ -3,6 +3,7 @@ import express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as path from "path";
 import { loadProducts } from "./ecommerce/products";
+import { ContactRoutes } from "./contact/routes";
 import { EcommerceRoutes } from "./ecommerce/routes";
 import { HomeRoutes } from "./home/routes";
 import { MusicRoutes } from "./music/routes";
@@ -25,6 +26,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use("/", HomeRoutes);
+app.use("/", ContactRoutes);
 app.use("/", EcommerceRoutes);
 app.use("/music", MusicRoutes);
 

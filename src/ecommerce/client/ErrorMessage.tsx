@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 interface ErrorMessageProps {
   error: any;
@@ -6,23 +6,23 @@ interface ErrorMessageProps {
   onRetry: () => void;
 }
 
-const ErrorMessage: React.FC<ErrorMessageProps> = ({error, errorMessage, onRetry}) => {
+const ErrorMessage = ({error, errorMessage, onRetry}: ErrorMessageProps) => {
   useEffect(() => {
     console.log(error);
   }, ["error"]);
 
-  return <>
-    {error ?
-      <div className="alert alert-danger my-3">
-        <p>
-          {errorMessage ? errorMessage : "Sorry, something went wrong."}
-        </p>
-        <p className="text-center">
-          <button className="btn btn-danger" onClick={onRetry}>Try again</button>
-        </p>
-      </div>
-      : null}
-  </>;
+  if (!error) {
+    return null;
+  }
+
+  return <div className="alert alert-danger my-3">
+    <p>
+      {errorMessage ? errorMessage : "Sorry, something went wrong."}
+    </p>
+    <p className="text-center">
+      <button className="btn btn-danger" onClick={onRetry}>Try again</button>
+    </p>
+  </div>;
 };
 
 export default ErrorMessage;
