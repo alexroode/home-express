@@ -1,0 +1,21 @@
+mixin performances(piece)
+  h2 Performances
+  each performance in piece.performances
+    .performance.mt-4.mb-2
+      p.fw-bold
+        if performance.worldPremiere
+          | World Premiere,
+          =" "
+        =formatDate(performance.date)
+
+      .row.d-md-block.d-lg-flex.justify-content-between.flex-sm-nowrap
+        ul.col-lg.flex-fill.list-unstyled
+          each performer in performance.performers
+            li= performer
+        ul.col-lg.flex-fill.list-unstyled
+          li.text-sm-end.text-md-start.text-lg-end= performance.venue
+          li.text-sm-end.text-md-start.text-lg-end= performance.city
+
+      if performance.youtubeVideoId
+        .embed-container
+            iframe(src="https://www.youtube.com/embed/" + performance.youtubeVideoId, frameborder="0", allowfullscreen)

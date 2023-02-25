@@ -26,7 +26,7 @@ export interface Piece {
   readonly grade: number;
   readonly scores: Document[];
   readonly audio: AudioFile[];
-  readonly video: YoutubeVideo[];
+  readonly performances?: Performance[];
   readonly products?: StripePriceReference[];
 }
 
@@ -40,11 +40,13 @@ export interface AudioFile {
   readonly title: string;
 }
 
-export interface YoutubeVideo {
-  readonly youtubeId: string;
-  readonly title: string;
+export interface Performance {
   readonly date: moment.Moment;
-  readonly performers: string[];
+  readonly venue: string;
+  readonly city: string;
+  readonly worldPremiere: boolean;
+  readonly performers?: string[];
+  readonly youtubeVideoId?: string;
 }
 
 export interface StripePriceReference {

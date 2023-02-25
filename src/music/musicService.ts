@@ -2,7 +2,7 @@ import * as fs from "fs-extra";
 import * as path from "path";
 import moment from "moment";
 import { marked } from "marked";
-import { MusicLibrary, Piece, Category, YoutubeVideo } from "./music";
+import { MusicLibrary, Piece, Category } from "./music";
 import { NotFound } from "../shared/errors";
 
 function notFound(): Promise<any> {
@@ -27,7 +27,7 @@ async function loadDescription(piece: any) {
   }
 }
 
-function dateReviver(key: keyof(Piece) | keyof(YoutubeVideo), value: any) {
+function dateReviver(key: keyof(Piece) | keyof(Performance), value: any) {
   if (key === "revisionDate" || key === "date") {
     return mapJsonDate(value);
   }

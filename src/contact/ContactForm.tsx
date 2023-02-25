@@ -33,8 +33,9 @@ export default function App() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitted } } = useForm<IContactRequest>();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null as string);
-  const [successMessage, setSuccessMessage] = useState(null as string);
+  const [errorMessage, setErrorMessage] = useState<string>(null);
+  const [successMessage, setSuccessMessage] = useState<string>(null);
+
   function resetForm() {
     reset();
     setErrorMessage(null);
@@ -109,8 +110,8 @@ export default function App() {
         <button type="submit" className="btn btn-outline-primary" disabled={isSubmitting}>Submit</button>
       </div>
 
-      {successMessage ? <div className="alert alert-success">{successMessage}</div> : null}
-      {errorMessage ? <div className="alert alert-danger">{errorMessage}</div> : null}
+      {successMessage ? <div className="mt-5 alert alert-success">{successMessage}</div> : null}
+      {errorMessage ? <div className="mt-5 alert alert-danger">{errorMessage}</div> : null}
     </form>
   );
 }

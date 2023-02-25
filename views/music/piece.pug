@@ -1,4 +1,5 @@
 extends musicLayout
+include performances
 
 block content
   h1.mb-1 #{piece.title}
@@ -6,8 +7,8 @@ block content
   h2.mb-0.subtitle= piece.subtitle
 
   .row
-    if piece.accolades || products.length > 0 || piece.description
-      .col-lg-7.my-s
+    if piece.accolades || products.length > 0 || piece.description || piece.performances
+      .col-md-7.py-s
         if piece.accolades
           .mb-5
             em!=piece.accolades
@@ -18,35 +19,25 @@ block content
               #add-to-cart(data-product-id=product.priceId)
         if piece.description
           h2 Notes
-          .text-justify!= piece.description
-    .col-lg-5.my-s
-      if piece.duration && piece.duration > 0
-        h4 Duration
-        .mb-4= formatDuration(piece.duration)
-      if piece.grade && piece.grade > 0
-        h4 Grade
-        .mb-4= formatGrade(piece.grade)
-      if piece.scores && piece.scores.length > 0
-        h4 Score
-        ul.list-unstyled.mb-4
-          each score in piece.scores
-            li.mb-3: a(href=score.url target='_blank')= score.title
-      if piece.audio && piece.audio.length > 0
-        h4 Audio
-        each audioFile in piece.audio
-          .audio
-            p.font-weight-bold= audioFile.title
-            audio(src=audioFile.url, preload="metadata", controls).mb-4
-
-  if piece.video && piece.video.length > 0
-    h4 Videos
-    each video in piece.video
-      .video-title.
-        #[strong= video.title] - #{formatDate(video.date)}
-      .video-performers
-        ul.list-unstyled
-          if video.performers
-            each performer in video.performers
-              li= performer
-      .embed-container
-        iframe(src="https://www.youtube.com/embed/" + video.youtubeId, frameborder="0", allowfullscreen)
+          .text-justify.mb-5!= piece.description
+        if piece.performances
+          +performances(piece)
+    .col-md-5
+      .sticky-top.pb-s.pt-md-s
+        if piece.duration && piece.duration > 0
+          h4 Duration
+          .mb-4= formatDuration(piece.duration)
+        if piece.grade && piece.grade > 0
+          h4 Grade
+          .mb-4= formatGrade(piece.grade)
+        if piece.scores && piece.scores.length > 0
+          h4 Score
+          ul.list-unstyled.mb-4
+            each score in piece.scores
+              li.mb-3: a(href=score.url target='_blank')= score.title
+        if piece.audio && piece.audio.length > 0
+          h4 Audio
+          each audioFile in piece.audio
+            .audio
+              p.font-weight-bold= audioFile.title
+              audio(src=audioFile.url, preload="metadata", controls).mb-4
