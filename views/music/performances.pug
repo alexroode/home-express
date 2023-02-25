@@ -2,20 +2,19 @@ mixin performances(piece)
   h2 Performances
   each performance in piece.performances
     .performance.mt-4.mb-2
-      p
-        strong
-          if performance.worldPremiere
-            | World Premiere,
-            =" "
-          =formatDate(performance.date)
+      p.fw-bold
+        if performance.worldPremiere
+          | World Premiere,
+          =" "
+        =formatDate(performance.date)
 
-      .row.justify-content-between.flex-sm-nowrap
-        ul.flex-fill.list-unstyled
+      .row.d-md-block.d-lg-flex.justify-content-between.flex-sm-nowrap
+        ul.col-lg.flex-fill.list-unstyled
           each performer in performance.performers
             li= performer
-        ul.flex-fill.list-unstyled
-          li.text-sm-end= performance.venue
-          li.text-sm-end= performance.city
+        ul.col-lg.flex-fill.list-unstyled
+          li.text-sm-end.text-md-start.text-lg-end= performance.venue
+          li.text-sm-end.text-md-start.text-lg-end= performance.city
 
       if performance.youtubeVideoId
         .embed-container

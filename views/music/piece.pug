@@ -23,7 +23,7 @@ block content
         if piece.performances
           +performances(piece)
     .col-md-5
-      .sticky-top.py-s
+      .sticky-top.pb-s.pt-md-s
         if piece.duration && piece.duration > 0
           h4 Duration
           .mb-4= formatDuration(piece.duration)
