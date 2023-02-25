@@ -9,11 +9,11 @@ mixin performances(piece)
             =" "
           =formatDate(performance.date)
 
-      .row.row-cols-sm-2
-        ul.list-unstyled
+      .row.justify-content-between.flex-sm-nowrap
+        ul.flex-fill.list-unstyled
           each performer in performance.performers
             li= performer
-        ul.list-unstyled
+        ul.flex-fill.list-unstyled
           li.text-sm-end= performance.venue
           li.text-sm-end= performance.city
 

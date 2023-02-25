@@ -8,7 +8,7 @@ block content
 
   .row
     if piece.accolades || products.length > 0 || piece.description || piece.performances
-      .col-lg-7.my-s
+      .col-md-7.my-s
         if piece.accolades
           .mb-5
             em!=piece.accolades
@@ -22,7 +22,7 @@ block content
           .text-justify.mb-5!= piece.description
         if piece.performances
           +performances(piece)
-    .col-lg-5.my-s
+    .col-md-5.my-s
       if piece.duration && piece.duration > 0
         h4 Duration
         .mb-4= formatDuration(piece.duration)
