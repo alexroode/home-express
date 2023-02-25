@@ -19,7 +19,7 @@ block content
               #add-to-cart(data-product-id=product.priceId)
         if piece.description
           h2 Notes
-          .text-justify!= piece.description
+          .text-justify.mb-5!= piece.description
         if piece.performances
           +performances(piece)
     .col-lg-5.my-s
