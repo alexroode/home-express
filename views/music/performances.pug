@@ -1,0 +1,20 @@
+mixin performances(piece)
+  h2 Performances
+  each performance in piece.performances
+    p
+      if performance.worldPremiere
+        strong
+          | World Premiere,
+        =" "
+      =formatDate(performance.date)
+
+    ul.list-unstyled
+      each performer in performance.performers
+        li= performer
+    ul.list-unstyled
+      li= performance.venue
+      li= performance.city
+
+    if performance.youtubeVideoId
+      .embed-container
+          iframe(src="https://www.youtube.com/embed/" + performance.youtubeVideoId, frameborder="0", allowfullscreen)

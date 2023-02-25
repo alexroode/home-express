@@ -1,4 +1,5 @@
 extends musicLayout
+include performances
 
 block content
   h1.mb-1 #{piece.title}
@@ -6,7 +7,7 @@ block content
   h2.mb-0.subtitle= piece.subtitle
 
   .row
-    if piece.accolades || products.length > 0 || piece.description
+    if piece.accolades || products.length > 0 || piece.description || piece.performances
       .col-lg-7.my-s
         if piece.accolades
           .mb-5
@@ -19,6 +20,8 @@ block content
         if piece.description
           h2 Notes
           .text-justify!= piece.description
+        if piece.performances
+          +performances(piece)
     .col-lg-5.my-s
       if piece.duration && piece.duration > 0
         h4 Duration
@@ -37,16 +40,3 @@ block content
           .audio
             p.font-weight-bold= audioFile.title
             audio(src=audioFile.url, preload="metadata", controls).mb-4
-
-  if piece.video && piece.video.length > 0
-    h4 Videos
-    each video in piece.video
-      .video-title.
-        #[strong= video.title] - #{formatDate(video.date)}
-      .video-performers
-        ul.list-unstyled
-          if video.performers
-            each performer in video.performers
-              li= performer
-      .embed-container
-        iframe(src="https://www.youtube.com/embed/" + video.youtubeId, frameborder="0", allowfullscreen)
