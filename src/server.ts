@@ -35,13 +35,17 @@ app.get("*", (req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use((err: AppError, req: Request, res: Response, next: NextFunction) => {
+  err.url = req.url;
+  err.method = req.method;
+
+  console.error(err);
+
   const isJson = req.url.startsWith("/api") || req.url.indexOf("webhook") > -1;
 
   if (!err.status) {
     err.status = 500;
     if (!isDevelopment) {
-      err.message = "An unexpected error occurred";
-      err.details = undefined;
+      err.message = "An unexpected error occurred. Please try again later.";
     }
   }
 
