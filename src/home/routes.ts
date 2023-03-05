@@ -1,16 +1,12 @@
 import { FastifyInstance } from "fastify";
 import { Music } from "../music/musicService";
-import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
 
 async function routes (fastify: FastifyInstance) {
   fastify.get("/", async (request, reply) => {
     const latestWork = await Music.getLatest(4);
     return reply.view("index", {
       title: "Home",
-      latestWork: latestWork,
-      formatDate: formatDate,
-      formatYear: formatYear,
-      formatPieceYear: formatPieceYear
+      latestWork: latestWork
     });
   });
 

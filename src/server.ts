@@ -83,6 +83,7 @@ import FastifyStatic from "@fastify/static";
 import pug from "pug";
 import * as path from "path";
 import { HomeRoutes } from "./home/routes";
+import { formatDate, formatPieceYear, formatYear } from "./shared/dateHelpers";
 
 const fastify = Fastify({
   logger: true
@@ -93,7 +94,13 @@ fastify.register(FastifyView, {
     pug: pug
   },
   root: "./views",
-  includeViewExtension: true
+  includeViewExtension: true,
+  defaultContext: {
+    copyrightYear: new Date().getFullYear(),
+    formatDate: formatDate,
+    formatYear: formatYear,
+    formatPieceYear: formatPieceYear
+  }
 });
 
 fastify.register(FastifyStatic, {
