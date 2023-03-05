@@ -1,31 +1,30 @@
-import { Router, Request, Response } from "express";
-import PromiseRouter from "express-promise-router";
+import { FastifyInstance } from "fastify";
 import { Music } from "../music/musicService";
 import { formatDate, formatPieceYear, formatYear } from "../shared/dateHelpers";
 
-const router = PromiseRouter();
-
-router.get("/", async (_req: Request, res: Response) => {
-  const pieces = await Music.getLatest(4);
-  res.render("index", {
-    title: "Home",
-    latestWork: pieces,
-    formatDate: formatDate,
-    formatYear: formatYear,
-    formatPieceYear: formatPieceYear
+async function routes (fastify: FastifyInstance) {
+  fastify.get("/", async (request, reply) => {
+    const latestWork = await Music.getLatest(4);
+    return reply.view("index", {
+      title: "Home",
+      latestWork: latestWork,
+      formatDate: formatDate,
+      formatYear: formatYear,
+      formatPieceYear: formatPieceYear
+    });
   });
-});
 
-router.get("/bio", (_req: Request, res: Response) => {
-  res.render("bio", { title: "Bio" });
-});
+  fastify.get("/bio", (request, reply) => {
+    return reply.view("bio", { title: "Bio" });
+  });
 
-router.get("/cart", (_req: Request, res: Response) => {
-  res.render("cart", { title: "Cart" });
-});
+  fastify.get("/cart", (request, reply) => {
+    return reply.view("cart", { title: "Cart" });
+  });
 
-router.get("/privacy-policy", (_req: Request, res: Response) => {
-  res.render("privacy-policy", { title: "Privacy Policy"});
-});
+  fastify.get("/privacy-policy", (request, reply) => {
+    return reply.view("privacy-policy", { title: "Privacy Policy"});
+  });
+}
 
-export const HomeRoutes: Router = router;
+export const HomeRoutes = routes;

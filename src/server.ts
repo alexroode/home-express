@@ -1,4 +1,4 @@
-import config from "config";
+/*import config from "config";
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as path from "path";
@@ -75,4 +75,36 @@ loadProducts().then(() => {
   throw new Error(err);
 });
 
-module.exports = app;
+module.exports = app;*/
+
+import Fastify from "fastify";
+import FastifyView from "@fastify/view";
+import FastifyStatic from "@fastify/static";
+import pug from "pug";
+import * as path from "path";
+import { HomeRoutes } from "./home/routes";
+
+const fastify = Fastify({
+  logger: true
+});
+
+fastify.register(FastifyView, {
+  engine: {
+    pug: pug
+  },
+  root: "./views",
+  includeViewExtension: true
+});
+
+fastify.register(FastifyStatic, {
+  root: path.join(__dirname, "../dist/public")
+});
+
+fastify.register(HomeRoutes);
+
+fastify.listen({ port: 3000 }, function (err, address) {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+});
