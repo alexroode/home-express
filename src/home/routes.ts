@@ -2,7 +2,7 @@ import { FastifyInstance } from "fastify";
 import { Music } from "../music/musicService";
 
 async function routes (fastify: FastifyInstance) {
-  fastify.get("/", async (request, reply) => {
+  fastify.get("/", async (_request, reply) => {
     const latestWork = await Music.getLatest(4);
     return reply.view("index", {
       title: "Home",
@@ -10,17 +10,11 @@ async function routes (fastify: FastifyInstance) {
     });
   });
 
-  fastify.get("/bio", (request, reply) => {
-    return reply.view("bio", { title: "Bio" });
-  });
+  fastify.get("/bio", (_request, reply) => reply.view("bio", { title: "Bio" }));
 
-  fastify.get("/cart", (request, reply) => {
-    return reply.view("cart", { title: "Cart" });
-  });
+  fastify.get("/cart", (_request, reply) => reply.view("cart", { title: "Cart" }));
 
-  fastify.get("/privacy-policy", (request, reply) => {
-    return reply.view("privacy-policy", { title: "Privacy Policy"});
-  });
+  fastify.get("/privacy-policy", (_request, reply) => reply.view("privacy-policy", { title: "Privacy Policy"}));
 }
 
 export const HomeRoutes = routes;

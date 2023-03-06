@@ -1,49 +1,39 @@
-import { Router, Request, Response } from "express";
-import PromiseRouter from "express-promise-router";
-import { recaptcha, recaptchaSiteKey } from "../shared/recaptcha";
-import { IContactRequest } from "../contact/contactRequest";
-import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
+import { FastifyInstance } from "fastify";
+import { recaptchaSiteKey } from "../shared/recaptcha";
+import { contactRequest, IContactRequest } from "./contactRequest";
 import formData from "form-data";
 import Mailgun from "mailgun.js";
 import config from "config";
 
-const router = PromiseRouter();
+async function routes (fastify: FastifyInstance) {
+  fastify.get("/contact", (_request, reply) => reply.view("contact", { title: "Contact", recaptchaSiteKey }));
 
-router.get("/contact", (_req: Request, res: Response) => {
-  res.render("contact", { title: "Contact", recaptchaSiteKey });
-});
+  fastify.post<{ Body: IContactRequest }>(
+    "/api/contact",
+    {
+      schema: {
+        body: contactRequest
+      }
+    },
+    async (request, reply) => {
+      const data = request.body;
+      const mailgun = new Mailgun(formData);
+      const mailgunClient = mailgun.client({ key: config.get<string>("mailgunApiKey"), username: "api" });
 
-router.post("/api/contact", recaptcha.middleware.verify, async (req: Request<{}, {}, IContactRequest>, res: Response) => {
+      const message = {
+        to: [config.get<string>("contactToEmail")],
+        from: "Contact Form <contact@alexander-roode.com>",
+        subject: "Contact Form Submission",
+        html: `<strong>Name</strong>: ${data.name}<br/>` +
+        `<strong>Email</strong>: ${data.email}<br/>` +
+        `<strong>Message</strong>: <br/><p>${data.message}</p>`
+      };
 
-  if (!req.recaptcha ||
-      req.recaptcha.error ||
-      !((req.recaptcha.data as RecaptchaResponseDataV3).score) ||
-      (req.recaptcha.data as RecaptchaResponseDataV3).score < 0.5) {
-    res.sendStatus(400);
-    return;
-  }
+      await mailgunClient.messages.create(config.get<string>("mailgunDomain"), message);
 
-  const data = req.body;
-  const mailgun = new Mailgun(formData);
-  const mailgunClient = mailgun.client({ key: config.get<string>("mailgunApiKey"), username: "api" });
+      return reply.status(204).send();
+    }
+  );
+}
 
-  const message = {
-    to: [config.get<string>("contactToEmail")],
-    from: "Contact Form <contact@alexander-roode.com>",
-    subject: "Contact Form Submission",
-    html: `<strong>Name</strong>: ${data.name}<br/>` +
-    `<strong>Email</strong>: ${data.email}<br/>` +
-    `<strong>Message</strong>: <br/><p>${data.message}</p>`
-  };
-
-  try {
-    await mailgunClient.messages
-      .create(config.get<string>("mailgunDomain"), message);
-    return res.sendStatus(204);
-  } catch (error) {
-    console.error(error);
-    res.sendStatus(500);
-  }
-});
-
-export const ContactRoutes: Router = router;
+export const ContactRoutes = routes;

@@ -80,10 +80,13 @@ module.exports = app;*/
 import Fastify from "fastify";
 import FastifyView from "@fastify/view";
 import FastifyStatic from "@fastify/static";
+import fastifyRecaptcha from "fastify-recaptcha";
 import pug from "pug";
+import config from "config";
 import * as path from "path";
 import { HomeRoutes } from "./home/routes";
 import { formatDate, formatPieceYear, formatYear } from "./shared/dateHelpers";
+import { ContactRoutes } from "./contact/routes";
 
 const fastify = Fastify({
   logger: true
@@ -107,7 +110,13 @@ fastify.register(FastifyStatic, {
   root: path.join(__dirname, "../dist/public")
 });
 
+fastify.register(fastifyRecaptcha, {
+  recaptcha_secret_key: config.get<string>("recaptchaSecretKey"),
+  reply: true
+});
+
 fastify.register(HomeRoutes);
+fastify.register(ContactRoutes);
 
 fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {
