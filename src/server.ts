@@ -87,6 +87,8 @@ import * as path from "path";
 import { HomeRoutes } from "./home/routes";
 import { formatDate, formatPieceYear, formatYear } from "./shared/dateHelpers";
 import { ContactRoutes } from "./contact/routes";
+import { request } from "http";
+import { NotFound } from "./shared/errors";
 
 const fastify = Fastify({
   logger: true
@@ -117,6 +119,44 @@ fastify.register(fastifyRecaptcha, {
 
 fastify.register(HomeRoutes);
 fastify.register(ContactRoutes);
+
+fastify.setNotFoundHandler((_request, reply) => {
+  reply.status(404).send(new NotFound());
+});
+
+fastify.setErrorHandler((error, request, reply) => {
+  const isJson = request.url.startsWith("/api") || request.url.indexOf("webhook") > -1;
+
+  switch (error.code) {
+    case "NOT_FOUND":
+      
+  }
+  if (!error.message) {
+    error.message = "An unexpected error occurred. Please try again later.";
+  }
+  /*if (!err.status) {
+    err.status = 500;
+    if (!isDevelopment) {
+      err.message = 
+    }
+  }
+
+  if (!isDevelopment) {
+    err.details = undefined;
+  }*/
+
+  reply.status(error.statusCode || 500);
+
+  if (isJson) {
+    reply.send(error);
+  } else {
+    reply.view("error", {
+      error: error,
+      isDev: true,
+      title: "Error " + reply.statusCode
+    });
+  }
+});
 
 fastify.listen({ port: 3000 }, function (err, address) {
   if (err) {

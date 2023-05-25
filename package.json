@@ -13,6 +13,7 @@
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx ./src"
   },
   "dependencies": {
+    "@fastify/error": "^3.2.0",
     "@fastify/static": "^6.9.0",
     "@fastify/view": "^7.4.1",
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
