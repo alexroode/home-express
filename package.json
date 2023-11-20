@@ -29,7 +29,7 @@
     "fs-extra": "^10.1.0",
     "googleapis": "^105.0.0",
     "jquery": "^3.6.0",
-    "mailgun.js": "^7.0.4",
+    "mailgun.js": "^9.3.0",
     "marked": "^4.0.17",
     "moment": "^2.29.4",
     "morgan": "~1.10.0",
