@@ -273,16 +273,17 @@
       "subtitle": "for Cello and Piano",
       "title": "Laguna",
       "date": "2014/02/04",
-      "duration": 360,
+      "revisionDate": "2023/11/18",
+      "duration": 420,
       "scores": [
         {
-          "url": "https://media.alexander-roode.com/scores/laguna.pdf",
+          "url": "https://media.alexander-roode.com/scores/laguna-v2.pdf",
           "title": "Full Score"
         }
       ],
       "audio": [
         {
-          "url": "https://media.alexander-roode.com/audio/laguna.mp3",
+          "url": "https://media.alexander-roode.com/audio/laguna-v2.mp3",
           "title": "MIDI Mockup"
         }
       ]
@@ -780,6 +781,27 @@
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/jumpstart.mp3",
+          "title": "MIDI Mockup"
+        }
+      ]
+    },
+    {
+      "categoryId": "solo",
+      "id": "troublemaker",
+      "instrumentation": "Flute, piano",
+      "subtitle": "for Flute and Piano",
+      "title": "Troublemaker",
+      "date": "2023/07/18",
+      "duration": 480,
+      "scores": [
+        {
+          "url": "https://media.alexander-roode.com/scores/troublemaker.pdf",
+          "title": "Full Score"
+        }
+      ],
+      "audio": [
+        {
+          "url": "https://media.alexander-roode.com/audio/troublemaker.mp3",
           "title": "MIDI Mockup"
         }
       ]
