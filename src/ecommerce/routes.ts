@@ -1,7 +1,7 @@
 import { Request, Response, Router } from "express";
 import { Stripe } from "stripe";
 import { AppError, NotFound } from "../shared/errors.js";
-import { getProduct as findProduct, GoogleDriveDownload, OrderDownloads } from "./products.js";
+import { getProduct as findProduct } from "./products.js";
 import { getStripeApi } from "./products.js";
 import moment from "moment";
 import { formatFilesize } from "../shared/formatters.js";
@@ -11,6 +11,7 @@ import { formatDate, isDateInPast } from "../shared/dateHelpers.js";
 import config from "config";
 import PromiseRouter from "express-promise-router";
 import { CartDetails } from "use-shopping-cart/core";
+import { OrderDownloads, GoogleDriveDownload } from "../../shared/types.js";
 
 const router = PromiseRouter();
 

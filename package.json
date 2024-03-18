@@ -10,7 +10,7 @@
     "watch-ts": "tsx watch src/server.ts --clear-screen=false",
     "watch-webpack": "webpack -w",
     "debug": "concurrently -k -p \"[{name}]\" -n \"Webpack,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-webpack\" \"npm run watch-ts\"",
-    "lint": "eslint -c .eslintrc.js --ext .ts,.tsx ./src"
+    "lint": "eslint -c .eslintrc.cjs --ext .ts,.tsx ./src"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",

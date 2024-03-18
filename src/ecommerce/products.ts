@@ -1,7 +1,7 @@
 import { Stripe } from "stripe";
 import config from "config";
 import { Music } from "../music/musicService.js";
-import { Product } from "../../shared/types.js"
+import { Product } from "../../shared/types.js";
 
 export function getStripeApi() {
   return new Stripe(config.get<string>("stripeSecretKey"), {
