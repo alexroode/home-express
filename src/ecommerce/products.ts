@@ -1,20 +1,11 @@
 import { Stripe } from "stripe";
 import config from "config";
-import { Music } from "../music/musicService";
-import moment from "moment";
-
-export interface Product {
-  readonly id: string;
-  readonly name: string;
-  readonly localName: string;
-  readonly description: string;
-  readonly price: number;
-  readonly currency: string;
-}
+import { Music } from "../music/musicService.js";
+import { Product } from "../../shared/types.js"
 
 export function getStripeApi() {
   return new Stripe(config.get<string>("stripeSecretKey"), {
-    apiVersion: "2020-08-27",
+    apiVersion: "2023-10-16",
   });
 }
 
@@ -49,24 +40,4 @@ export async function loadProducts() {
 
 export function getProduct(stripePriceId: string): Product {
   return productsCache.find(product => product.id === stripePriceId);
-}
-
-export interface OrderConfirmation {
-  readonly timestamp?: number;
-  readonly total: number;
-  readonly items: Stripe.LineItem[];
-}
-
-export interface OrderDownloads {
-  readonly id: string;
-  readonly expirationDate: moment.Moment;
-  readonly downloads: GoogleDriveDownload[];
-  readonly isExpired: boolean;
-}
-
-export interface GoogleDriveDownload {
-  readonly id: string;
-  readonly name: string;
-  readonly size: string;
-  readonly mimeType: string;
 }

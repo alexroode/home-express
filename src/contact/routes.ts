@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import PromiseRouter from "express-promise-router";
-import { recaptcha, recaptchaSiteKey } from "../shared/recaptcha";
-import { IContactRequest } from "../contact/contactRequest";
+import { recaptcha, recaptchaSiteKey } from "../shared/recaptcha.js";
+import { IContactRequest } from "../contact/contactRequest.js";
 import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
 import formData from "form-data";
 import Mailgun from "mailgun.js";
@@ -24,7 +24,7 @@ router.post("/api/contact", recaptcha.middleware.verify, async (req: Request<{},
   }
 
   const data = req.body;
-  const mailgun = new Mailgun(formData);
+  const mailgun = new Mailgun.default(formData);
   const mailgunClient = mailgun.client({ key: config.get<string>("mailgunApiKey"), username: "api" });
 
   const message = {

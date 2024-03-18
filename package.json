@@ -6,8 +6,8 @@
     "start": "npm run debug",
     "build-ts": "tsc",
     "build-webpack": "webpack --mode production",
-    "build": " npm run lint && npm run build-webpack && npm run build-ts",
-    "watch-ts": "ts-node-dev --respawn --no-notify --inspect --transpile-only --debug --watch src/music/pieces/*.md,src/music/music.json src/server.ts",
+    "build": "npm run lint && npm run build-webpack && npm run build-ts",
+    "watch-ts": "tsx watch src/server.ts --clear-screen=false",
     "watch-webpack": "webpack -w",
     "debug": "concurrently -k -p \"[{name}]\" -n \"Webpack,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-webpack\" \"npm run watch-ts\"",
     "lint": "eslint -c .eslintrc.js --ext .ts,.tsx ./src"
@@ -65,12 +65,13 @@
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",
     "ts-loader": "^9.5.1",
-    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.7.1",
     "typescript": "^5.4.2",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
   },
   "author": "Alexander Roode",
   "license": "ISC",
-  "description": "Personal website"
+  "description": "Personal website",
+  "type": "module"
 }

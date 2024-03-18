@@ -2,22 +2,22 @@ import config from "config";
 import express from "express";
 import { Request, Response, NextFunction } from "express";
 import * as path from "path";
-import { loadProducts } from "./ecommerce/products";
-import { ContactRoutes } from "./contact/routes";
-import { EcommerceRoutes } from "./ecommerce/routes";
-import { HomeRoutes } from "./home/routes";
-import { MusicRoutes } from "./music/routes";
-import { NotFound, AppError } from "./shared/errors";
-import { rawBodySaver } from "./shared/rawBody";
+import { loadProducts } from "./ecommerce/products.js";
+import { ContactRoutes } from "./contact/routes.js";
+import { EcommerceRoutes } from "./ecommerce/routes.js";
+import { HomeRoutes } from "./home/routes.js";
+import { MusicRoutes } from "./music/routes.js";
+import { NotFound, AppError } from "./shared/errors.js";
+import { rawBodySaver } from "./shared/rawBody.js";
 
 const app = express();
 const isDevelopment = app.get("env") === "development";
 
 app.set("port", process.env.PORT || 3000);
-app.set("views", path.join(__dirname, "../views"));
+app.set("views", path.join(import.meta.dirname, "../views"));
 app.set("view engine", "pug");
 app.use(express.json({ verify: rawBodySaver }) as NextFunction);
-app.use(express.static(path.join(__dirname, "../dist/public"), { maxAge: 31557600000 }));
+app.use(express.static(path.join(import.meta.dirname, "../dist/public"), { maxAge: 31557600000 }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.locals.isDevelopment = isDevelopment;
@@ -75,4 +75,4 @@ loadProducts().then(() => {
   throw new Error(err);
 });
 
-module.exports = app;
+export default app;

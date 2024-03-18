@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Piece } from "../music/music";
+import { Piece } from "../music/music.js";
 
 function formatYear(moment: moment.Moment): string {
   if (!moment) {

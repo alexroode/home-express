@@ -1,11 +1,10 @@
 {
     "compilerOptions": {
-        "module": "NodeNext",
+        "module": "es2015",
         "target": "es6",
         "noImplicitAny": false,
-        "moduleResolution": "NodeNext",
+        "moduleResolution": "bundler",
         "sourceMap": true,
-        "outDir": "dist",
         "baseUrl": ".",
         "esModuleInterop": true,
         "resolveJsonModule": true,
@@ -18,7 +17,7 @@
         }
     },
     "include": [
-        "./src/**/*",
+        "./**/*",
         "../shared/**/*"
     ]
 }
