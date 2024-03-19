@@ -106,7 +106,6 @@ router.get("/order/:orderId/download/:downloadId", async (req: Request, res: Res
   if (!orderId || !downloadId) {
     throw NotFound;
   }
-  const googleDriveApi = await getGoogleDriveApi();
   const orderDownloads = await getOrderDownloads(orderId);
   if (downloadId > orderDownloads.downloads.length) {
     return NotFound;
@@ -117,9 +116,8 @@ router.get("/order/:orderId/download/:downloadId", async (req: Request, res: Res
   res.setHeader("Content-disposition", "attachment; filename=" + download.name);
   res.setHeader("Transfer-Encoding", "chunked");
 
-  const stream = await googleDriveApi.files.get({ fileId: download.id, alt: "media" }, { responseType: "stream" });
-  stream.data.on("data", (chunk) => res.write(chunk));
-  stream.data.on("end", () => res.end());
+  const stream = getDownloadStream(download);
+  stream.pipe(res);
 });
 
 router.post("/stripe-webhook", async (req: Request & { rawBody: string }, res: Response) => {
