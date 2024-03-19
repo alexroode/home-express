@@ -4,13 +4,12 @@ import { AppError, NotFound } from "../shared/errors.js";
 import { getProduct as findProduct } from "./products.js";
 import { getStripeApi } from "./products.js";
 import { formatFilesize } from "../shared/formatters.js";
-import { getGoogleDriveApi } from "../shared/googleDrive.js";
 import { createAirtableOrder } from "../shared/airtable.js";
 import { formatDate } from "../shared/dateHelpers.js";
 import config from "config";
 import PromiseRouter from "express-promise-router";
 import { CartDetails } from "use-shopping-cart/core";
-import { getOrderDownloads } from "./getOrderDownloads.js";
+import { getDownloadStream, getOrderDownloads } from "./getOrderDownloads.js";
 
 const router = PromiseRouter();
 
