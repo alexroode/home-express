@@ -14,9 +14,9 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: NodeTool@0
+    - task: UseNode@1
       inputs:
-        versionSpec: '12.x'
+        versionSpec: '20.x'
       displayName: 'Install Node.js'
 
     - script: |
