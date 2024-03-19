@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
-import { IContactRequest } from "./contactRequest";
+import { IContactRequest } from "../../src/contact/contactRequest.js";
 
 const nameFieldRules = {
   required: "This field is required",
@@ -33,8 +33,8 @@ export default function App() {
   const { register, handleSubmit, reset, formState: { errors, isSubmitted } } = useForm<IContactRequest>();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string>(null);
-  const [successMessage, setSuccessMessage] = useState<string>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   function resetForm() {
     reset();

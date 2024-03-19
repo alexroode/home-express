@@ -14,9 +14,9 @@ stages:
       vmImage: 'ubuntu-latest'
 
     steps:
-    - task: NodeTool@0
+    - task: UseNode@1
       inputs:
-        versionSpec: '12.x'
+        version: '20.x'
       displayName: 'Install Node.js'
 
     - script: |
@@ -49,7 +49,7 @@ stages:
         artifactName: 'drop'
 
 - stage: Deploy
-  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   jobs:
     - deployment: VMDeploy
       displayName: 'Deploy to droplet'

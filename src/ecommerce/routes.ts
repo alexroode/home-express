@@ -1,16 +1,15 @@
 import { Request, Response, Router } from "express";
 import { Stripe } from "stripe";
-import { AppError, NotFound } from "../shared/errors";
-import { getProduct as findProduct, OrderDownload, OrderDownloads, Product } from "./products";
-import { getStripeApi } from "./products";
-import moment from "moment";
-import { formatFilesize } from "../shared/formatters";
-import { createAirtableOrder, getAirtableBase, getAirtableOrder, getAirtableProducts  } from "../shared/airtable";
-import { formatDate, isDateInPast } from "../shared/dateHelpers";
+import { AppError, NotFound } from "../shared/errors.js";
+import { getProduct as findProduct } from "./products.js";
+import { getStripeApi } from "./products.js";
+import { formatFilesize } from "../shared/formatters.js";
+import { createAirtableOrder } from "../shared/airtable.js";
+import { formatDate } from "../shared/dateHelpers.js";
 import config from "config";
 import PromiseRouter from "express-promise-router";
 import { CartDetails } from "use-shopping-cart/core";
-import { getDownload, getDownloadStream } from "../shared/orderDownloads";
+import { getDownloadStream, getOrderDownloads } from "./getOrderDownloads.js";
 
 const router = PromiseRouter();
 
@@ -84,57 +83,6 @@ router.get("/api/product/:productId", (req: Request, res: Response) => {
   res.json(product);
 });
 
-const orderDownloadsCache: {[orderId: string]: OrderDownloads} = {};
-
-async function getOrderDownloads(orderId: string) {
-  if (orderDownloadsCache[orderId]) {
-    return orderDownloadsCache[orderId];
-  }
-
-  const base = getAirtableBase();
-  const order = await getAirtableOrder(base, orderId);
-
-  if (!order) {
-    throw NotFound;
-  }
-  const expirationDate = moment(order.get("Expiration Date") as string, "YYYY-MM-DD");
-
-  if (isDateInPast(expirationDate)) {
-    const orderDownloads = {
-      id: orderId,
-      downloads: [],
-      expirationDate: expirationDate,
-      isExpired: true,
-    };
-    orderDownloadsCache[orderId] = orderDownloads;
-
-  } else {
-    const productIds = order.get("Products") as string[];
-    const products = await getAirtableProducts(base, productIds);
-
-    const downloads: OrderDownload[] = [];
-    for (const productId of productIds) {
-      const product = products.find(product => product.id === productId);
-      const filename = product.get("Filename") as string;
-
-      const file = await getDownload(filename);
-      if (!file) {
-        throw new AppError("File did not exist", 500);
-      }
-      downloads.push(file);
-    }
-
-    const orderDownloads = {
-      id: orderId,
-      downloads,
-      expirationDate: expirationDate,
-      isExpired: false
-    };
-    orderDownloadsCache[orderId] = orderDownloads;
-  }
-
-  return orderDownloadsCache[orderId];
-}
 
 router.get("/order/:orderId", async (req: Request, res: Response) => {
   const orderId = req.params.orderId;

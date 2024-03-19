@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { useShoppingCart } from "use-shopping-cart";
 import LoadingIndicator from "./LoadingIndicator";
 import { formatCurrencyString } from "use-shopping-cart";
-import { OrderConfirmation } from "../products";
+import { OrderConfirmation } from "../../shared/types";
 import ErrorMessage from "./ErrorMessage";
 
 const el = document.getElementById("order-confirmation");
