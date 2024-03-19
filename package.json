@@ -7,9 +7,10 @@
     "build-ts": "tsc",
     "build-webpack": "webpack --mode production",
     "build": "npm run lint && npm run build-webpack && npm run build-ts",
-    "watch-ts": "tsx watch src/server.ts --clear-screen=false",
+    "watch-ts": "tsx watch ./src/server.ts --clear-screen=false",
     "watch-webpack": "webpack -w",
-    "debug": "concurrently -k -p \"[{name}]\" -n \"Webpack,Node\" -c \"yellow.bold,cyan.bold\" \"npm run watch-webpack\" \"npm run watch-ts\"",
+    "echo": "echo 'abc'",
+    "debug": "concurrently \"npm:echo\" \"npm:watch-ts\"",
     "lint": "eslint -c .eslintrc.cjs --ext .ts,.tsx ./src"
   },
   "dependencies": {

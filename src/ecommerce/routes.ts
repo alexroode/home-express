@@ -3,15 +3,14 @@ import { Stripe } from "stripe";
 import { AppError, NotFound } from "../shared/errors.js";
 import { getProduct as findProduct } from "./products.js";
 import { getStripeApi } from "./products.js";
-import moment from "moment";
 import { formatFilesize } from "../shared/formatters.js";
 import { getGoogleDriveApi } from "../shared/googleDrive.js";
-import { createAirtableOrder, getAirtableBase, getAirtableOrder, getAirtableProducts  } from "../shared/airtable.js";
-import { formatDate, isDateInPast } from "../shared/dateHelpers.js";
+import { createAirtableOrder } from "../shared/airtable.js";
+import { formatDate } from "../shared/dateHelpers.js";
 import config from "config";
 import PromiseRouter from "express-promise-router";
 import { CartDetails } from "use-shopping-cart/core";
-import { OrderDownloads, GoogleDriveDownload } from "../../shared/types.js";
+import { getOrderDownloads } from "./getOrderDownloads.js";
 
 const router = PromiseRouter();
 
@@ -85,60 +84,6 @@ router.get("/api/product/:productId", (req: Request, res: Response) => {
   res.json(product);
 });
 
-const orderDownloadsCache: {[orderId: string]: OrderDownloads} = {};
-
-async function getOrderDownloads(orderId: string) {
-  if (orderDownloadsCache[orderId]) {
-    return orderDownloadsCache[orderId];
-  }
-
-  const base = getAirtableBase();
-  const googleDriveApi = await getGoogleDriveApi();
-  const order = await getAirtableOrder(base, orderId);
-
-  if (!order) {
-    throw NotFound;
-  }
-  const expirationDate = moment(order.get("Expiration Date") as string, "YYYY-MM-DD");
-
-  if (isDateInPast(expirationDate)) {
-    const orderDownloads = {
-      id: orderId,
-      downloads: [],
-      expirationDate: expirationDate,
-      isExpired: true,
-    };
-    orderDownloadsCache[orderId] = orderDownloads;
-
-  } else {
-    const productIds = order.get("Products") as string[];
-    const products = await getAirtableProducts(base, productIds);
-
-    const downloads: GoogleDriveDownload[] = [];
-    for (const productId of productIds) {
-      const product = products.find(product => product.id === productId);
-      const googleDriveId = product.get("Google Drive ID") as string;
-
-      const file = await googleDriveApi.files.get({ fileId: googleDriveId, fields: "id, name, size, mimeType" });
-      downloads.push({
-        id: file.data.id,
-        mimeType: file.data.mimeType,
-        size: file.data.size,
-        name: file.data.name
-      });
-    }
-
-    const orderDownloads = {
-      id: orderId,
-      downloads,
-      expirationDate: expirationDate,
-      isExpired: false
-    };
-    orderDownloadsCache[orderId] = orderDownloads;
-  }
-
-  return orderDownloadsCache[orderId];
-}
 
 router.get("/order/:orderId", async (req: Request, res: Response) => {
   const orderId = req.params.orderId;
