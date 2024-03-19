@@ -60,12 +60,11 @@ export interface OrderConfirmation {
 export interface OrderDownloads {
   readonly id: string;
   readonly expirationDate: moment.Moment;
-  readonly downloads: GoogleDriveDownload[];
+  readonly downloads: OrderDownload[];
   readonly isExpired: boolean;
 }
 
-export interface GoogleDriveDownload {
-  readonly id: string;
+export interface OrderDownload {
   readonly name: string;
   readonly size: string;
   readonly mimeType: string;
