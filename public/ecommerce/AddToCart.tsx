@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { Product } from "../../shared/types";
+import { Product } from "../../shared";
 import { useShoppingCart } from "use-shopping-cart";
 import { formatCurrencyString } from "use-shopping-cart";
 import ErrorMessage from "./ErrorMessage";

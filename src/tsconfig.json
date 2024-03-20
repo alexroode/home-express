@@ -2,16 +2,15 @@
     "extends": "../tsconfig.json",
     "compilerOptions": {
         "composite": true,
-        "module": "es2015",
+        "module": "NodeNext",
         "target": "es6",
-        "moduleResolution": "bundler",
+        "moduleResolution": "NodeNext",
         "sourceMap": true,
+        "outDir": "../dist",
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
-        "outDir": "../dist/public",
-        "jsx": "react-jsx",
         "paths": {
             "*": [
                 "../node_modules/*",

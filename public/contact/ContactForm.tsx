@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
-import { IContactRequest } from "../../src/contact/contactRequest.js";
+import { ContactRequest } from "../../shared";
 
 const nameFieldRules = {
   required: "This field is required",
@@ -30,7 +30,7 @@ const emailFieldRules = {
 const unexpectedErrorMessage = "An error occurred. Please try again later.";
 
 export default function App() {
-  const { register, handleSubmit, reset, formState: { errors, isSubmitted } } = useForm<IContactRequest>();
+  const { register, handleSubmit, reset, formState: { errors, isSubmitted } } = useForm<ContactRequest>();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -42,7 +42,7 @@ export default function App() {
     setSuccessMessage(null);
   }
 
-  async function doSubmit(data: IContactRequest, recaptchaToken: string) {
+  async function doSubmit(data: ContactRequest, recaptchaToken: string) {
     try {
       const body = data;
       body["g-recaptcha-response"] = recaptchaToken;
@@ -69,7 +69,7 @@ export default function App() {
     setIsSubmitting(false);
   }
 
-  async function trySubmit(data: IContactRequest) {
+  async function trySubmit(data: ContactRequest) {
     setErrorMessage(null);
     setSuccessMessage(null);
     setIsSubmitting(true);
