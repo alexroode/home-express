@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm run debug",
-    "build-ts": "tsc",
+    "build-ts": "tsc -b --verbose",
     "build-webpack": "webpack --mode production",
     "build": "npm run lint && npm run build-webpack && npm run build-ts",
     "watch-ts": "tsx watch --clear-screen=false ./src/server.ts",

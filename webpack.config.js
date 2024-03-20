@@ -28,7 +28,8 @@ export default (env) => {
                     use: {
                         loader: 'ts-loader',
                         options: {
-                            configFile: "public/tsconfig.json"
+                            configFile: "public/tsconfig.json",
+                            projectReferences: true
                         }
                     }
                 },

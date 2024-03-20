@@ -28,3 +28,9 @@ export interface OrderDownload {
   readonly size: string;
   readonly mimeType: string;
 }
+
+export interface ContactRequest {
+  name: string;
+  email: string;
+  message: string;
+}

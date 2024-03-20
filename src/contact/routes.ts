@@ -1,7 +1,7 @@
 import { Router, Request, Response } from "express";
 import PromiseRouter from "express-promise-router";
 import { recaptcha, recaptchaSiteKey } from "../shared/recaptcha.js";
-import { IContactRequest } from "../contact/contactRequest.js";
+import { ContactRequest } from "../../shared/types.js";
 import { RecaptchaResponseDataV3 } from "express-recaptcha/dist/interfaces";
 import formData from "form-data";
 import Mailgun from "mailgun.js";
@@ -13,7 +13,7 @@ router.get("/contact", (_req: Request, res: Response) => {
   res.render("contact", { title: "Contact", recaptchaSiteKey });
 });
 
-router.post("/api/contact", recaptcha.middleware.verify, async (req: Request<{}, {}, IContactRequest>, res: Response) => {
+router.post("/api/contact", recaptcha.middleware.verify, async (req: Request<{}, {}, ContactRequest>, res: Response) => {
 
   if (!req.recaptcha ||
       req.recaptcha.error ||
