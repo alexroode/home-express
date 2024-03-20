@@ -38,7 +38,17 @@ router.post("/api/session", async (req: Request<{}, {}, CartDetails>, res: Respo
       mode: "payment",
       success_url: rootUrl + "/thank-you?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: rootUrl + "/cart",
-      line_items: validatedItems
+      line_items: validatedItems,
+      custom_fields: [
+        {
+          key: "organization",
+          type: "text",
+          label: {
+            type: "custom",
+            custom: "Name of your school / organization"
+          }
+        }
+      ]
     });
 
     res.json({
