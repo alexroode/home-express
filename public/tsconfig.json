@@ -1,0 +1,29 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "composite": true,
+        "module": "es2015",
+        "target": "es6",
+        "moduleResolution": "bundler",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "outDir": "../dist/public",
+        "jsx": "react-jsx",
+        "paths": {
+            "*": [
+                "../node_modules/*",
+            ]
+        }
+    },
+    "include": [
+        "./**/*"
+    ],
+    "references": [
+        {
+            "path": "../shared"
+        }
+    ]
+}

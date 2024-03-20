@@ -1,0 +1,28 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "composite": true,
+        "module": "NodeNext",
+        "target": "es6",
+        "moduleResolution": "NodeNext",
+        "sourceMap": true,
+        "outDir": "../dist",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "paths": {
+            "*": [
+                "../node_modules/*",
+            ]
+        }
+    },
+    "include": [
+        "./**/*"
+    ],
+    "references": [
+        {
+            "path": "../shared"
+        }
+    ]
+}

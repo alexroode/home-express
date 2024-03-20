@@ -1,9 +1,9 @@
 import PromiseRouter from "express-promise-router";
-import { Music } from "./musicService";
+import { Music } from "./musicService.js";
 import { Request, Response, Router } from "express";
-import { Category } from "./music";
-import { formatYear, formatDate, formatPieceYear } from "../shared/dateHelpers";
-import { formatDuration, formatGrade } from "../shared/formatters";
+import { Category } from "./music.js";
+import { formatYear, formatDate, formatPieceYear } from "../shared/dateHelpers.js";
+import { formatDuration, formatGrade } from "../shared/formatters.js";
 
 const router = PromiseRouter();
 

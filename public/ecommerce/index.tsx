@@ -26,6 +26,7 @@ ReactDOM.render(
       stripe={stripePublishableKey}
       currency="USD"
       loading={<LoadingIndicator />}
+      shouldPersist={true}
     >
       {addToCartNode}
       {cartContents ? <Cart /> : null}

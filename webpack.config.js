@@ -1,9 +1,8 @@
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
-const webpack = require('webpack');
+import path from 'path';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import CopyPlugin from 'copy-webpack-plugin';
 
-module.exports = (env) => {
+export default (env) => {
     return {
         mode: 'development',
         watchOptions: {
@@ -16,7 +15,7 @@ module.exports = (env) => {
             }),
             new CopyPlugin({
                 patterns: [
-                    { from: './src/public/img/*.*', to: './img/[name][ext]' },
+                    { from: './public/img/*.*', to: './img/[name][ext]' },
                     { from: './src/music/music.json', to: '../music/music.json' },
                     { from: './src/music/pieces/*.md', to: '../music/pieces/[name][ext]' }
                 ]
@@ -27,7 +26,11 @@ module.exports = (env) => {
                 {
                     test: /\.tsx?$/,
                     use: {
-                        loader: 'ts-loader'
+                        loader: 'ts-loader',
+                        options: {
+                            configFile: "public/tsconfig.json",
+                            projectReferences: true
+                        }
                     }
                 },
                 {
@@ -41,14 +44,14 @@ module.exports = (env) => {
             ],
         },
         entry: {
-            main: './src/public/index.js'
+            main: './public/index.js'
         },
         resolve: {
-            extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
+            extensions: ['.*', '.js', '.jsx', '.ts', '.tsx'],
         },
         output: {
             filename: '[name].js',
-            path: path.resolve(__dirname, 'dist/public'),
+            path: path.resolve(import.meta.dirname, 'dist/public'),
         }
     }
 };

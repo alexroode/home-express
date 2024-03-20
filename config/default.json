@@ -11,6 +11,5 @@
   "airtableBaseId": "",
   "airtableOrdersTableName": "",
   "airtableProductsTableName": "",
-  "googleClientEmail": "",
-  "googleClientPrivateKey": ""
+  "orderDownloadsRootPath": ""
 }

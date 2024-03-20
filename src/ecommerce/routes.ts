@@ -1,16 +1,15 @@
 import { Request, Response, Router } from "express";
 import { Stripe } from "stripe";
-import { AppError, NotFound } from "../shared/errors";
-import { getProduct as findProduct, GoogleDriveDownload, OrderDownloads, Product } from "./products";
-import { getStripeApi } from "./products";
-import moment from "moment";
-import { formatFilesize } from "../shared/formatters";
-import { getGoogleDriveApi } from "../shared/googleDrive";
-import { createAirtableOrder, getAirtableBase, getAirtableOrder, getAirtableProducts  } from "../shared/airtable";
-import { formatDate, isDateInPast } from "../shared/dateHelpers";
+import { AppError, NotFound } from "../shared/errors.js";
+import { getProduct as findProduct } from "./products.js";
+import { getStripeApi } from "./products.js";
+import { formatFilesize } from "../shared/formatters.js";
+import { createAirtableOrder } from "../shared/airtable.js";
+import { formatDate } from "../shared/dateHelpers.js";
 import config from "config";
 import PromiseRouter from "express-promise-router";
 import { CartDetails } from "use-shopping-cart/core";
+import { getDownloadStream, getOrderDownloads } from "./getOrderDownloads.js";
 
 const router = PromiseRouter();
 
@@ -39,7 +38,17 @@ router.post("/api/session", async (req: Request<{}, {}, CartDetails>, res: Respo
       mode: "payment",
       success_url: rootUrl + "/thank-you?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: rootUrl + "/cart",
-      line_items: validatedItems
+      line_items: validatedItems,
+      custom_fields: [
+        {
+          key: "organization",
+          type: "text",
+          label: {
+            type: "custom",
+            custom: "Name of your school / organization"
+          }
+        }
+      ]
     });
 
     res.json({
@@ -84,60 +93,6 @@ router.get("/api/product/:productId", (req: Request, res: Response) => {
   res.json(product);
 });
 
-const orderDownloadsCache: {[orderId: string]: OrderDownloads} = {};
-
-async function getOrderDownloads(orderId: string) {
-  if (orderDownloadsCache[orderId]) {
-    return orderDownloadsCache[orderId];
-  }
-
-  const base = getAirtableBase();
-  const googleDriveApi = await getGoogleDriveApi();
-  const order = await getAirtableOrder(base, orderId);
-
-  if (!order) {
-    throw NotFound;
-  }
-  const expirationDate = moment(order.get("Expiration Date") as string, "YYYY-MM-DD");
-
-  if (isDateInPast(expirationDate)) {
-    const orderDownloads = {
-      id: orderId,
-      downloads: [],
-      expirationDate: expirationDate,
-      isExpired: true,
-    };
-    orderDownloadsCache[orderId] = orderDownloads;
-
-  } else {
-    const productIds = order.get("Products") as string[];
-    const products = await getAirtableProducts(base, productIds);
-
-    const downloads: GoogleDriveDownload[] = [];
-    for (const productId of productIds) {
-      const product = products.find(product => product.id === productId);
-      const googleDriveId = product.get("Google Drive ID") as string;
-
-      const file = await googleDriveApi.files.get({ fileId: googleDriveId, fields: "id, name, size, mimeType" });
-      downloads.push({
-        id: file.data.id,
-        mimeType: file.data.mimeType,
-        size: file.data.size,
-        name: file.data.name
-      });
-    }
-
-    const orderDownloads = {
-      id: orderId,
-      downloads,
-      expirationDate: expirationDate,
-      isExpired: false
-    };
-    orderDownloadsCache[orderId] = orderDownloads;
-  }
-
-  return orderDownloadsCache[orderId];
-}
 
 router.get("/order/:orderId", async (req: Request, res: Response) => {
   const orderId = req.params.orderId;
@@ -160,7 +115,6 @@ router.get("/order/:orderId/download/:downloadId", async (req: Request, res: Res
   if (!orderId || !downloadId) {
     throw NotFound;
   }
-  const googleDriveApi = await getGoogleDriveApi();
   const orderDownloads = await getOrderDownloads(orderId);
   if (downloadId > orderDownloads.downloads.length) {
     return NotFound;
@@ -171,9 +125,8 @@ router.get("/order/:orderId/download/:downloadId", async (req: Request, res: Res
   res.setHeader("Content-disposition", "attachment; filename=" + download.name);
   res.setHeader("Transfer-Encoding", "chunked");
 
-  const stream = await googleDriveApi.files.get({ fileId: download.id, alt: "media" }, { responseType: "stream" });
-  stream.data.on("data", (chunk) => res.write(chunk));
-  stream.data.on("end", () => res.end());
+  const stream = getDownloadStream(download);
+  stream.pipe(res);
 });
 
 router.post("/stripe-webhook", async (req: Request & { rawBody: string }, res: Response) => {

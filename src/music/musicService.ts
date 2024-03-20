@@ -1,9 +1,9 @@
-import * as fs from "fs-extra";
+import { readFile } from "fs/promises";
 import * as path from "path";
 import moment from "moment";
 import { marked } from "marked";
-import { MusicLibrary, Piece, Category } from "./music";
-import { NotFound } from "../shared/errors";
+import { MusicLibrary, Piece, Category } from "./music.js";
+import { NotFound } from "../shared/errors.js";
 
 function notFound(): Promise<any> {
   return Promise.reject(NotFound);
@@ -17,9 +17,9 @@ function mapJsonDate(dateString: string): moment.Moment {
 }
 
 async function loadDescription(piece: any) {
-  const filePath = path.join(__dirname, "pieces", piece.id + ".md");
+  const filePath = path.join(import.meta.dirname, "pieces", piece.id + ".md");
   try {
-    const markdown = await fs.readFile(filePath, "utf8");
+    const markdown = await readFile(filePath, "utf8");
     const description = marked(markdown);
     piece.description = description;
   } catch {
@@ -35,11 +35,11 @@ function dateReviver(key: keyof(Piece) | keyof(Performance), value: any) {
 }
 
 export class MusicService {
-  private readonly filePath = path.join(__dirname, "music.json");
+  private readonly filePath = path.join(import.meta.dirname, "music.json");
   private music?: MusicLibrary = undefined;
 
   private async readMusicFromFile(): Promise<MusicLibrary> {
-    const jsonString = await fs.readFile(this.filePath, "utf8");
+    const jsonString = await readFile(this.filePath, "utf8");
     const json = JSON.parse(jsonString.trim(), dateReviver);
 
     await Promise.all(json.pieces.map(piece => loadDescription(piece)));
