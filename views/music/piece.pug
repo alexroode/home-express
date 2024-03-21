@@ -7,21 +7,24 @@ block content
   h2.mb-0.subtitle= piece.subtitle
 
   .row
-    if piece.accolades || products.length > 0 || piece.description || piece.performances
-      .col-md-7.py-s
-        if piece.accolades
-          .mb-5
-            em!=piece.accolades
-        if products.length > 0
-          h2 Purchase
-          .mb-5
-            each product in products
-              #add-to-cart(data-product-id=product.priceId)
-        if piece.description
-          h2 Notes
-          .text-justify.mb-5!= piece.description
-        if piece.performances
-          +performances(piece)
+    .col-md-7.py-s
+      if piece.accolades
+        .mb-5
+          em!=piece.accolades
+      if products.length > 0
+        h2 Purchase
+        .mb-5
+          each product in products
+            #add-to-cart(data-product-id=product.priceId)
+      if !products || products.length === 0
+        h2 Purchase
+        p To purchase this work, please
+          |  #[a(href="/contact") contact] Alex directly.
+      if piece.description
+        h2 Notes
+        .text-justify.mb-5!= piece.description
+      if piece.performances
+        +performances(piece)
     .col-md-5
       .sticky-top.pb-s.pt-md-s
         if piece.duration && piece.duration > 0
