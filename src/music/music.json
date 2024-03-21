@@ -298,6 +298,18 @@
             "Joshua Lu, piano"
           ]
         }
+      ],
+      "products": [
+        {
+          "priceId": "price_1OwqNGJa80SlWh2bCndzslI8",
+          "name": "Complete Parts (PDF)",
+          "prod": false
+        },
+        {
+          "priceId": "price_1OwqKVJa80SlWh2bGn8YRwPv",
+          "name": "Complete Parts (PDF)",
+          "prod": true
+        }
       ]
     },
     {
@@ -795,6 +807,18 @@
           "url": "https://media.alexander-roode.com/audio/jumpstart.mp3",
           "title": "MIDI Mockup"
         }
+      ],
+      "products": [
+        {
+          "priceId": "price_1OwqQoJa80SlWh2bAYFoW9VT",
+          "name": "Complete Parts (PDF)",
+          "prod": false
+        },
+        {
+          "priceId": "price_1OwqQtJa80SlWh2beyimriF6",
+          "name": "Complete Parts (PDF)",
+          "prod": true
+        }
       ]
     },
     {
@@ -815,6 +839,18 @@
         {
           "url": "https://media.alexander-roode.com/audio/troublemaker.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "products": [
+        {
+          "priceId": "price_1OwqMBJa80SlWh2bYpzAJbIp",
+          "name": "Complete Parts (PDF)",
+          "prod": false
+        },
+        {
+          "priceId": "price_1OwqKnJa80SlWh2blh1Wh70l",
+          "name": "Complete Parts (PDF)",
+          "prod": true
         }
       ]
     }
