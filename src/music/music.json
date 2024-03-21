@@ -278,13 +278,25 @@
       "scores": [
         {
           "url": "https://media.alexander-roode.com/scores/laguna-v2.pdf",
-          "title": "Full Score"
+          "title": "Piano Part"
         }
       ],
       "audio": [
         {
           "url": "https://media.alexander-roode.com/audio/laguna-v2.mp3",
           "title": "MIDI Mockup"
+        }
+      ],
+      "performances": [
+        {
+          "date": "2023/12/19",
+          "venue": "Irvine Valley College",
+          "city": "Irvine, CA",
+          "worldPremiere": true,
+          "performers": [
+            "Alexander Roode, cello",
+            "Joshua Lu, piano"
+          ]
         }
       ]
     },
@@ -796,7 +808,7 @@
       "scores": [
         {
           "url": "https://media.alexander-roode.com/scores/troublemaker.pdf",
-          "title": "Full Score"
+          "title": "Piano Part"
         }
       ],
       "audio": [
